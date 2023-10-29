@@ -1,0 +1,70 @@
+body {
+    font-family: Inter, -system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, sans-serif;
+    line-height: 1.625;
+}
+
+header {
+    text-align: center;
+    margin-top: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+main {
+    width: 90vw;
+    margin: 0 auto;
+}
+
+.card {
+    border-radius: 0.75rem;
+    background: #FEF7FF;
+}
+
+.card img {
+    width: 100%;
+}
+
+.card_content {
+    margin-top: .75rem;
+    padding-bottom: .75rem;
+    margin-left: 1rem;
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+
+/* Fonts */
+
+/* inter-regular - latin */
+@font-face {
+    font-display: swap;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    src: url("/fonts/inter-v13-latin-ext-regular.woff2") format("woff2");
+}
+
+/* inter-500 - latin */
+@font-face {
+    font-display: swap;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 500;
+    src: url("/fonts/inter-v13-latin-ext-500.woff2") format("woff2");
+}
+
+/* inter-600 - latin */
+@font-face {
+    font-display: swap;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 600;
+    src: url("/fonts/inter-v13-latin-ext-600.woff2") format("woff2");
+}
+
+/* inter-700 - latin */
+@font-face {
+    font-display: swap;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 700;
+    src: url("/fonts/inter-v13-latin-ext-700.woff2") format("woff2");
+}
