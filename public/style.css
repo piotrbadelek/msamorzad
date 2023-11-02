@@ -31,6 +31,42 @@ main {
     font-weight: 500;
 }
 
+.payment-card {
+    border-radius: 12px;
+    display: flex;
+    background-color: #FEF7FF;
+    flex-direction: row;
+    padding: 16px;
+}
+
+.payment-card__content {
+    flex: 1;
+}
+
+.payment-card__content * {
+    display: block;
+}
+
+button {
+    border-radius: 100px;
+    background-color: #6750A4;
+    border: none;
+    color: white;
+    padding: 10px 24px;
+    font-weight: 500;
+    font-family: inherit;
+    font-size: 1rem;
+}
+
+input {
+    display: block;
+    border-radius: 4px;
+    border: 1px solid #79747E;
+    padding: 8px 0 8px 16px;
+    width: 85vw;
+    margin-bottom: 1rem;
+}
+
 /* Fonts */
 
 /* inter-regular - latin */

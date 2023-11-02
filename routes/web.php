@@ -14,5 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('index');
-});
+    return view("index");
+})->middleware("auth");
+Route::get('/skladki', [\App\Http\Controllers\PaymentController::class, "view"]);
+Route::get("/login", [\App\Http\Controllers\SessionController::class, "login"])->name("login");
