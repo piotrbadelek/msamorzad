@@ -4,6 +4,9 @@
 
 @section("content")
     <h1>Zaloguj</h1>
+    @if($errors->any())
+        <h2>{{$errors->first()}}</h2>
+    @endif
     <form action="/login" method="post">
         @csrf
         <label for="username">Nazwa użytkownika</label>

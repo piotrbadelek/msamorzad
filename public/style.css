@@ -29,6 +29,11 @@ main {
     margin-left: 1rem;
     font-size: 1.25rem;
     font-weight: 500;
+    color: black;
+}
+
+.card-container {
+    text-decoration: none;
 }
 
 .payment-card {
@@ -37,6 +42,7 @@ main {
     background-color: #FEF7FF;
     flex-direction: row;
     padding: 16px;
+    margin-bottom: 1rem;
 }
 
 .payment-card__content {
@@ -47,7 +53,7 @@ main {
     display: block;
 }
 
-button {
+button, .payment-card__button {
     border-radius: 100px;
     background-color: #6750A4;
     border: none;
@@ -56,6 +62,13 @@ button {
     font-weight: 500;
     font-family: inherit;
     font-size: 1rem;
+    text-decoration: none;
+    height: min-content;
+}
+
+button:disabled, .payment-card__button:disabled {
+    background-color: #1D1B201F;
+    color: #1D1B20;
 }
 
 input {

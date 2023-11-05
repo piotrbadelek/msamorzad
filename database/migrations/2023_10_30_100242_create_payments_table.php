@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer("amount");
             $table->foreignId("classunit_id")->constrained();
             $table->json("paid");
+            $table->timestamp("deadline");
             $table->timestamps();
         });
     }

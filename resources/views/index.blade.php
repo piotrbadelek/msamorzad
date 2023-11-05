@@ -3,10 +3,12 @@
 @section("title", "Samorząd II LO")
 
 @section("content")
-    <div class="card">
-        <img src="/img/taxes.png" alt="Składki">
-        <p class="card_content">Składki</p>
-    </div>
+    <a href="/skladki" class="card-container">
+        <div class="card">
+            <img src="/img/taxes.png" alt="Składki">
+            <p class="card_content">Składki</p>
+        </div>
+    </a>
     <div class="card">
         <img src="/img/taxes.png" alt="Składki">
         <p class="card_content">Radiowęzeł</p>

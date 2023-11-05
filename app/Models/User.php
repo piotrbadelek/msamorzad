@@ -46,4 +46,8 @@ class User extends Authenticatable
     public function classUnit() {
         return $this->belongsTo(Classunit::class);
     }
+
+    public function getIsAdminAttribute() {
+        return $this->type != "student";
+    }
 }
