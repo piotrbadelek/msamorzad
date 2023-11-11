@@ -3,7 +3,12 @@
 @section("title", "Składki - samorząd II LO")
 
 @section("content")
-    <h1>Twoje składki</h1>
+    @if($user->isAdmin)
+        <h1>Składki w klasie</h1>
+        <a href="/skladki/new" class="payment-card__button" id="new_payment">Nowa składka</a>
+    @else
+        <h1>Twoje składki</h1>
+    @endif
     @foreach($payments as $payment)
         <div class="payment-card">
             <div class="payment-card__content">

@@ -64,11 +64,16 @@ button, .payment-card__button {
     font-size: 1rem;
     text-decoration: none;
     height: min-content;
+    display: inline-block;
 }
 
 button:disabled, .payment-card__button:disabled {
     background-color: #1D1B201F;
     color: #1D1B20;
+}
+
+#new_payment {
+    margin-bottom: 1rem;
 }
 
 input {

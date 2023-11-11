@@ -17,6 +17,7 @@ Route::get('/', function () {
     return view("index");
 })->middleware("auth");
 Route::get('/skladki', [\App\Http\Controllers\PaymentController::class, "view"])->middleware("auth");
+Route::get('/skladki/new', [\App\Http\Controllers\PaymentController::class, "createForm"])->middleware("auth");
 Route::get("/skladki/{payment:id}", [\App\Http\Controllers\PaymentController::class, "details"])->middleware("auth");
 Route::get("/skladki/{payment:id}/{id}", [\App\Http\Controllers\PaymentController::class, "pay"])->middleware("auth");
 Route::get("/login", [\App\Http\Controllers\SessionController::class, "login"])->name("login");

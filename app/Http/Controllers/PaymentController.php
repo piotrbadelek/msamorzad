@@ -10,7 +10,7 @@ class PaymentController extends Controller
 {
     public function view(Request $request) {
         $payments = Payment::where("classunit_id", $request->user()->classunit_id)->get();
-        return view("payments", [
+        return view("payment.list", [
             "payments" => $payments,
             "user" => $request->user()
         ]);
@@ -23,7 +23,7 @@ class PaymentController extends Controller
 
         $not_paid = User::whereNotIn("id", json_decode($payment->paid))->get();
 
-        return view("payment", [
+        return view("payment.show", [
             "payment" => $payment,
             "not_paid" => $not_paid
         ]);
@@ -36,9 +36,24 @@ class PaymentController extends Controller
         }
 
         $paymentPaid = json_decode($payment->paid);
-        array_push($paymentPaid, $userid);
+        if (in_array($userid, $paymentPaid)) {
+            $key = array_search($userid, $paymentPaid);
+            array_splice($paymentPaid, $key, 1);
+        } else {
+            $paymentPaid[] = $userid;
+        }
         $payment->update(["paid" => json_encode($paymentPaid)]);
         $payment->save();
         return redirect()->back();
+    }
+
+    public function createForm(Request $request) {
+        if (!$request->user()->isAdmin) {
+            abort(403);
+        }
+
+        return view("payment.create", [
+            "classUnitSize" =>  User::count("classunit_id", $request->user()->classunit_id)
+        ]);
     }
 }

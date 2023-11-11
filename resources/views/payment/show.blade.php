@@ -8,7 +8,7 @@
     <b>Zapłaciło:</b>
     <ul>
         @foreach(json_decode($payment->paid) as $user)
-            <li>{{ \App\Models\User::where("id", $user)->first()->name }}</li>
+            <li><a href="/skladki/1/{{ $user }}">{{ \App\Models\User::where("id", $user)->first()->name }}</a></li>
         @endforeach
     </ul>
     <b>Nie zapłaciło:</b>
