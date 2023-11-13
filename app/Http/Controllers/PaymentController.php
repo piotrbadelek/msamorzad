@@ -25,7 +25,8 @@ class PaymentController extends Controller
 
         return view("payment.show", [
             "payment" => $payment,
-            "not_paid" => $not_paid
+            "not_paid" => $not_paid,
+            "paid" => json_decode($payment->paid)
         ]);
     }
 
@@ -55,5 +56,27 @@ class PaymentController extends Controller
         return view("payment.create", [
             "classUnitSize" =>  User::count("classunit_id", $request->user()->classunit_id)
         ]);
+    }
+
+    public function create(Request $request) {
+        if (!$request->user()->isAdmin) {
+            abort(403);
+        }
+
+        $data = $request->validate([
+            "money" => ["required", "numeric", "max:999"],
+            "title" => ["required", "min:3", "max:80"],
+            "deadline" => ["required", "date", "after:tomorrow"]
+        ]);
+
+        $payment = new Payment;
+        $payment->amount = $data["money"];
+        $payment->title = $data["title"];
+        $payment->deadline = $data["deadline"];
+        $payment->classunit_id = $request->user()->classunit_id;
+        $payment->paid = "[]";
+        $payment->save();
+
+        return redirect("/skladki/" . $payment->id);
     }
 }

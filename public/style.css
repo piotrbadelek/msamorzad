@@ -72,6 +72,32 @@ button:disabled, .payment-card__button:disabled {
     color: #1D1B20;
 }
 
+dialog button {
+	width: 100%;
+	margin-bottom: 1rem;
+}
+
+dialog button:last-of-type {
+	margin-bottom: 0;
+}
+
+dialog header {
+	font-weight: bold;
+	font-size: 1.5rem;
+}
+
+dialog {
+	border-radius: 1.75rem;
+	background: #ECE6F0;
+	border: none;
+	padding: 1.5rem;
+}
+
+.not-primary {
+	background: #E8DEF8;
+	color: #1D192B;
+}
+
 #new_payment {
     margin-bottom: 1rem;
 }

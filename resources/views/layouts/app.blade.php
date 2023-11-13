@@ -15,6 +15,20 @@
     <main>
         @yield("content")
     </main>
-    <script src="/script.js" defer></script>
+	<dialog id="notificationDialogue">
+		<header>Włącz powiadomienia</header>
+		<p>Włącz powiadomienia, aby otrzymywać:</p>
+		<ul>
+			<li>Przypomenienia o składkach</li>
+			<li>Informacje o nowych składkach</li>
+			<li>Ogłoszenia samorządu uczniowskiego</li>
+			<li>Ogłoszenia konkursów</li>
+			<li>Odpowiedzi na zadane pytania</li>
+		</ul>
+		<button onclick="enableNotifications();">Włącz</button>
+		<button class="not-primary" onclick="disableNotifications();">Nie teraz</button>
+	</dialog>
+	<script src="/script.js" defer></script>
+	<script src="/sw.js" defer></script>
 </body>
 </html>
