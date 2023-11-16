@@ -38,7 +38,7 @@ function disableNotifications() {
 	store("notificationReminderStartups", "10");
 	$("#notificationDialogue").open = false;
 }
-
+/*
 if (Notification.permission !== "granted" && +store("notificationReminderStartups") < 1) {
 	$("#notificationDialogue").open = true;
 }
@@ -46,3 +46,4 @@ if (Notification.permission !== "granted" && +store("notificationReminderStartup
 if (+store("notificationReminderStartups") !== 9999) {
 	store("notificationReminderStartups", `${+store("notificationReminderStartups") - 1}`);
 }
+*/
