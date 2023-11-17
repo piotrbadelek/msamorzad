@@ -10,7 +10,7 @@
 </head>
 <body>
     <header>
-        <b>Samorząd II LO (2 i-m)</b>
+		<a href="/"><b>Samorząd II LO (2 i-m)</b></a>
     </header>
     <main>
         @yield("content")

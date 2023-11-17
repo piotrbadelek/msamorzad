@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
-|--------------------------------------------------------------------------
+|--------------------y------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider and all of them will
@@ -29,6 +29,8 @@ Route::get("/messages/{message:id}", [\App\Http\Controllers\MessageController::c
 Route::patch("/messages/{message:id}", [\App\Http\Controllers\MessageController::class, "update"])->middleware("auth");
 
 Route::get("/contests", [\App\Http\Controllers\ContestController::class, "list"])->middleware("auth");
+Route::get("/contests/new", [\App\Http\Controllers\ContestController::class, "createForm"])->middleware("auth");
+Route::post("/contests/new", [\App\Http\Controllers\ContestController::class, "create"])->middleware("auth");
 Route::get("/contests/{contest:id}", [\App\Http\Controllers\ContestController::class, "show"])->middleware("auth");
 Route::get("/contests/{contest:id}/enlist", [\App\Http\Controllers\ContestController::class, "enlist"])->middleware("auth");
 

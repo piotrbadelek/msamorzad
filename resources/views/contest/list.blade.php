@@ -4,6 +4,9 @@
 
 @section("content")
 	<h1>Konkursy</h1>
+	@if($isAdmin)
+		<a href="/contests/new" class="payment-card__button" id="new_payment">Nowy konkurs</a>
+	@endif
 	@foreach($contests as $contest)
 		<a href="/contests/{{ $contest->id }}" class="message_container">
 			<div class="message">

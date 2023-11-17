@@ -9,6 +9,11 @@ header {
     margin-bottom: 2rem;
 }
 
+header a {
+	text-decoration: none;
+	color: inherit;
+}
+
 main {
     width: 90vw;
     margin: 0 auto;
@@ -145,6 +150,10 @@ input {
 .message_container {
 	color: inherit;
 	text-decoration: none;
+}
+
+textarea {
+	width: 100%;
 }
 
 /* Fonts */
