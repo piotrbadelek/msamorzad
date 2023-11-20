@@ -17,4 +17,8 @@ class Classunit extends Model
 	public function getTeacherAttribute() {
 		return User::where("classunit_id", $this->id)->where("type", "wychowawca")->first();
 	}
+
+	public function getSamorzadAttribute() {
+		return User::where("classunit_id", $this->id)->whereIn("type", ["skarbnik", "wiceprzewodniczacy", "przewodniczacy", "wychowawca"])->get();
+	}
 }

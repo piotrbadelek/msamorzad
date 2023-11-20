@@ -10,4 +10,8 @@ class Payment extends Model
     use HasFactory;
 
     protected $fillable = ["paid"];
+
+	public function classUnit() {
+		return $this->belongsTo(Classunit::class, "classunit_id");
+	}
 }

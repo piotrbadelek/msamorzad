@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 class PaymentController extends Controller
 {
     public function view(Request $request) {
-		ddd($request->user()->classUnit->teacher);
         $payments = Payment::where("classunit_id", $request->user()->classunit_id)->get();
         return view("payment.list", [
             "payments" => $payments,
@@ -32,8 +31,7 @@ class PaymentController extends Controller
     }
 
     public function pay(Payment $payment, Int $userid, Request $request) {
-        // TODO: Make sure the admin is from the class
-        if (!$request->user()->isAdmin) {
+		if (!$request->user()->isAdmin && $payment->classUnit->samorzad->contains($request->user())) {
             abort(403);
         }
 
