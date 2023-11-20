@@ -15,7 +15,7 @@
 			<p class="card_content">Konkursy</p>
 		</div>
 	</a>
-	<a href="/contests" class="card-container">
+	<a href="/announcements" class="card-container">
 		<div class="card">
 			<img src="/img/ogloszenia.webp" alt="Ogłoszenia">
 			<p class="card_content">Ogłoszenia</p>

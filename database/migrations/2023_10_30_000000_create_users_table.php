@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->enum("type", ["student", "skarbnik", "wiceprzewodniczacy", "przewodniczacy"]);
+            $table->enum("type", ["wychowawca", "student", "skarbnik", "wiceprzewodniczacy", "przewodniczacy"]);
             $table->foreignId("classunit_id")->constrained();
             $table->rememberToken();
             $table->timestamps();

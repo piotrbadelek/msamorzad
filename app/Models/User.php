@@ -44,7 +44,7 @@ class User extends Authenticatable
     ];
 
     public function classUnit() {
-        return $this->belongsTo(Classunit::class);
+        return $this->belongsTo(Classunit::class, "classunit_id");
     }
 
     public function getIsAdminAttribute() {

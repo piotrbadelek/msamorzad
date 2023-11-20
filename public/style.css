@@ -26,6 +26,7 @@ main {
 
 .card img {
     width: 100%;
+	border-radius: .75rem .75rem 0 0;
 }
 
 .card_content {
@@ -126,6 +127,11 @@ input {
 .message header {
 	text-align: left;
 	margin-bottom: 0;
+}
+
+.announcement header {
+	font-size: 1.5rem;
+	font-weight: bold;
 }
 
 .message p {

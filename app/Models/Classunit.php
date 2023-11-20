@@ -13,4 +13,8 @@ class Classunit extends Model
     {
         return $this->hasMany(User::class);
     }
+
+	public function getTeacherAttribute() {
+		return User::where("classunit_id", $this->id)->where("type", "wychowawca")->first();
+	}
 }

@@ -34,5 +34,9 @@ Route::post("/contests/new", [\App\Http\Controllers\ContestController::class, "c
 Route::get("/contests/{contest:id}", [\App\Http\Controllers\ContestController::class, "show"])->middleware("auth");
 Route::get("/contests/{contest:id}/enlist", [\App\Http\Controllers\ContestController::class, "enlist"])->middleware("auth");
 
+Route::get("/announcements", [\App\Http\Controllers\AnnouncementController::class, "list"])->middleware("auth");
+Route::get("/announcements/new", [\App\Http\Controllers\AnnouncementController::class, "createForm"])->middleware("auth");
+Route::post("/announcements/new", [\App\Http\Controllers\AnnouncementController::class, "create"])->middleware("auth");
+
 Route::get("/login", [\App\Http\Controllers\SessionController::class, "login"])->name("login");
 Route::post("/login", [\App\Http\Controllers\SessionController::class, "authenticate"]);

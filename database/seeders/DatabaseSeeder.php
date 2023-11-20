@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Announcement;
 use App\Models\Classunit;
 use App\Models\Contest;
 use App\Models\Message;
@@ -21,6 +22,12 @@ class DatabaseSeeder extends Seeder
         \App\Models\User::factory(10)->create();
 		Message::factory(30)->create();
 		Contest::factory(6)->create();
+		Announcement::factory(5)->create();
+
+		\App\Models\User::factory()->create([
+             'username' => 'test.teacher',
+             'type' => 'wychowawca',
+        ]);
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

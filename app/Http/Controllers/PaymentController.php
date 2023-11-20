@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 class PaymentController extends Controller
 {
     public function view(Request $request) {
+		ddd($request->user()->classUnit->teacher);
         $payments = Payment::where("classunit_id", $request->user()->classunit_id)->get();
         return view("payment.list", [
             "payments" => $payments,
