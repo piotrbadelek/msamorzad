@@ -17,7 +17,7 @@ class PaymentController extends Controller
     }
 
     public function details(Payment $payment, Request $request) {
-        if (!$request->user()->isAdmin) {
+        if (!$request->user()->isAdmin || !$payment->classUnit->samorzad->contains($request->user())) {
             abort(403);
         }
 
@@ -31,7 +31,7 @@ class PaymentController extends Controller
     }
 
     public function pay(Payment $payment, Int $userid, Request $request) {
-		if (!$request->user()->isAdmin && $payment->classUnit->samorzad->contains($request->user())) {
+		if (!$request->user()->isAdmin || !$payment->classUnit->samorzad->contains($request->user())) {
             abort(403);
         }
 
