@@ -7,10 +7,11 @@ use Illuminate\Http\Request;
 
 class MessageController extends Controller
 {
-    public function list() {
+    public function list(Request $request) {
 		$messages = Message::latest()->take(20)->get();
 		return view("message.list", [
-			"messages" => $messages
+			"messages" => $messages,
+			"isAdmin" => $request->user()->isAdmin
 		]);
 	}
 
