@@ -19,7 +19,7 @@ class AnnouncementController extends Controller
 			abort(403);
 		}
 
-		$canPostToClass = $request->user()->isAdmin;
+		$canPostToClass = $request->user()->isAdmin && !($request->user()->isTeacher && $request->user()->notManagingAClass);
 		$canPostGlobally = $request->user()->isSamorzad || $request->user()->isTeacher;
 
 		return view("announcement.create", [
@@ -34,7 +34,7 @@ class AnnouncementController extends Controller
 			abort(403);
 		}
 
-		$canPostToClass = $request->user()->isAdmin;
+		$canPostToClass = $request->user()->isAdmin && !($request->user()->isTeacher && $request->user()->notManagingAClass);
 		$canPostGlobally = $request->user()->isSamorzad || $request->user()->isTeacher;
 
 		$data = $request->validate([
