@@ -9,6 +9,10 @@ use Illuminate\Http\Request;
 class PaymentController extends Controller
 {
     public function view(Request $request) {
+		if ($request->user()->isTeacher && $request->user()->notManagingAClass) {
+			abort(403);
+		}
+
         $payments = Payment::where("classunit_id", $request->user()->classunit_id)->get();
         return view("payment.list", [
             "payments" => $payments,
@@ -17,7 +21,11 @@ class PaymentController extends Controller
     }
 
     public function details(Payment $payment, Request $request) {
-        if (!$request->user()->isAdmin || !$payment->classUnit->samorzad->contains($request->user())) {
+		if ($request->user()->isTeacher && $request->user()->notManagingAClass) {
+			abort(403);
+		}
+
+		if (!$request->user()->isAdmin || !$payment->classUnit->samorzad->contains($request->user())) {
             abort(403);
         }
 
@@ -31,6 +39,10 @@ class PaymentController extends Controller
     }
 
     public function pay(Payment $payment, Int $userid, Request $request) {
+		if ($request->user()->isTeacher && $request->user()->notManagingAClass) {
+			abort(403);
+		}
+
 		if (!$request->user()->isAdmin || !$payment->classUnit->samorzad->contains($request->user())) {
             abort(403);
         }
@@ -48,7 +60,11 @@ class PaymentController extends Controller
     }
 
     public function createForm(Request $request) {
-        if (!$request->user()->isAdmin) {
+		if ($request->user()->isTeacher && $request->user()->notManagingAClass) {
+			abort(403);
+		}
+
+		if (!$request->user()->isAdmin) {
             abort(403);
         }
 
