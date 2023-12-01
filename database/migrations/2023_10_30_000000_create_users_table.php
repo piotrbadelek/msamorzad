@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->enum("type", ["wychowawca", "student", "skarbnik", "wiceprzewodniczacy", "przewodniczacy"]);
+			$table->enum("type", ["wychowawca", "student", "skarbnik", "wiceprzewodniczacy", "przewodniczacy"])->default("student");
+			$table->enum("samorzadType", ["wychowawca", "student", "skarbnik", "wiceprzewodniczacy", "przewodniczacy", "sekretarz"])->default("student");
             $table->foreignId("classunit_id")->constrained();
             $table->rememberToken();
             $table->timestamps();

@@ -47,10 +47,34 @@ class User extends Authenticatable
         return $this->belongsTo(Classunit::class, "classunit_id");
     }
 
+	/**
+	 * Return if the user has a position in the class council or is a teacher.
+	 * @return bool
+	 */
     public function getIsAdminAttribute() {
         return $this->type != "student";
     }
 
+	/**
+	 * Return if the user has a position in the school council or is a teacher
+	 * @return bool
+	 */
+	public function getIsSamorzadAttribute() {
+		return $this->samorzadType != "student";
+	}
+
+	/**
+	 * Return if the user either has a position in the school council, has a position in the class council, or is a teacher
+	 * @return bool
+	 */
+	public function getIsPrivilegedAttribute() {
+		return $this->isAdmin || $this->isSamorzad;
+	}
+
+	/**
+	 * Return if the user is a teacher
+	 * @return bool
+	 */
 	public function getIsWychowawcaAttribute() {
 		return $this->type == "wychowawca";
 	}

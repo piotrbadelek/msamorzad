@@ -15,28 +15,47 @@ class AnnouncementController extends Controller
 	}
 
 	public function createForm(Request $request) {
-		if (!$request->user()->isAdmin) {
+		if (!$request->user()->isPrivileged) {
 			abort(403);
 		}
 
-		return view("announcement.create");
+		$canPostToClass = $request->user()->isAdmin;
+		$canPostGlobally = $request->user()->isSamorzad || $request->user()->isWychowawca;
+
+		return view("announcement.create", [
+			"canPostToClass" => $canPostToClass,
+			"canPostGlobally" => $canPostGlobally,
+			"class" => $request->user()->classunit->name
+		]);
 	}
 
 	public function create(Request $request) {
-		if (!$request->user()->isAdmin) {
+		if (!$request->user()->isPrivileged) {
 			abort(403);
 		}
 
+		$canPostToClass = $request->user()->isAdmin;
+		$canPostGlobally = $request->user()->isSamorzad || $request->user()->isWychowawca;
+
 		$data = $request->validate([
 			"title" => ["required", "max:128"],
-			"description" => ["required", "min:3", "max:2048"]
+			"description" => ["required", "min:3", "max:2048"],
+			"postArea" => []
 		]);
 
 		$announcement = new Announcement;
 		$announcement->title = $data["title"];
 		$announcement->description = $data["description"];
 		$announcement->classunit_id = $request->user()->classunit_id;
-		$announcement->global = $request->user()->isWychowawca;
+
+		if ($canPostGlobally && $data["postArea"] == "school") {
+			$announcement->global = true;
+		} else if ($canPostToClass) {
+			$announcement->global = false;
+		} else {
+			abort(400);
+		}
+
 		$announcement->save();
 
 		return redirect("/announcements/");

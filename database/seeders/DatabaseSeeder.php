@@ -29,6 +29,12 @@ class DatabaseSeeder extends Seeder
              'type' => 'wychowawca',
         ]);
 
+		\App\Models\User::factory()->create([
+			'username' => 'test.przewodniczacy',
+			'type' => 'przewodniczacy',
+			'samorzadType' => 'przewodniczacy'
+		]);
+
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',

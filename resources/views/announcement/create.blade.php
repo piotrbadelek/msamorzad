@@ -19,6 +19,19 @@
 		<input type="text" name="title" id="title" maxlength="128" minlength="3" required>
 		<label for="description">Ogłoszenie</label><br>
 		<textarea name="description" id="description" cols="30" rows="10" required maxlength="2048"></textarea>
+
+		@if ($canPostToClass && $canPostGlobally)
+			<label for="postArea">Postujesz na forum:</label>
+			<select name="postArea" id="postArea">
+				<option value="school">szkolnym</option>
+				<option value="class">klasowym ({{ $class }})</option>
+			</select>
+		@elseif ($canPostGlobally)
+			<span title="Nie masz uprawnień do postowania na forum klasowym gdyż nie jesteś członkiem żadnego samorządu klasowego.">Postujesz na forum szkolnym.</span>
+		@else
+			<span title="Nie masz uprawnień do postowania na forum szkolnym gdyż nie jesteś członkiem samorządu szkolnego.">Postujesz na forum klasowym.</span>
+		@endif
+
 		<button type="submit">Utwórz</button>
 	</form>
 @endsection
