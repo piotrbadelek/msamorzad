@@ -9,7 +9,7 @@ class AnnouncementController extends Controller
 {
     public function list(Request $request) {
 		return view("announcement.list", [
-			"announcements" => Announcement::latest()->get(),
+			"announcements" => Announcement::latest()->where("global", "1")->orWhere("classunit_id", $request->user()->classunit_id)->get(),
 			"isAdmin" => $request->user()->isAdmin
 		]);
 	}
@@ -35,6 +35,8 @@ class AnnouncementController extends Controller
 		$announcement = new Announcement;
 		$announcement->title = $data["title"];
 		$announcement->description = $data["description"];
+		$announcement->classunit_id = $request->user()->classunit_id;
+		$announcement->global = $request->user()->isWychowawca;
 		$announcement->save();
 
 		return redirect("/announcements/");

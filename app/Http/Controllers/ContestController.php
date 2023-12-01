@@ -28,12 +28,17 @@ class ContestController extends Controller
 			"user_id" => $request->user()->id,
 			"enlisted" => $enlisted,
 			"enlisted_names" => $enlisted_names ?? [],
-			"is_admin" => $request->user()->isAdmin
+			"is_admin" => $request->user()->isAdmin,
+			"is_wychowawca" => $request->user()->isWychowawca
 		]);
 	}
 
 	public function enlist(Contest $contest, Request $request)
 	{
+		if ($request->user()->isWychowawca) {
+			abort(403);
+		}
+
 		$contestEnlisted = json_decode($contest->enlisted);
 		if (in_array($request->user()->id, $contestEnlisted)) {
 			$key = array_search($request->user()->id, $contestEnlisted);

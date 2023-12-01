@@ -14,10 +14,13 @@
 	@endif
 	<span>Bierze udział: {{ count($enlisted) }}</span>
 
-	@if (in_array($user_id, $enlisted))
-		<a href="/contests/{{ $contest->id }}/enlist" class="payment-card__button">Wycofaj udział</a>
-	@else
-		<a href="/contests/{{ $contest->id }}/enlist" class="payment-card__button">Weź udział</a>
-	@endif
+
+	@unless ($is_wychowawca)
+		@if (in_array($user_id, $enlisted))
+			<a href="/contests/{{ $contest->id }}/enlist" class="payment-card__button">Wycofaj udział</a>
+		@else
+			<a href="/contests/{{ $contest->id }}/enlist" class="payment-card__button">Weź udział</a>
+		@endif
+	@endunless
 @endsection
 

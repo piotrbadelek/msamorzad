@@ -18,7 +18,9 @@ class AnnouncementFactory extends Factory
     {
         return [
             "title" => fake()->text(80),
-			"description" => fake()->text(500)
+			"description" => fake()->text(500),
+			"classunit_id" => 1,
+			"global" => rand(0, 1)
         ];
     }
 }

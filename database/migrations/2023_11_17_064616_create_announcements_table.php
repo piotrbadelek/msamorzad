@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
 			$table->text("title");
 			$table->text("description");
-            $table->timestamps();
+			$table->foreignId("classunit_id")->constrained();
+			$table->boolean("global");
+			$table->timestamps();
         });
     }
 

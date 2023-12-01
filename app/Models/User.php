@@ -50,4 +50,8 @@ class User extends Authenticatable
     public function getIsAdminAttribute() {
         return $this->type != "student";
     }
+
+	public function getIsWychowawcaAttribute() {
+		return $this->type == "wychowawca";
+	}
 }
