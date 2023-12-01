@@ -29,13 +29,13 @@ class ContestController extends Controller
 			"enlisted" => $enlisted,
 			"enlisted_names" => $enlisted_names ?? [],
 			"is_admin" => $request->user()->isAdmin,
-			"is_wychowawca" => $request->user()->isWychowawca
+			"is_wychowawca" => $request->user()->isTeacher
 		]);
 	}
 
 	public function enlist(Contest $contest, Request $request)
 	{
-		if ($request->user()->isWychowawca) {
+		if ($request->user()->isTeacher) {
 			abort(403);
 		}
 

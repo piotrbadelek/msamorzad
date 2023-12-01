@@ -75,7 +75,7 @@ class User extends Authenticatable
 	 * Return if the user is a teacher
 	 * @return bool
 	 */
-	public function getIsWychowawcaAttribute() {
-		return $this->type == "wychowawca";
+	public function getIsTeacherAttribute() {
+		return $this->type == "nauczyciel";
 	}
 }

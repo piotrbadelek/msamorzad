@@ -13,8 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view("index");
+Route::get('/', function (\Illuminate\Http\Request $request) {
+    return view("index", [
+		"user" => $request->user()
+	]);
 })->middleware("auth");
 
 Route::get('/skladki', [\App\Http\Controllers\PaymentController::class, "view"])->middleware("auth");

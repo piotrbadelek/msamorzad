@@ -21,7 +21,8 @@ return new class extends Migration
 			$table->enum("type", ["wychowawca", "student", "skarbnik", "wiceprzewodniczacy", "przewodniczacy"])->default("student");
 			$table->enum("samorzadType", ["wychowawca", "student", "skarbnik", "wiceprzewodniczacy", "przewodniczacy", "sekretarz"])->default("student");
             $table->foreignId("classunit_id")->constrained();
-            $table->rememberToken();
+            $table->boolean("notManagingAClass")->default(true);
+			$table->rememberToken();
             $table->timestamps();
         });
     }

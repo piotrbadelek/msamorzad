@@ -20,7 +20,7 @@ class AnnouncementController extends Controller
 		}
 
 		$canPostToClass = $request->user()->isAdmin;
-		$canPostGlobally = $request->user()->isSamorzad || $request->user()->isWychowawca;
+		$canPostGlobally = $request->user()->isSamorzad || $request->user()->isTeacher;
 
 		return view("announcement.create", [
 			"canPostToClass" => $canPostToClass,
@@ -35,7 +35,7 @@ class AnnouncementController extends Controller
 		}
 
 		$canPostToClass = $request->user()->isAdmin;
-		$canPostGlobally = $request->user()->isSamorzad || $request->user()->isWychowawca;
+		$canPostGlobally = $request->user()->isSamorzad || $request->user()->isTeacher;
 
 		$data = $request->validate([
 			"title" => ["required", "max:128"],

@@ -3,12 +3,14 @@
 @section("title", "Samorząd II LO")
 
 @section("content")
-    <a href="/skladki" class="card-container">
-        <div class="card">
-            <img src="/img/money.webp" alt="Składki">
-            <p class="card_content">Składki</p>
-        </div>
-    </a>
+	@unless($user->isTeacher && $user->notManagingAClass)
+		<a href="/skladki" class="card-container">
+			<div class="card">
+				<img src="/img/money.webp" alt="Składki">
+				<p class="card_content">Składki</p>
+			</div>
+		</a>
+	@endunless
 	<a href="/contests" class="card-container">
 		<div class="card">
 			<img src="/img/contests.webp" alt="Składki">
