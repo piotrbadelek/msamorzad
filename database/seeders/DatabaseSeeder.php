@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
 
 		\App\Models\User::factory()->create([
 			'username' => 'test.teacher',
-			'type' => 'wychowawca',
+			'type' => 'nauczyciel',
 			"notManagingAClass" => false
 		]);
 
