@@ -30,11 +30,16 @@ class PaymentController extends Controller
         }
 
         $not_paid = User::whereNotIn("id", json_decode($payment->paid))->get();
+		$paid = json_decode($payment->paid);
+
+		// $not_paid is a Collection, $paid is an array.
+		$not_paid = $not_paid->sortBy("name");
+		sort($paid);
 
         return view("payment.show", [
             "payment" => $payment,
             "not_paid" => $not_paid,
-            "paid" => json_decode($payment->paid)
+            "paid" => $paid
         ]);
     }
 
