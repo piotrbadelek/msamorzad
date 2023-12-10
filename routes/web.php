@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function (\Illuminate\Http\Request $request) {
+	if ($request->user()->hasNotChangedPassword) {
+		return redirect("/change-password");
+	}
     return view("index", [
 		"user" => $request->user()
 	]);
@@ -41,5 +44,7 @@ Route::get("/announcements/new", [\App\Http\Controllers\AnnouncementController::
 Route::post("/announcements/new", [\App\Http\Controllers\AnnouncementController::class, "create"])->middleware("auth");
 
 Route::get("/login", [\App\Http\Controllers\SessionController::class, "login"])->name("login");
+Route::get("/change-password", [\App\Http\Controllers\SessionController::class, "changePassword"]);
+Route::post("/change-password", [\App\Http\Controllers\SessionController::class, "update"]);
 Route::post("/logout", [\App\Http\Controllers\SessionController::class, "logout"]);
 Route::post("/login", [\App\Http\Controllers\SessionController::class, "authenticate"]);

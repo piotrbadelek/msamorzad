@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 
 class SessionController extends Controller
@@ -19,11 +21,31 @@ class SessionController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
+			if ($request->user()->hasNotChangedPassword) {
+				return redirect("/change-password");
+			}
             return redirect("/");
         } else {
             return Redirect::back()->withErrors(["message" => "Niepoprawna nazwa użytkownika bądź hasło."]);
         }
     }
+
+	public function changePassword() {
+		return view("change-password");
+	}
+
+	public function update(Request $request) {
+		$credentials = $request->validate([
+			"password" => "required|min:8|max:2048"
+		]);
+
+		User::whereId(auth()->user()->id)->update([
+			"password" => Hash::make($credentials["password"]),
+			"hasNotChangedPassword" => false
+		]);
+
+		return \redirect("/");
+	}
 
 	public function logout(Request $request) {
 		Auth::logout();
