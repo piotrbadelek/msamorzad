@@ -41,4 +41,5 @@ Route::get("/announcements/new", [\App\Http\Controllers\AnnouncementController::
 Route::post("/announcements/new", [\App\Http\Controllers\AnnouncementController::class, "create"])->middleware("auth");
 
 Route::get("/login", [\App\Http\Controllers\SessionController::class, "login"])->name("login");
+Route::post("/logout", [\App\Http\Controllers\SessionController::class, "logout"]);
 Route::post("/login", [\App\Http\Controllers\SessionController::class, "authenticate"]);

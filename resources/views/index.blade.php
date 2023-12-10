@@ -29,4 +29,8 @@
 			<p class="card_content">Kontakt</p>
 		</div>
 	</a>
+	<form action="/logout" method="post">
+		@csrf
+		<button type="submit">Wyloguj</button>
+	</form>
 @endsection
