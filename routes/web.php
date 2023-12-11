@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function (\Illuminate\Http\Request $request) {
 	if ($request->user()->hasNotChangedPassword) {
-		return redirect("/change-password");
+		return redirect("/change-password?changingForFirstTime=true");
 	}
     return view("index", [
 		"user" => $request->user()

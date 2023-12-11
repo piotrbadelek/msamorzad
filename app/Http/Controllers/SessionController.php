@@ -22,7 +22,7 @@ class SessionController extends Controller
 
         if (Auth::attempt($credentials)) {
 			if ($request->user()->hasNotChangedPassword) {
-				return redirect("/change-password");
+				return redirect("/change-password?changingForFirstTime=true");
 			}
             return redirect("/");
         } else {
@@ -31,7 +31,9 @@ class SessionController extends Controller
     }
 
 	public function changePassword() {
-		return view("change-password");
+		return view("change-password", [
+			"changingForFirstTime" => isset($_GET["changingForFirstTime"]) && $_GET["changingForFirstTime"]	 == "true"
+		]);
 	}
 
 	public function update(Request $request) {

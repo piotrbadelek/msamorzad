@@ -4,7 +4,9 @@
 
 @section("content")
 	<h1>Zmień hasło</h1>
-	<h2>Po pierwszym zalogowaniu do aplikacji musisz zmienić hasło ze względów bezpieczeństwa.</h2>
+	@if($changingForFirstTime)
+		<h2>Po pierwszym zalogowaniu do aplikacji musisz zmienić hasło ze względów bezpieczeństwa.</h2>
+	@endif
 	@if($errors->any())
 		<h2>{{$errors->first()}}</h2>
 	@endif
