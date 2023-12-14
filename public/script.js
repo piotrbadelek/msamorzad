@@ -47,3 +47,28 @@ if (+store("notificationReminderStartups") !== 9999) {
 	store("notificationReminderStartups", `${+store("notificationReminderStartups") - 1}`);
 }
 */
+
+let installPrompt = null;
+const installButton = document.querySelector("#installButton");
+const installDialouge = document.querySelector("#installDialogue");
+
+window.addEventListener("beforeinstallprompt", (event) => {
+	event.preventDefault();
+	installPrompt = event;
+	installDialouge.open = true;
+});
+
+installButton.addEventListener("click", async () => {
+	if (!installPrompt) {
+		return;
+	}
+	const result = await installPrompt.prompt();
+	console.log(`Install prompt was: ${result.outcome}`);
+	disableInAppInstallPrompt();
+});
+
+function disableInAppInstallPrompt() {
+	installPrompt = null;
+	installDialouge.open = false;
+}
+

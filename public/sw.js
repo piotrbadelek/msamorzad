@@ -16,7 +16,7 @@ const registerServiceWorker = async () => {
 			console.error(`Registration failed with ${error}`);
 		}
 	} else {
-		alert("Zaaktualizuj przeglądarkę aby otrzymywać powiadomienia.");
+		//alert("Zaaktualizuj przeglądarkę aby otrzymywać powiadomienia.");
 	}
 };
 
