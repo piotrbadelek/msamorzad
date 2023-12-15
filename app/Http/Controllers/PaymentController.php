@@ -29,7 +29,7 @@ class PaymentController extends Controller
             abort(403);
         }
 
-        $not_paid = User::whereNotIn("id", json_decode($payment->paid))->get();
+        $not_paid = User::whereNotIn("id", json_decode($payment->paid))->where('type', '!=', 'nauczyciel')->get();
 		$paid = json_decode($payment->paid);
 
 		// $not_paid is a Collection, $paid is an array.
