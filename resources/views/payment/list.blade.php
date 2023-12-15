@@ -25,7 +25,7 @@
                 <a href="/skladki/{{ $payment->id }}" class="payment-card__button">Szczegóły</a>
             @else
                 @if (!in_array($user->id, json_decode($payment["paid"])))
-                    <button class="payment-card__button">Zapłać</button>
+                    {{-- <button class="payment-card__button">Zapłać</button> --}}
                 @else
                     <button class="payment-card__button" disabled>Opłacone</button>
                 @endif
