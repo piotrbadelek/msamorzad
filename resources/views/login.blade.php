@@ -14,5 +14,6 @@
         <label for="password">Hasło</label>
         <input type="password" name="password" id="password">
         <button type="submit">Zaloguj</button>
-    </form>
+    </form><br>
+	<a href="/pomoc.html">Uzyskaj pomoc</a>
 @endsection
