@@ -21,6 +21,9 @@ Route::get('/', function (\Illuminate\Http\Request $request) {
 		"user" => $request->user()
 	]);
 })->middleware("auth");
+Route::get("/future", function () {
+	return redirect("/future_ad.mp4");
+});
 
 Route::get('/skladki', [\App\Http\Controllers\PaymentController::class, "view"])->middleware("auth");
 Route::get('/skladki/new', [\App\Http\Controllers\PaymentController::class, "createForm"])->middleware("auth");
