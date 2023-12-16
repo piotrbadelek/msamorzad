@@ -16,4 +16,5 @@
         <button type="submit">Zaloguj</button>
     </form><br>
 	<a href="/pomoc.html">Uzyskaj pomoc</a>
+	<footer>mSamorząd v0.2.1 (on PHP {{ phpversion() }})</footer>
 @endsection

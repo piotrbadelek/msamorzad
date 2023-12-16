@@ -20,7 +20,7 @@ class SessionController extends Controller
             "password" => ["required"]
         ]);
 
-        if (Auth::attempt($credentials)) {
+        if (Auth::attempt($credentials, true)) {
 			if ($request->user()->hasNotChangedPassword) {
 				return redirect("/change-password?changingForFirstTime=true");
 			}
