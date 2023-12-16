@@ -72,3 +72,6 @@ function disableInAppInstallPrompt() {
 	installDialouge.open = false;
 }
 
+function dontInstallApp() {
+	installDialouge.open = false;
+}
