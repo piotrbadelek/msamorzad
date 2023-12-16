@@ -17,6 +17,7 @@ return new class extends Migration
 			$table->text("description");
 			$table->foreignId("classunit_id")->constrained();
 			$table->boolean("global");
+			$table->text("imageUrl")->nullable();
 			$table->timestamps();
         });
     }

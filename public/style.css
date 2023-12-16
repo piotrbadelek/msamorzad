@@ -180,10 +180,17 @@ textarea {
 	width: 100%;
 }
 
+.announcement-image {
+	width: 100%;
+}
+
 @media (min-width: 768px) {
 	.card {
 		width: 24%;
 		display: inline-block;
+	}
+	.announcement-image {
+		width: 25vw;
 	}
 }
 

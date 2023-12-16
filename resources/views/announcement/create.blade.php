@@ -13,12 +13,14 @@
 			</ul>
 		</div>
 	@endif
-	<form action="/announcements/new" method="post">
+	<form action="/announcements/new" method="post" enctype="multipart/form-data">
 		@csrf
 		<label for="title">Tytuł ogłoszenia</label>
 		<input type="text" name="title" id="title" maxlength="128" minlength="3" required>
 		<label for="description">Ogłoszenie</label><br>
 		<textarea name="description" id="description" cols="30" rows="10" required maxlength="2048"></textarea>
+		<label for="image">Zdjęcie (opcjonalne)</label>
+		<input type="file" name="image" id="image" accept="image/*">
 
 		@if ($canPostToClass && $canPostGlobally)
 			<label for="postArea">Postujesz na forum:</label>

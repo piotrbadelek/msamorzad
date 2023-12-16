@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Announcement;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rules\File;
 
 class AnnouncementController extends Controller
 {
@@ -40,7 +41,10 @@ class AnnouncementController extends Controller
 		$data = $request->validate([
 			"title" => ["required", "max:128"],
 			"description" => ["required", "min:3", "max:2048"],
-			"postArea" => []
+			"postArea" => [],
+			"image" => [File::types(['png', 'jpg', "webp"])
+				->min("1kb")
+				->max("10mb")]
 		]);
 
 		$announcement = new Announcement;
@@ -54,6 +58,11 @@ class AnnouncementController extends Controller
 			$announcement->global = false;
 		} else {
 			abort(400);
+		}
+
+		if ($request->hasFile("image")) {
+			$path = $request->file("image")->store("public/banners");
+			$announcement->imageUrl = str_replace("public/banners", "/storage/banners",$path);
 		}
 
 		$announcement->save();
