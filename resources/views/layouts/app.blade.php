@@ -8,6 +8,10 @@
     <title>@yield("title")</title>
     <link rel="stylesheet" href="/style.css">
 	<link rel="manifest" href="/manifest.json">
+	<script
+		src="https://js.sentry-cdn.com/aabbc2c94ac8133dcdb4610c04d3395d.min.js"
+		crossorigin="anonymous"
+	></script>
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body>
