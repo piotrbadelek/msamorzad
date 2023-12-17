@@ -51,3 +51,5 @@ Route::get("/change-password", [\App\Http\Controllers\SessionController::class, 
 Route::post("/change-password", [\App\Http\Controllers\SessionController::class, "update"]);
 Route::post("/logout", [\App\Http\Controllers\SessionController::class, "logout"]);
 Route::post("/login", [\App\Http\Controllers\SessionController::class, "authenticate"]);
+
+Route::post("/push", [\App\Http\Controllers\NotificationController::class, "subscribe"]);

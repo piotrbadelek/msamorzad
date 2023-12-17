@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use NotificationChannels\WebPush\HasPushSubscriptions;
 
 class Payment extends Model
 {
     use HasFactory;
+	use HasPushSubscriptions;
 
     protected $fillable = ["paid"];
 

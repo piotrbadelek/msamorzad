@@ -8,6 +8,7 @@
     <title>@yield("title")</title>
     <link rel="stylesheet" href="/style.css">
 	<link rel="manifest" href="/manifest.json">
+	<meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body>
     <header>
@@ -26,7 +27,7 @@
 			<li>Ogłoszenia konkursów</li>
 			<li>Odpowiedzi na zadane pytania</li>
 		</ul>
-		<button onclick="enableNotifications();">Włącz</button>
+		<button onclick="enableNotifications();" id="enableNotifications">Włącz</button>
 		<button class="not-primary" onclick="disableNotifications();">Nie teraz</button>
 	</dialog>
 

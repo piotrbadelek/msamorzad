@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Classunit;
 use App\Models\Payment;
 use App\Models\User;
+use App\Notifications\PaymentCreated;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 
 class PaymentController extends Controller
 {
@@ -96,6 +99,9 @@ class PaymentController extends Controller
         $payment->classunit_id = $request->user()->classunit_id;
         $payment->paid = "[]";
         $payment->save();
+
+		$users = $request->user()->classUnit->users;
+		Notification::sendNow($users, new PaymentCreated($payment->title));
 
         return redirect("/skladki/" . $payment->id);
     }

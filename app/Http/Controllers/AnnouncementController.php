@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Announcement;
+use App\Models\User;
+use App\Notifications\AnnouncementCreated;
+use App\Notifications\PaymentCreated;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Validation\Rules\File;
 
 class AnnouncementController extends Controller
@@ -54,8 +58,12 @@ class AnnouncementController extends Controller
 
 		if ($canPostGlobally && $data["postArea"] == "school") {
 			$announcement->global = true;
+			$users = User::all();
+			Notification::sendNow($users, new AnnouncementCreated($announcement->title));
 		} else if ($canPostToClass) {
 			$announcement->global = false;
+			$users = $request->user()->classUnit->users;
+			Notification::sendNow($users, new AnnouncementCreated($announcement->title));
 		} else {
 			abort(400);
 		}
