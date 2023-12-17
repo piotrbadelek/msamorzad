@@ -200,6 +200,30 @@ textarea {
 	}
 }
 
+@media (prefers-color-scheme: dark) {
+	body {
+		background: #141218;
+		color: white;
+	}
+
+	a {
+		color: lightblue;
+	}
+
+	button, .payment-card__button {
+		background-color: #D0BCFF;
+		color: #381E72;
+	}
+
+	.card, .payment-card, .message {
+		background-color: #322F35;
+	}
+
+	.card_content {
+		color: white;
+	}
+}
+
 /* Fonts */
 
 /* inter-regular - latin */
