@@ -30,6 +30,7 @@ function enableNotifications() {
 
 function disableNotifications() {
 	$("#notificationDialogue").open = false;
+	store("notificationsDelayed", "true");
 }
 
 let installPrompt = null;
@@ -91,7 +92,7 @@ function initSW() {
 document.addEventListener('DOMContentLoaded', function () {
 	const requestNotificationPermission = async () => {
 		const permission = await Notification.requestPermission();
-		if (permission !== "granted") {
+		if (permission !== "granted" && !store("notificationsDelayed")) {
 			$("#notificationDialogue").open = true;
 		}
 	}
@@ -191,4 +192,10 @@ function urlBase64ToUint8Array(base64String) {
 		outputArray[i] = rawData.charCodeAt(i);
 	}
 	return outputArray;
+}
+
+if (store("notificationsDelayed")) {
+	if (Math.floor(Math.random() * 100) > 98) {
+		store("notificationsDelayed", "");
+	}
 }
