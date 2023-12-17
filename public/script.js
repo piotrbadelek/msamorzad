@@ -91,9 +91,12 @@ function initSW() {
 
 document.addEventListener('DOMContentLoaded', function () {
 	const requestNotificationPermission = async () => {
-		const permission = await Notification.requestPermission();
-		if (permission !== "granted" && !store("notificationsDelayed")) {
-			$("#notificationDialogue").open = true;
+		// Fix for iOS on versions before 16.4
+		if (typeof Notification !== "undefined") {
+			const permission = await Notification.requestPermission();
+			if (permission !== "granted" && !store("notificationsDelayed")) {
+				$("#notificationDialogue").open = true;
+			}
 		}
 	}
 	if (!$("[data-dont-show-notif-prompt]")) {
@@ -196,6 +199,6 @@ function urlBase64ToUint8Array(base64String) {
 
 if (store("notificationsDelayed")) {
 	if (Math.floor(Math.random() * 100) > 98) {
-		store("notificationsDelayed", "");
+		store("notificationsDelayed", "3");
 	}
 }
