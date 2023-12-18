@@ -222,6 +222,15 @@ textarea {
 	.card_content {
 		color: white;
 	}
+
+	.payment-students li {
+		background-color: #322F35;
+		border: 1px solid #4A4458;
+	}
+
+	.payment-students a {
+		color: white;
+	}
 }
 
 /* Fonts */
