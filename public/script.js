@@ -91,11 +91,14 @@ function initSW() {
 
 document.addEventListener('DOMContentLoaded', function () {
 	const requestNotificationPermission = async () => {
-		// Fix for iOS on versions before 16.4
+		// Fix for iOS on versions before 16.4, as push notifications
+		// are not supported on these versions.
 		if (typeof Notification !== "undefined") {
 			const permission = await Notification.requestPermission();
 			if (permission !== "granted" && !store("notificationsDelayed")) {
 				$("#notificationDialogue").open = true;
+			} else if (permission === "granted") {
+				initSW();
 			}
 		}
 	}
@@ -118,7 +121,7 @@ function initPush() {
 			permissionResult.then(resolve, reject);
 		}
 	})
-		.then((permissionResult) => {
+		.then(permissionResult => {
 			if (permissionResult !== 'granted') {
 				throw new Error('We weren\'t granted permission.');
 			}
