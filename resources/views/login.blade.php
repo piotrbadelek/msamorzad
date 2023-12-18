@@ -16,5 +16,5 @@
         <button type="submit">Zaloguj</button>
     </form><br>
 	<a href="/pomoc.html">Uzyskaj pomoc</a>
-	<footer data-dont-show-notif-prompt>mSamorząd v0.3.2 (on PHP {{ phpversion() }}), built on 2023-12-18 16:45</footer>
+	<footer data-dont-show-notif-prompt>mSamorząd Beta</footer>
 @endsection

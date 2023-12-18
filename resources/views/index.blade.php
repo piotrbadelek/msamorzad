@@ -13,7 +13,7 @@
 	@endunless
 	<a href="/contests" class="card-container">
 		<div class="card">
-			<img src="/img/contests.webp" alt="Składki">
+			<img src="/img/contests.webp" alt="Konkursy">
 			<p class="card_content">Konkursy</p>
 		</div>
 	</a>
@@ -25,12 +25,19 @@
 	</a>
 	<a href="/messages" class="card-container">
 		<div class="card">
-			<img src="/img/contact.webp" alt="Składki">
+			<img src="/img/contact.webp" alt="Kontakt">
 			<p class="card_content">Kontakt</p>
+		</div>
+	</a>
+	<a href="https://forms.gle/VYPbwsUhNkTpNJef9" class="card-container">
+		<div class="card">
+			<img src="/img/bugReport.webp" alt="Zgłoś błąd">
+			<p class="card_content">Zgłoś problem / sugestię</p>
 		</div>
 	</a>
 	<form action="/logout" method="post">
 		@csrf
 		<button type="submit">Wyloguj</button>
 	</form>
+	<footer class="appver">mSamorząd v0.3.2 (on PHP {{ phpversion() }}), built on 2023-12-18 16:45</footer>
 @endsection

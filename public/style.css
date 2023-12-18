@@ -190,9 +190,14 @@ textarea {
 	width: 100%;
 }
 
+.appver {
+	text-align: center;
+	color: #CCC2DC;
+}
+
 @media (min-width: 768px) {
 	.card {
-		width: 24%;
+		width: 23%;
 		display: inline-block;
 	}
 	.announcement-image {
