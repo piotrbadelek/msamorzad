@@ -198,6 +198,14 @@ textarea {
 	.announcement-image {
 		width: 25vw;
 	}
+
+	.card-container {
+		margin-right: 1rem;
+	}
+
+	.card {
+		margin-bottom: 1rem;
+	}
 }
 
 @media (prefers-color-scheme: dark) {
