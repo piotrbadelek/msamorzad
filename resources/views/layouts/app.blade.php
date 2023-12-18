@@ -38,7 +38,7 @@
 	<dialog id="installDialogue">
 		<header>Zainstaluj aplikację</header>
 		<p>Zainstaluj aplikację, aby dodać ją do ekranu domowego</p>
-		<button onclick="installApp();" id="installButton">Zainstaluj</button>
+		<button id="installButton">Zainstaluj</button>
 		<button class="not-primary" onclick="dontInstallApp();">Nie teraz</button>
 	</dialog>
 	<script src="/script.js" defer></script>
