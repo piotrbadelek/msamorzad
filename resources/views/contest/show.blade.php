@@ -12,8 +12,7 @@
 			@endforeach
 		</ul>
 	@endif
-	<span>Bierze udział: {{ count($enlisted) }}</span>
-
+	<span class="contest-member-counter">Bierze udział: {{ count($enlisted) }}</span>
 
 	@unless ($is_wychowawca)
 		@if (in_array($user_id, $enlisted))
@@ -22,5 +21,7 @@
 			<a href="/contests/{{ $contest->id }}/enlist" class="payment-card__button">Weź udział</a>
 		@endif
 	@endunless
+
+	<a href="/contests/{{ $contest->id }}/delete" class="payment-card__button">Usuń konkurs</a>
 @endsection
 

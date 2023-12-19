@@ -15,4 +15,7 @@
 		<textarea name="response" id="response" cols="30" rows="10" maxlength="800" required></textarea><br>
 		<button type="submit">Wyślij</button>
 	</form>
+	<br>
+
+	<a href="/messages/{{ $message->id }}/delete" class="payment-card__button">Usuń wiadomość</a>
 @endsection

@@ -19,7 +19,7 @@ class ContestController extends Controller
 
 	public function show(Contest $contest, Request $request) {
 		$enlisted = json_decode($contest->enlisted);
-		if ($request->user()->isAdmin) {
+		if ($request->user()->isPrivileged) {
 			$enlisted_names = User::whereIn("id", $enlisted)->get();
 		}
 
@@ -52,15 +52,25 @@ class ContestController extends Controller
 	}
 
 	public function createForm(Request $request) {
-		if (!$request->user()->isAdmin) {
+		if (!$request->user()->isPrivileged) {
 			abort(403);
 		}
 
 		return view("contest.create");
 	}
 
+	public function deleteForm(Request $request, Contest $contest) {
+		if (!$request->user()->isPrivileged) {
+			abort(403);
+		}
+
+		return view("contest.delete", [
+			"contest" => $contest
+		]);
+	}
+
 	public function create(Request $request) {
-		if (!$request->user()->isAdmin) {
+		if (!$request->user()->isPrivileged) {
 			abort(403);
 		}
 
@@ -76,5 +86,14 @@ class ContestController extends Controller
 		$contest->save();
 
 		return redirect("/contests/" . $contest->id);
+	}
+
+	public function delete(Request $request, Contest $contest) {
+		if (!$request->user()->isPrivileged) {
+			abort(403);
+		}
+
+		$contest->delete();
+		return redirect("/contests");
 	}
 }

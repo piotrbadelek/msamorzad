@@ -207,6 +207,19 @@ textarea {
 	margin: .75rem 0;
 }
 
+#search {
+	width: 100%;
+}
+
+.cancel-deletion {
+	margin-top: .5rem;
+}
+
+.contest-member-counter {
+	display: block;
+	margin-bottom: .75rem;
+}
+
 @media (min-width: 768px) {
 	.card {
 		width: 23%;

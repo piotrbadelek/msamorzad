@@ -24,13 +24,9 @@ class PaymentController extends Controller
     }
 
     public function details(Payment $payment, Request $request) {
-		if ($request->user()->isTeacher && $request->user()->notManagingAClass) {
+		if (!$request->user()->canManagePayments) {
 			abort(403);
 		}
-
-		if (!$request->user()->isAdmin || !$payment->classUnit->samorzad->contains($request->user())) {
-            abort(403);
-        }
 
         $not_paid = User::whereNotIn("id", json_decode($payment->paid))->where('type', '!=', 'nauczyciel')->get();
 		$paid = json_decode($payment->paid);
@@ -47,13 +43,9 @@ class PaymentController extends Controller
     }
 
     public function pay(Payment $payment, Int $userid, Request $request) {
-		if ($request->user()->isTeacher && $request->user()->notManagingAClass) {
+		if (!$request->user()->canManagePayments) {
 			abort(403);
 		}
-
-		if (!$request->user()->isAdmin || !$payment->classUnit->samorzad->contains($request->user())) {
-            abort(403);
-        }
 
         $paymentPaid = json_decode($payment->paid);
         if (in_array($userid, $paymentPaid)) {
@@ -68,23 +60,29 @@ class PaymentController extends Controller
     }
 
     public function createForm(Request $request) {
-		if ($request->user()->isTeacher && $request->user()->notManagingAClass) {
+		if ($request->user()->canManagePayments) {
 			abort(403);
 		}
-
-		if (!$request->user()->isAdmin) {
-            abort(403);
-        }
 
         return view("payment.create", [
             "classUnitSize" =>  User::count("classunit_id", $request->user()->classunit_id)
         ]);
     }
 
+	public function deleteForm(Request $request, Payment $payment) {
+		if (!$request->user()->canManagePayments) {
+			abort(403);
+		}
+
+		return view("payment.delete", [
+			"payment" => $payment
+		]);
+	}
+
     public function create(Request $request) {
-        if (!$request->user()->isAdmin) {
-            abort(403);
-        }
+		if (!$request->user()->canManagePayments) {
+			abort(403);
+		}
 
         $data = $request->validate([
             "money" => ["required", "numeric", "max:999"],
@@ -105,4 +103,13 @@ class PaymentController extends Controller
 
         return redirect("/skladki/" . $payment->id);
     }
+
+	public function delete(Request $request, Payment $payment) {
+		if (!$request->user()->canManagePayments) {
+			abort(403);
+		}
+
+		$payment->delete();
+		return redirect("/skladki/");
+	}
 }

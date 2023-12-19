@@ -13,10 +13,24 @@ use Illuminate\Validation\Rules\File;
 class AnnouncementController extends Controller
 {
     public function list(Request $request) {
-		return view("announcement.list", [
-			"announcements" => Announcement::latest()->where("global", "1")->orWhere("classunit_id", $request->user()->classunit_id)->get(),
-			"isAdmin" => $request->user()->isAdmin
-		]);
+		$announcements = Announcement::latest()->where("global", "1")->orWhere("classunit_id", $request->user()->classunit_id)->get();
+		if ($request->user()->isPrivileged) {
+			$deletionPermissions = [];
+			foreach ($announcements as $announcement) {
+				$deletionPermissions["a-" . $announcement->id] = $this->verifyDeletionPermissions($request->user(), $announcement);
+			}
+
+			return view("announcement.list", [
+				"announcements" => $announcements,
+				"isPrivileged" => true,
+				"deletionPermissions" => $deletionPermissions
+			]);
+		} else {
+			return view("announcement.list", [
+				"announcements" => $announcements,
+				"isPrivileged" => false
+			]);
+		}
 	}
 
 	public function createForm(Request $request) {
@@ -76,5 +90,44 @@ class AnnouncementController extends Controller
 		$announcement->save();
 
 		return redirect("/announcements/");
+	}
+
+	protected function verifyDeletionPermissions(User $user, Announcement $announcement): bool {
+		$canPostToClass = $user->isAdmin && !($user->isTeacher && $user->notManagingAClass);
+		$canPostGlobally =$user->isSamorzad || $user->isTeacher;
+
+		if ((!$canPostGlobally && $announcement->global) || (!$canPostToClass && !$announcement->global)) {
+			return false;
+		}
+
+		if (!$announcement->global) {
+			if ($user->classunit->id !== $announcement->classunit_id) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public function deleteForm(Request $request, Announcement $announcement) {
+		if (!$request->user()->isPrivileged) {
+			abort(403);
+		}
+
+		if (!$this->verifyDeletionPermissions($request->user(), $announcement)) abort(403);
+
+		return view("announcement.delete", [
+			"announcement" => $announcement
+		]);
+	}
+
+	public function delete(Request $request, Announcement $announcement) {
+		if (!$request->user()->isPrivileged) {
+			abort(403);
+		}
+
+		if (!$this->verifyDeletionPermissions($request->user(), $announcement)) abort(403);
+
+		$announcement->delete();
+		return redirect("/announcements");
 	}
 }

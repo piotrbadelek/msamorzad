@@ -16,9 +16,16 @@
                 @php
                     $currentDate = new DateTime();
 					$diffDate = $currentDate->diff(new DateTime($payment["deadline"]));
+					$hasExpired = $currentDate > new DateTime($payment["deadline"]);
                 @endphp
-                <span>{{ $payment["amount"] }}zł | Pozostało {{ $diffDate->d + ($diffDate->m * 30) }} dni
-                    @if($user->isAdmin) | Zapłaciło {{ sizeof(json_decode($payment["paid"])) }} @endif</span>
+                <span>{{ $payment["amount"] }}zł |
+					@if($hasExpired)
+						{{ $diffDate->d + ($diffDate->m * 30) }} dni po terminie
+					@else
+						Pozostało {{ $diffDate->d + ($diffDate->m * 30) }} dni
+					@endif
+                    @if($user->isAdmin)
+						| Zapłaciło {{ sizeof(json_decode($payment["paid"])) }} @endif</span>
             </div>
 
             @if ($user->isAdmin)

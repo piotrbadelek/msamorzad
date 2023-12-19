@@ -51,4 +51,23 @@ class MessageController extends Controller
 
 		return redirect("/messages");
 	}
+
+	public function deleteForm(Request $request, Message $message) {
+		if (!$request->user()->isSamorzad) {
+			abort(403);
+		}
+
+		return view("message.delete", [
+			"message" => $message
+		]);
+	}
+
+	public function delete(Request $request, Message $message) {
+		if (!$request->user()->isSamorzad) {
+			abort(403);
+		}
+
+		$message->delete();
+		return redirect("/messages");
+	}
 }

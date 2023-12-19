@@ -80,4 +80,10 @@ class User extends Authenticatable
 	public function getIsTeacherAttribute() {
 		return $this->type == "nauczyciel";
 	}
+
+	public function getCanManagePaymentsAttribute() {
+		$teacherWithoutAClass = $this->isTeacher && $this->notManagingAClass;
+		$isAdmin = $this->isAdmin;
+		return !$teacherWithoutAClass && $isAdmin;
+	}
 }
