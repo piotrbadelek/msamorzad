@@ -207,9 +207,9 @@ if (store("notificationsDelayed")) {
 }
 
 function search() {
-	const searchQuery = $("#search").value;
+	const searchQuery = $("#search").value.toLowerCase();
 	const messageContainers = document.querySelectorAll(".message_container");
 	messageContainers.forEach(el => {
-		el.hidden = !el.dataset["message"].includes(searchQuery);
+		el.hidden = !el.dataset["message"].toLowerCase().includes(searchQuery);
 	});
 }

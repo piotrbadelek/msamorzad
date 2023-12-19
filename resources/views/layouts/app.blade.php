@@ -41,7 +41,7 @@
 		<button id="installButton">Zainstaluj</button>
 		<button class="not-primary" onclick="dontInstallApp();">Nie teraz</button>
 	</dialog>
-	<script src="/script.js" defer></script>
+	<script src="/script.js?v=1" defer></script>
 	<script src="/sw.js" defer></script>
 </body>
 </html>
