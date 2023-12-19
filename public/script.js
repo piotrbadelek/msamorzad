@@ -205,3 +205,11 @@ if (store("notificationsDelayed")) {
 		store("notificationsDelayed", "3");
 	}
 }
+
+function search() {
+	const searchQuery = $("#search").value;
+	const messageContainers = document.querySelectorAll(".message_container");
+	messageContainers.forEach(el => {
+		el.hidden = !el.dataset["message"].includes(searchQuery);
+	});
+}
