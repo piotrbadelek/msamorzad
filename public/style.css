@@ -139,6 +139,7 @@ input {
     padding: 8px 0 8px 16px;
     width: 85vw;
     margin-bottom: 1rem;
+	font-family: inherit;
 }
 
 .message {
@@ -195,6 +196,13 @@ textarea {
 	color: #CCC2DC;
 }
 
+textarea {
+	border: none;
+	font-family: inherit;
+	border-radius: 9px;
+	padding: 1rem;
+}
+
 @media (min-width: 768px) {
 	.card {
 		width: 23%;
@@ -242,6 +250,12 @@ textarea {
 	}
 
 	.payment-students a {
+		color: white;
+	}
+
+	textarea, input {
+		background-color: #322F35;
+		border: 1px solid #4A4458;
 		color: white;
 	}
 }
