@@ -183,10 +183,6 @@ input {
 	text-decoration: none;
 }
 
-textarea {
-	width: 100%;
-}
-
 .announcement-image {
 	width: 100%;
 }
@@ -201,6 +197,9 @@ textarea {
 	font-family: inherit;
 	border-radius: 9px;
 	padding: 1rem;
+	box-sizing: border-box;
+	width: 86vw;
+	display: block;
 }
 
 @media (min-width: 768px) {
