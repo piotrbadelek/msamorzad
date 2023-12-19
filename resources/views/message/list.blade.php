@@ -11,7 +11,7 @@
 		<textarea name="question" id="question" cols="30" rows="10" maxlength="800" required></textarea><br>
 		<button type="submit">Wyślij</button>
 	</form>
-	<label for="search">Wyszukaj pytanie</label>
+	<label for="search" class="search-label">Wyszukaj pytanie</label>
 	<input type="search" name="search" id="search" onkeyup="search();">
 	@foreach($messages as $message)
 		@if($isAdmin)

@@ -202,6 +202,11 @@ textarea {
 	display: block;
 }
 
+.search-label {
+	display: block;
+	margin: .75rem 0;
+}
+
 @media (min-width: 768px) {
 	.card {
 		width: 23%;
