@@ -60,7 +60,7 @@ class PaymentController extends Controller
     }
 
     public function createForm(Request $request) {
-		if ($request->user()->canManagePayments) {
+		if (!$request->user()->canManagePayments) {
 			abort(403);
 		}
 
