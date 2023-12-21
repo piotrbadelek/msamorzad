@@ -15,23 +15,10 @@
 	<input type="search" name="search" id="search" onkeyup="search();">
 	@foreach($messages as $message)
 		@if($isAdmin)
-			<a href="/messages/{{ $message->id }}" data-message="{{ $message->question }}" class="message_container">
-				<div class="message">
-					<header>{{ $message->user->name }}</header>
-					<p>{{ $message->question }}</p>
-					@if($message->response)
-						<div class="message_answer"><span>Odpowiedź samorządu:</span> <br>{{ $message->response }}</div>
-					@endif
-				</div>
-			</a>
+			<x-message :id="$message->id" :question="$message->question" :response="$message->response" :username="$message->user->name"></x-message>
 		@else
 			@if ($message->response)
-				<div class="message_container" data-message="{{ $message->question }}">
-					<div class="message">
-						<p>{{ $message->question }}</p>
-						<div class="message_answer"><span>Odpowiedź samorządu:</span> <br>{{ $message->response }}</div>
-					</div>
-				</div>
+				<x-message :id="$message->id" :question="$message->question"></x-message>
 			@endif
 		@endif
 	@endforeach
