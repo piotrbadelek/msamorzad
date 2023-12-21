@@ -39,5 +39,5 @@
 		@csrf
 		<button type="submit">Wyloguj</button>
 	</form>
-	<footer class="appver">mSamorząd v0.3.5 (on PHP {{ phpversion() }}), built on 2023-12-19 20:20</footer>
+	<footer class="appver">mSamorząd {{ config("app.version") }} (on PHP {{ phpversion() }})</footer>
 @endsection
