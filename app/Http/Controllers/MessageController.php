@@ -38,7 +38,7 @@ class MessageController extends Controller
 	}
 
 	public function update(Message $message, Request $request) {
-		if (!$request->user()->isSamorzadSzkolny {
+		if (!$request->user()->isSamorzadSzkolny) {
 			abort(403);
 		}
 
