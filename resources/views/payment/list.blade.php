@@ -3,7 +3,7 @@
 @section("title", "Składki - samorząd II LO")
 
 @section("content")
-    @if($user->isAdmin)
+    @if($user->can("create", \App\Models\Payment::class))
         <h1>Składki w klasie</h1>
         <a href="/skladki/new" class="payment-card__button" id="new_payment">Nowa składka</a>
     @else
@@ -24,11 +24,11 @@
 					@else
 						Pozostało {{ $diffDate->d + ($diffDate->m * 30) }} dni
 					@endif
-                    @if($user->isAdmin)
+                    @if($user->can("details", $payment))
 						| Zapłaciło {{ sizeof(json_decode($payment["paid"])) }} @endif</span>
             </div>
 
-            @if ($user->isAdmin)
+            @if ($user->can("details", $payment))
                 <a href="/skladki/{{ $payment->id }}" class="payment-card__button">Szczegóły</a>
             @else
                 @if (!in_array($user->id, json_decode($payment["paid"])))

@@ -38,8 +38,8 @@ class AnnouncementController extends Controller
 			abort(403);
 		}
 
-		$canPostToClass = $request->user()->isAdmin && !($request->user()->isTeacher && $request->user()->notManagingAClass);
-		$canPostGlobally = $request->user()->isSamorzad || $request->user()->isTeacher;
+		$canPostToClass = $request->user()->isSamorzadKlasowy && !($request->user()->isTeacher && $request->user()->notManagingAClass);
+		$canPostGlobally = $request->user()->isSamorzadSzkolny || $request->user()->isTeacher;
 
 		return view("announcement.create", [
 			"canPostToClass" => $canPostToClass,
@@ -53,8 +53,8 @@ class AnnouncementController extends Controller
 			abort(403);
 		}
 
-		$canPostToClass = $request->user()->isAdmin && !($request->user()->isTeacher && $request->user()->notManagingAClass);
-		$canPostGlobally = $request->user()->isSamorzad || $request->user()->isTeacher;
+		$canPostToClass = $request->user()->isSamorzadKlasowy && !($request->user()->isTeacher && $request->user()->notManagingAClass);
+		$canPostGlobally = $request->user()->isSamorzadSzkolny || $request->user()->isTeacher;
 
 		$data = $request->validate([
 			"title" => ["required", "max:128"],
@@ -93,8 +93,8 @@ class AnnouncementController extends Controller
 	}
 
 	protected function verifyDeletionPermissions(User $user, Announcement $announcement): bool {
-		$canPostToClass = $user->isAdmin && !($user->isTeacher && $user->notManagingAClass);
-		$canPostGlobally =$user->isSamorzad || $user->isTeacher;
+		$canPostToClass = $user->isSamorzadKlasowy && !($user->isTeacher && $user->notManagingAClass);
+		$canPostGlobally =$user->isSamorzadSzkolny || $user->isTeacher;
 
 		if ((!$canPostGlobally && $announcement->global) || (!$canPostToClass && !$announcement->global)) {
 			return false;

@@ -11,7 +11,7 @@ class MessageController extends Controller
 		$messages = Message::latest()->take(20)->get();
 		return view("message.list", [
 			"messages" => $messages,
-			"isAdmin" => $request->user()->isSamorzad
+			"isSamorzadKlasowy" => $request->user()->isSamorzadKlasowy
 		]);
 	}
 
@@ -29,7 +29,7 @@ class MessageController extends Controller
 	}
 
 	public function show(Message $message, Request $request) {
-		if (!$request->user()->isSamorzad) {
+		if (!$request->user()->isSamorzadSzkolny) {
 			abort(403);
 		}
 		return view("message.show", [
@@ -38,7 +38,7 @@ class MessageController extends Controller
 	}
 
 	public function update(Message $message, Request $request) {
-		if (!$request->user()->isSamorzad) {
+		if (!$request->user()->isSamorzadSzkolny {
 			abort(403);
 		}
 
@@ -53,7 +53,7 @@ class MessageController extends Controller
 	}
 
 	public function deleteForm(Request $request, Message $message) {
-		if (!$request->user()->isSamorzad) {
+		if (!$request->user()->isSamorzadSzkolny) {
 			abort(403);
 		}
 
@@ -63,7 +63,7 @@ class MessageController extends Controller
 	}
 
 	public function delete(Request $request, Message $message) {
-		if (!$request->user()->isSamorzad) {
+		if (!$request->user()->isSamorzadSzkolny) {
 			abort(403);
 		}
 

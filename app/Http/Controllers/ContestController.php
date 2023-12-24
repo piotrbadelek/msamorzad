@@ -13,7 +13,7 @@ class ContestController extends Controller
 
 		return view("contest.list", [
 			"contests" => Contest::latest()->get(),
-			"isAdmin" => $request->user()->isAdmin
+			"isSamorzadKlasowy" => $request->user()->isSamorzadKlasowy
 		]);
 	}
 
@@ -28,7 +28,7 @@ class ContestController extends Controller
 			"user_id" => $request->user()->id,
 			"enlisted" => $enlisted,
 			"enlisted_names" => $enlisted_names ?? [],
-			"is_admin" => $request->user()->isAdmin,
+			"is_admin" => $request->user()->isSamorzadKlasowy,
 			"is_wychowawca" => $request->user()->isTeacher
 		]);
 	}

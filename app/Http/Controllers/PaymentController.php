@@ -24,7 +24,7 @@ class PaymentController extends Controller
     }
 
     public function details(Payment $payment, Request $request) {
-		if (!$request->user()->canManagePayments) {
+		if ($request->user()->cannot("details", $payment)) {
 			abort(403);
 		}
 
@@ -43,7 +43,7 @@ class PaymentController extends Controller
     }
 
     public function pay(Payment $payment, Int $userid, Request $request) {
-		if (!$request->user()->canManagePayments) {
+		if ($request->user()->cannot("pay", $payment)) {
 			abort(403);
 		}
 
@@ -60,7 +60,7 @@ class PaymentController extends Controller
     }
 
     public function createForm(Request $request) {
-		if (!$request->user()->canManagePayments) {
+		if ($request->user()->cannot("create", Payment::class)) {
 			abort(403);
 		}
 
@@ -70,7 +70,7 @@ class PaymentController extends Controller
     }
 
 	public function deleteForm(Request $request, Payment $payment) {
-		if (!$request->user()->canManagePayments) {
+		if ($request->user()->cannot("delete", $payment)) {
 			abort(403);
 		}
 
@@ -80,7 +80,7 @@ class PaymentController extends Controller
 	}
 
     public function create(Request $request) {
-		if (!$request->user()->canManagePayments) {
+		if ($request->user()->cannot("create", Payment::class)) {
 			abort(403);
 		}
 
@@ -105,7 +105,7 @@ class PaymentController extends Controller
     }
 
 	public function delete(Request $request, Payment $payment) {
-		if (!$request->user()->canManagePayments) {
+		if ($request->user()->cannot("delete", $payment)) {
 			abort(403);
 		}
 

@@ -14,7 +14,7 @@
 	<label for="search" class="search-label">Wyszukaj pytanie</label>
 	<input type="search" name="search" id="search" onkeyup="search();">
 	@foreach($messages as $message)
-		@if($isAdmin)
+		@if($isSamorzadKlasowy)
 			<x-message :id="$message->id" :question="$message->question" :response="$message->response" :username="$message->user->name"></x-message>
 		@else
 			@if ($message->response)

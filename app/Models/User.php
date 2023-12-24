@@ -53,7 +53,7 @@ class User extends Authenticatable
 	 * Return if the user has a position in the class council or is a teacher.
 	 * @return bool
 	 */
-    public function getIsAdminAttribute() {
+    public function getIsSamorzadKlasowyAttribute(): bool {
         return $this->type != "student";
     }
 
@@ -61,7 +61,7 @@ class User extends Authenticatable
 	 * Return if the user has a position in the school council or is a teacher
 	 * @return bool
 	 */
-	public function getIsSamorzadAttribute() {
+	public function getIsSamorzadSzkolnyAttribute(): bool {
 		return $this->samorzadType != "student";
 	}
 
@@ -69,21 +69,15 @@ class User extends Authenticatable
 	 * Return if the user either has a position in the school council, has a position in the class council, or is a teacher
 	 * @return bool
 	 */
-	public function getIsPrivilegedAttribute() {
-		return $this->isAdmin || $this->isSamorzad;
+	public function getIsPrivilegedAttribute(): bool {
+		return $this->isSamorzadKlasowy || $this->isSamorzadSzkolny;
 	}
 
 	/**
 	 * Return if the user is a teacher
 	 * @return bool
 	 */
-	public function getIsTeacherAttribute() {
+	public function getIsTeacherAttribute(): bool {
 		return $this->type == "nauczyciel";
-	}
-
-	public function getCanManagePaymentsAttribute() {
-		$teacherWithoutAClass = $this->isTeacher && $this->notManagingAClass;
-		$isAdmin = $this->isAdmin;
-		return !$teacherWithoutAClass && $isAdmin;
 	}
 }
