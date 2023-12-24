@@ -17,7 +17,7 @@
 	<span>Łącznie: {{ count($not_paid) * $payment->amount }} zł</span>
 	<ul class="payment-students">
 		@foreach($not_paid as $user)
-			<li><a href="/skladki/{{ $payment->id }}/{{ $user->id }}">{{ $user->name }}</a></li>
+			<li><a href="/skladki/{{ $payment->id }}/{{ $user["id"] }}">{{ $user["name"] }}</a></li>
 		@endforeach
 	</ul>
 	<a href="/skladki/{{ $payment->id }}/delete" class="payment-card__button">Usuń składkę</a>

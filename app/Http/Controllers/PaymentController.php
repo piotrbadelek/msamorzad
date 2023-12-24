@@ -32,7 +32,9 @@ class PaymentController extends Controller
 		$paid = json_decode($payment->paid);
 
 		// $not_paid is a Collection, $paid is an array.
-		$not_paid = $not_paid->sortBy("name");
+		$not_paid = $not_paid->toArray();
+		$name = array_column($not_paid, "name");
+		array_multisort($name, SORT_ASC, $not_paid);
 		sort($paid);
 
         return view("payment.show", [
