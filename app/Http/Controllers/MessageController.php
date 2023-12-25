@@ -29,16 +29,17 @@ class MessageController extends Controller
 	}
 
 	public function show(Message $message, Request $request) {
-		if (!$request->user()->isSamorzadSzkolny) {
+		if ($request->user()->cannot("respond", $message)) {
 			abort(403);
 		}
+
 		return view("message.show", [
 			"message" => $message
 		]);
 	}
 
 	public function update(Message $message, Request $request) {
-		if (!$request->user()->isSamorzadSzkolny) {
+		if ($request->user()->cannot("respond", $message)) {
 			abort(403);
 		}
 
@@ -53,7 +54,7 @@ class MessageController extends Controller
 	}
 
 	public function deleteForm(Request $request, Message $message) {
-		if (!$request->user()->isSamorzadSzkolny) {
+		if ($request->user()->cannot("delete", $message)) {
 			abort(403);
 		}
 
@@ -63,7 +64,7 @@ class MessageController extends Controller
 	}
 
 	public function delete(Request $request, Message $message) {
-		if (!$request->user()->isSamorzadSzkolny) {
+		if ($request->user()->cannot("delete", $message)) {
 			abort(403);
 		}
 
