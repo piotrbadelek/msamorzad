@@ -13,13 +13,13 @@ class ContestController extends Controller
 
 		return view("contest.list", [
 			"contests" => Contest::latest()->get(),
-			"isSamorzadKlasowy" => $request->user()->isSamorzadKlasowy
+			"canCreateContests" => $request->user()->cannot("create", Contest::class)
 		]);
 	}
 
 	public function show(Contest $contest, Request $request) {
 		$enlisted = json_decode($contest->enlisted);
-		if ($request->user()->isPrivileged) {
+		if ($request->user()->can("listParticipants", $contest)) {
 			$enlisted_names = User::whereIn("id", $enlisted)->get();
 		}
 
@@ -28,14 +28,14 @@ class ContestController extends Controller
 			"user_id" => $request->user()->id,
 			"enlisted" => $enlisted,
 			"enlisted_names" => $enlisted_names ?? [],
-			"is_admin" => $request->user()->isSamorzadKlasowy,
-			"is_wychowawca" => $request->user()->isTeacher
+			"canManageContest" => $request->user()->can("listParticipants", $contest),
+			"canEnlist" => $request->user()->can("enlist", $contest)
 		]);
 	}
 
 	public function enlist(Contest $contest, Request $request)
 	{
-		if ($request->user()->isTeacher) {
+		if ($request->user()->cannot("enlist", $contest)) {
 			abort(403);
 		}
 
@@ -52,7 +52,7 @@ class ContestController extends Controller
 	}
 
 	public function createForm(Request $request) {
-		if (!$request->user()->isPrivileged) {
+		if ($request->user()->cannot("create", Contest::class)) {
 			abort(403);
 		}
 
@@ -60,7 +60,7 @@ class ContestController extends Controller
 	}
 
 	public function deleteForm(Request $request, Contest $contest) {
-		if (!$request->user()->isPrivileged) {
+		if ($request->user()->cannot("delete", $contest)) {
 			abort(403);
 		}
 
@@ -70,7 +70,7 @@ class ContestController extends Controller
 	}
 
 	public function create(Request $request) {
-		if (!$request->user()->isPrivileged) {
+		if ($request->user()->cannot("create", Contest::class)) {
 			abort(403);
 		}
 
@@ -89,7 +89,7 @@ class ContestController extends Controller
 	}
 
 	public function delete(Request $request, Contest $contest) {
-		if (!$request->user()->isPrivileged) {
+		if ($request->user()->cannot("delete", $contest)) {
 			abort(403);
 		}
 

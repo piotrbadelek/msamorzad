@@ -3,8 +3,10 @@
 namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
+use App\Models\Contest;
 use App\Models\Message;
 use App\Models\Payment;
+use App\Policies\ContestPolicy;
 use App\Policies\MessagePolicy;
 use App\Policies\PaymentPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -18,7 +20,8 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         Payment::class => PaymentPolicy::class,
-		Message::class => MessagePolicy::class
+		Message::class => MessagePolicy::class,
+		Contest::class => ContestPolicy::class
     ];
 
     /**

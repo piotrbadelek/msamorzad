@@ -4,7 +4,7 @@
 
 @section("content")
 	<h1>Konkursy</h1>
-	@if($isSamorzadKlasowy)
+	@if($canCreateContests)
 		<a href="/contests/new" class="payment-card__button" id="new_payment">Nowy konkurs</a>
 	@endif
 	@foreach($contests as $contest)

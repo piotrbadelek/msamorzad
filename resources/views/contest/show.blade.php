@@ -5,7 +5,8 @@
 @section("content")
 	<h1>{{ $contest->title }}</h1>
 	<p>{{ $contest->description }}</p>
-	@if($is_admin)
+	@if($canManageContest)
+		<p>Uczestnicy:</p>
 		<ul>
 			@foreach($enlisted_names as $name)
 				<li>{{ $name->name }}</li>
@@ -14,7 +15,7 @@
 	@endif
 	<span class="contest-member-counter">Bierze udział: {{ count($enlisted) }}</span>
 
-	@unless ($is_wychowawca)
+	@if ($canEnlist)
 		@if (in_array($user_id, $enlisted))
 			<a href="/contests/{{ $contest->id }}/enlist" class="payment-card__button">Wycofaj udział</a>
 		@else
@@ -22,6 +23,8 @@
 		@endif
 	@endunless
 
-	<a href="/contests/{{ $contest->id }}/delete" class="payment-card__button">Usuń konkurs</a>
+	@if($canManageContest)
+		<a href="/contests/{{ $contest->id }}/delete" class="payment-card__button">Usuń konkurs</a>
+	@endif
 @endsection
 
