@@ -12,7 +12,8 @@ use Illuminate\Validation\Rules\File;
 
 class AnnouncementController extends Controller
 {
-    public function list(Request $request) {
+	public function list(Request $request)
+	{
 		$announcements = Announcement::latest()->where("global", "1")->orWhere("classunit_id", $request->user()->classunit_id)->get();
 		if ($request->user()->isPrivileged) {
 			$deletionPermissions = [];
@@ -33,13 +34,14 @@ class AnnouncementController extends Controller
 		}
 	}
 
-	public function createForm(Request $request) {
-		if (!$request->user()->isPrivileged) {
+	public function createForm(Request $request)
+	{
+		if ($request->user()->cannot("create", Announcement::class)) {
 			abort(403);
 		}
 
-		$canPostToClass = $request->user()->isSamorzadKlasowy && !($request->user()->isTeacher && $request->user()->notManagingAClass);
-		$canPostGlobally = $request->user()->isSamorzadSzkolny || $request->user()->isTeacher;
+		$canPostToClass = $request->user()->can("postToClass", Announcement::class);
+		$canPostGlobally = $request->user()->can("postGlobally", Announcement::class);
 
 		return view("announcement.create", [
 			"canPostToClass" => $canPostToClass,
@@ -48,13 +50,14 @@ class AnnouncementController extends Controller
 		]);
 	}
 
-	public function create(Request $request) {
-		if (!$request->user()->isPrivileged) {
+	public function create(Request $request)
+	{
+		if ($request->user()->cannot("create", Announcement::class)) {
 			abort(403);
 		}
 
-		$canPostToClass = $request->user()->isSamorzadKlasowy && !($request->user()->isTeacher && $request->user()->notManagingAClass);
-		$canPostGlobally = $request->user()->isSamorzadSzkolny || $request->user()->isTeacher;
+		$canPostToClass = $request->user()->can("postToClass", Announcement::class);
+		$canPostGlobally = $request->user()->can("postGlobally", Announcement::class);
 
 		$data = $request->validate([
 			"title" => ["required", "max:128"],
@@ -84,7 +87,7 @@ class AnnouncementController extends Controller
 
 		if ($request->hasFile("image")) {
 			$path = $request->file("image")->store("public/banners");
-			$announcement->imageUrl = str_replace("public/banners", "/storage/banners",$path);
+			$announcement->imageUrl = str_replace("public/banners", "/storage/banners", $path);
 		}
 
 		$announcement->save();
@@ -92,9 +95,10 @@ class AnnouncementController extends Controller
 		return redirect("/announcements/");
 	}
 
-	protected function verifyDeletionPermissions(User $user, Announcement $announcement): bool {
-		$canPostToClass = $user->isSamorzadKlasowy && !($user->isTeacher && $user->notManagingAClass);
-		$canPostGlobally =$user->isSamorzadSzkolny || $user->isTeacher;
+	protected function verifyDeletionPermissions(User $user, Announcement $announcement): bool
+	{
+		$canPostToClass = $user->can("postToClass", Announcement::class);
+		$canPostGlobally = $user->can("postGlobally", Announcement::class);
 
 		if ((!$canPostGlobally && $announcement->global) || (!$canPostToClass && !$announcement->global)) {
 			return false;
@@ -108,8 +112,9 @@ class AnnouncementController extends Controller
 		return true;
 	}
 
-	public function deleteForm(Request $request, Announcement $announcement) {
-		if (!$request->user()->isPrivileged) {
+	public function deleteForm(Request $request, Announcement $announcement)
+	{
+		if ($request->user()->cannot("delete", $announcement)) {
 			abort(403);
 		}
 
@@ -120,8 +125,9 @@ class AnnouncementController extends Controller
 		]);
 	}
 
-	public function delete(Request $request, Announcement $announcement) {
-		if (!$request->user()->isPrivileged) {
+	public function delete(Request $request, Announcement $announcement)
+	{
+		if ($request->user()->cannot("delete", $announcement)) {
 			abort(403);
 		}
 
