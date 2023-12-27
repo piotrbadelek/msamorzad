@@ -1,6 +1,60 @@
+:root {
+	--md-primary: rgb(80 91 146);
+	--md-surface-tint: rgb(80 91 146);
+	--md-on-primary: rgb(255 255 255);
+	--md-primary-container: rgb(222 225 255);
+	--md-on-primary-container: rgb(9 22 75);
+	--md-secondary: rgb(90 93 114);
+	--md-on-secondary: rgb(255 255 255);
+	--md-secondary-container: rgb(223 225 249);
+	--md-on-secondary-container: rgb(23 26 44);
+	--md-tertiary: rgb(118 84 110);
+	--md-on-tertiary: rgb(255 255 255);
+	--md-tertiary-container: rgb(255 215 242);
+	--md-on-tertiary-container: rgb(45 18 40);
+	--md-error: rgb(186 26 26);
+	--md-on-error: rgb(255 255 255);
+	--md-error-container: rgb(255 218 214);
+	--md-on-error-container: rgb(65 0 2);
+	--md-background: rgb(251 248 255);
+	--md-on-background: rgb(27 27 33);
+	--md-surface: rgb(251 248 255);
+	--md-on-surface: rgb(27 27 33);
+	--md-surface-variant: rgb(227 225 236);
+	--md-on-surface-variant: rgb(70 70 79);
+	--md-outline: rgb(118 118 128);
+	--md-outline-variant: rgb(198 197 208);
+	--md-shadow: rgb(0 0 0);
+	--md-scrim: rgb(0 0 0);
+	--md-inverse-surface: rgb(48 48 54);
+	--md-inverse-on-surface: rgb(242 240 247);
+	--md-inverse-primary: rgb(185 195 255);
+	--md-primary-fixed: rgb(222 225 255);
+	--md-on-primary-fixed: rgb(9 22 75);
+	--md-primary-fixed-dim: rgb(185 195 255);
+	--md-on-primary-fixed-variant: rgb(56 67 121);
+	--md-secondary-fixed: rgb(223 225 249);
+	--md-on-secondary-fixed: rgb(23 26 44);
+	--md-secondary-fixed-dim: rgb(195 197 221);
+	--md-on-secondary-fixed-variant: rgb(67 70 89);
+	--md-tertiary-fixed: rgb(255 215 242);
+	--md-on-tertiary-fixed: rgb(45 18 40);
+	--md-tertiary-fixed-dim: rgb(229 186 216);
+	--md-on-tertiary-fixed-variant: rgb(93 60 85);
+	--md-surface-dim: rgb(219 217 224);
+	--md-surface-bright: rgb(251 248 255);
+	--md-surface-container-lowest: rgb(255 255 255);
+	--md-surface-container-low: rgb(245 242 250);
+	--md-surface-container: rgb(239 237 244);
+	--md-surface-container-high: rgb(233 231 239);
+	--md-surface-container-highest: rgb(227 225 233);
+}
+
 body {
     font-family: Inter, -system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, sans-serif;
     line-height: 1.625;
+	background-color: var(--md-surface);
+	color: var(--md-on-surface);
 }
 
 header {
@@ -21,7 +75,7 @@ main {
 
 .card {
     border-radius: 0.75rem;
-    background: #FEF7FF;
+    background: var(--md-surface-container);
 }
 
 .card img {
@@ -35,7 +89,7 @@ main {
     margin-left: 1rem;
     font-size: 1.25rem;
     font-weight: 500;
-    color: black;
+    color: var(--md-on-surface);
 }
 
 .card-container {
@@ -45,7 +99,7 @@ main {
 .payment-card {
     border-radius: 12px;
     display: flex;
-    background-color: #FEF7FF;
+    background-color: var(--md-surface-container);
     flex-direction: row;
     padding: 16px;
     margin-bottom: 1rem;
@@ -61,9 +115,9 @@ main {
 
 button, .payment-card__button {
     border-radius: 100px;
-    background-color: #6750A4;
+    background-color: var(--md-primary);
     border: none;
-    color: white;
+    color: var(--md-on-primary);
     padding: 10px 24px;
     font-weight: 500;
     font-family: inherit;
@@ -84,11 +138,11 @@ button:disabled, .payment-card__button:disabled {
 }
 
 .payment-students li {
-	background-color: #fef7ff;
+	background-color: var(--md-surface-container);
 	margin: .75rem 0;
 	padding: .5rem 1rem;
 	border-radius: 12px;
-	border: 1px solid #cac4d0;
+	border: 1px solid var(--md-surface-container-highest);
 }
 
 .payment-students a {
@@ -135,16 +189,17 @@ dialog {
 input {
     display: block;
     border-radius: 4px;
-    border: 1px solid #79747E;
+    border: 1px solid var(--md-outline);
     padding: 8px 0 8px 16px;
     width: 85vw;
     margin-bottom: 1rem;
 	font-family: inherit;
+	background-color: var(--md-surface);
 }
 
 .message {
 	border-radius: .75rem;
-	background-color: #fef7ff;
+	background-color: var(--md-surface-container);
 	padding: 1rem;
 	margin-bottom: 1rem;
 }
@@ -189,17 +244,18 @@ input {
 
 .appver {
 	text-align: center;
-	color: #CCC2DC;
+	color: var(--md-on-surface-variant);
 }
 
 textarea {
-	border: none;
 	font-family: inherit;
 	border-radius: 9px;
 	padding: 1rem;
 	box-sizing: border-box;
 	width: 86vw;
 	display: block;
+	border: 1px solid var(--md-outline);
+	background-color: var(--md-surface);
 }
 
 .search-label {
@@ -239,31 +295,48 @@ textarea {
 }
 
 @media (prefers-color-scheme: dark) {
-	body {
-		background: #141218;
-		color: white;
+	:root {
+		--md-primary: rgb(185 195 255);
+		--md-surface-tint: rgb(185 195 255);
+		--md-on-primary: rgb(33 44 97);
+		--md-primary-container: rgb(56 67 121);
+		--md-on-primary-container: rgb(222 225 255);
+		--md-secondary: rgb(195 197 221);
+		--md-on-secondary: rgb(44 47 66);
+		--md-secondary-container: rgb(67 70 89);
+		--md-on-secondary-container: rgb(223 225 249);
+		--md-tertiary: rgb(229 186 216);
+		--md-on-tertiary: rgb(68 38 62);
+		--md-tertiary-container: rgb(93 60 85);
+		--md-on-tertiary-container: rgb(255 215 242);
+		--md-error: rgb(255 180 171);
+		--md-on-error: rgb(105 0 5);
+		--md-error-container: rgb(147 0 10);
+		--md-on-error-container: rgb(255 218 214);
+		--md-background: rgb(18 19 24);
+		--md-on-background: rgb(227 225 233);
+		--md-surface: rgb(18 19 24);
+		--md-on-surface: rgb(227 225 233);
+		--md-surface-variant: rgb(70 70 79);
+		--md-on-surface-variant: rgb(198 197 208);
+		--md-outline: rgb(144 144 154);
+		--md-outline-variant: rgb(70 70 79);
+		--md-shadow: rgb(0 0 0);
+		--md-scrim: rgb(0 0 0);
+		--md-inverse-surface: rgb(227 225 233);
+		--md-inverse-on-surface: rgb(48 48 54);
+		--md-inverse-primary: rgb(80 91 146);
+		--md-surface-dim: rgb(18 19 24);
+		--md-surface-bright: rgb(56 57 63);
+		--md-surface-container-lowest: rgb(13 14 19);
+		--md-surface-container-low: rgb(27 27 33);
+		--md-surface-container: rgb(31 31 37);
+		--md-surface-container-high: rgb(41 42 47);
+		--md-surface-container-highest: rgb(52 52 58);
 	}
 
 	a {
 		color: lightblue;
-	}
-
-	button, .payment-card__button {
-		background-color: #D0BCFF;
-		color: #381E72;
-	}
-
-	.card, .payment-card, .message {
-		background-color: #322F35;
-	}
-
-	.card_content {
-		color: white;
-	}
-
-	.payment-students li {
-		background-color: #322F35;
-		border: 1px solid #4A4458;
 	}
 
 	.payment-students a {
