@@ -8,7 +8,7 @@
 		@csrf
 		<p>Wyślij zapytanie do samorządu szkolnego</p>
 		<label for="question">Treść</label><br>
-		<textarea name="question" id="question" cols="30" rows="10" maxlength="800" required></textarea><br>
+		<textarea name="question" id="question" cols="30" rows="10" maxlength="800" required></textarea>
 		<button type="submit">Wyślij</button>
 	</form>
 	<label for="search" class="search-label">Wyszukaj pytanie</label>

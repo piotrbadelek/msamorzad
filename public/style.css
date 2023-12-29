@@ -258,6 +258,7 @@ textarea {
 	display: block;
 	border: 1px solid var(--md-outline);
 	background-color: var(--md-surface);
+	margin-bottom: 1rem;
 }
 
 .search-label {
