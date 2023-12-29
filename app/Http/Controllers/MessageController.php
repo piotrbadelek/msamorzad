@@ -11,7 +11,7 @@ class MessageController extends Controller
 		$messages = Message::latest()->take(20)->get();
 		return view("message.list", [
 			"messages" => $messages,
-			"isSamorzadKlasowy" => $request->user()->isSamorzadKlasowy
+			"isSamorzadSzkolny" => $request->user()->isSamorzadSzkolny
 		]);
 	}
 

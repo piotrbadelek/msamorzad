@@ -71,6 +71,8 @@ header a {
 main {
     width: 90vw;
     margin: 0 auto;
+	min-height: 90vh;
+	position: relative;
 }
 
 .card {
@@ -275,6 +277,31 @@ textarea {
 	display: block;
 	margin-bottom: .75rem;
 }
+
+.no-entries {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	color: var(--md-on-primary-container);
+	text-align: center;
+}
+
+.no-entries svg {
+	display: block;
+	margin: 0 auto;
+}
+
+.no-entries b {
+	font-size: 1.5rem;
+}
+
+.no-entries--messages {
+	position: static;
+	transform: none;
+}
+
+/* Media queries */
 
 @media (min-width: 768px) {
 	.card {

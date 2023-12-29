@@ -13,13 +13,17 @@
 	</form>
 	<label for="search" class="search-label">Wyszukaj pytanie</label>
 	<input type="search" name="search" id="search" onkeyup="search();">
+	@if (sizeof($messages) > 0)
 	@foreach($messages as $message)
-		@if($isSamorzadKlasowy)
+		@if($isSamorzadSzkolny)
 			<x-message :id="$message->id" :question="$message->question" :response="$message->response" :username="$message->user->name"></x-message>
 		@else
 			@if ($message->response)
-				<x-message :id="$message->id" :question="$message->question"></x-message>
+				<x-message :id="$message->id" :question="$message->question" :response="$message->response"></x-message>
 			@endif
 		@endif
 	@endforeach
+	@else
+		<x-no-entries type="message" />
+	@endif
 @endsection

@@ -13,7 +13,7 @@ class ContestController extends Controller
 
 		return view("contest.list", [
 			"contests" => Contest::latest()->get(),
-			"canCreateContests" => $request->user()->cannot("create", Contest::class)
+			"canCreateContests" => $request->user()->can("create", Contest::class)
 		]);
 	}
 
