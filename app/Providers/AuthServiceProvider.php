@@ -7,11 +7,13 @@ use App\Models\Announcement;
 use App\Models\Contest;
 use App\Models\Message;
 use App\Models\Payment;
+use App\Models\User;
 use App\Policies\AnnouncementPolicy;
 use App\Policies\ContestPolicy;
 use App\Policies\MessagePolicy;
 use App\Policies\PaymentPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -32,6 +34,8 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+		Gate::define('viewPulse', function (User $user) {
+			return $user->isAdministrator;
+		});
     }
 }

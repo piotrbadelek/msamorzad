@@ -16,12 +16,12 @@
 			<p class="card_content">Klasy</p>
 		</div>
 	</a>
-	{{--<a href="/admin" class="card-container">
+	<a href="/pulse" class="card-container">
 		<div class="card">
 			<img src="/img/statistics.webp" alt="Statystyki">
 			<p class="card_content">Statystyki</p>
 		</div>
-	</a>--}}
+	</a>
 	<a href="/" class="card-container">
 		<div class="card">
 			<img src="/img/backwards.webp" alt="Wyjdź">
