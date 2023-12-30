@@ -20,5 +20,5 @@
 			<li><a href="/skladki/{{ $payment->id }}/{{ $user["id"] }}">{{ $user["name"] }}</a></li>
 		@endforeach
 	</ul>
-	<a href="/skladki/{{ $payment->id }}/delete" class="payment-card__button">Usuń składkę</a>
+	<a href="/skladki/{{ $payment->id }}/delete" class="button">Usuń składkę</a>
 @endsection

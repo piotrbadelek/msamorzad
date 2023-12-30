@@ -17,5 +17,5 @@
 	</form>
 	<br>
 
-	<a href="/messages/{{ $message->id }}/delete" class="payment-card__button">Usuń wiadomość</a>
+	<a href="/messages/{{ $message->id }}/delete" class="button">Usuń wiadomość</a>
 @endsection

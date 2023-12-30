@@ -5,7 +5,7 @@
 @section("content")
 	<h1>Konkursy</h1>
 	@if($canCreateContests)
-		<a href="/contests/new" class="payment-card__button" id="new_payment">Nowy konkurs</a>
+		<a href="/contests/new" class="button" id="new_payment">Nowy konkurs</a>
 	@endif
 	@if (sizeof($contests) > 0)
 	@foreach($contests as $contest)

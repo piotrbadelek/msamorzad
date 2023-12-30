@@ -35,6 +35,14 @@
 			<p class="card_content">Zgłoś problem / sugestię</p>
 		</div>
 	</a>
+	@if($user->isAdministrator)
+		<a href="/admin" class="card-container">
+			<div class="card">
+				<img src="/img/admin.webp" alt="Administracja">
+				<p class="card_content">Administracja</p>
+			</div>
+		</a>
+	@endif
 	<form action="/logout" method="post">
 		@csrf
 		<button type="submit">Wyloguj</button>

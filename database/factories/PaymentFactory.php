@@ -22,7 +22,8 @@ class PaymentFactory extends Factory
             "title" => $skladki[array_rand($skladki)],
             "classunit_id" => rand(1, 5),
             "deadline" => date('Y-m-d H:i:s',time() + 604800),
-            "paid" => "[]"
+            "paid" => "[]",
+			"isGlobal" => false
         ];
     }
 }

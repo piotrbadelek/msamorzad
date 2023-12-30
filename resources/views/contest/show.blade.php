@@ -17,14 +17,14 @@
 
 	@if ($canEnlist)
 		@if (in_array($user_id, $enlisted))
-			<a href="/contests/{{ $contest->id }}/enlist" class="payment-card__button">Wycofaj udział</a>
+			<a href="/contests/{{ $contest->id }}/enlist" class="button">Wycofaj udział</a>
 		@else
-			<a href="/contests/{{ $contest->id }}/enlist" class="payment-card__button">Weź udział</a>
+			<a href="/contests/{{ $contest->id }}/enlist" class="button">Weź udział</a>
 		@endif
 	@endunless
 
 	@if($canManageContest)
-		<a href="/contests/{{ $contest->id }}/delete" class="payment-card__button">Usuń konkurs</a>
+		<a href="/contests/{{ $contest->id }}/delete" class="button">Usuń konkurs</a>
 	@endif
 @endsection
 

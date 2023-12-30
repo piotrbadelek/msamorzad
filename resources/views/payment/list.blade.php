@@ -5,7 +5,7 @@
 @section("content")
 	@if($user->can("create", \App\Models\Payment::class))
 		<h1>Składki w klasie</h1>
-		<a href="/skladki/new" class="payment-card__button" id="new_payment">Nowa składka</a>
+		<a href="/skladki/new" class="button" id="new_payment">Nowa składka</a>
 	@else
 		<h1>Twoje składki</h1>
 	@endif
@@ -31,12 +31,12 @@
 				</div>
 
 				@if ($user->can("details", $payment))
-					<a href="/skladki/{{ $payment->id }}" class="payment-card__button">Szczegóły</a>
+					<a href="/skladki/{{ $payment->id }}" class="button">Szczegóły</a>
 				@else
 					@if (!in_array($user->id, json_decode($payment["paid"])))
-						{{-- <button class="payment-card__button">Zapłać</button> --}}
+						{{-- <button class="button">Zapłać</button> --}}
 					@else
-						<button class="payment-card__button" disabled>Opłacone</button>
+						<button class="button" disabled>Opłacone</button>
 					@endif
 				@endif
 			</div>

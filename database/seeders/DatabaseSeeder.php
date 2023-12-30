@@ -27,11 +27,20 @@ class DatabaseSeeder extends Seeder
 		\App\Models\User::factory()->create([
 			'username' => 'test.teacher',
 			'type' => 'nauczyciel',
-			"notManagingAClass" => false
+			"notManagingAClass" => false,
+			"isAdministrator" => true
 		]);
 
 		\App\Models\User::factory()->create([
 			'username' => 'test.admin',
+			'type' => 'student',
+			'samorzadType' => 'student',
+			"isAdministrator" => true
+		]);
+
+		\App\Models\User::factory()->create([
+			"name" => "Konto usunięte",
+			'username' => 'ghost',
 			'type' => 'student',
 			'samorzadType' => 'student',
 			"isAdministrator" => true

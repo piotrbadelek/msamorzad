@@ -10,5 +10,5 @@
 		@method("delete")
 		<button type="submit">Usuń</button>
 	</form>
-	<a href="/contests/{{ $contest->id }}" class="payment-card__button cancel-deletion">Anuluj</a>
+	<a href="/contests/{{ $contest->id }}" class="button cancel-deletion">Anuluj</a>
 @endsection

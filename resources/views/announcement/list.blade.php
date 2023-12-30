@@ -5,7 +5,7 @@
 @section("content")
 	<h1>Ogłoszenia</h1>
 	@if($isPrivileged)
-		<a href="/announcements/new" class="payment-card__button" id="new_payment">Nowe ogłoszenie</a>
+		<a href="/announcements/new" class="button" id="new_payment">Nowe ogłoszenie</a>
 	@endif
 	@if (sizeof($announcements) > 0)
 		@foreach($announcements as $announcement)
@@ -21,7 +21,7 @@
 					@endif
 
 					@if ($isPrivileged && $deletionPermissions["a-" . $announcement->id])
-						<a href="/announcements/{{ $announcement->id }}/delete" class="payment-card__button">Usuń
+						<a href="/announcements/{{ $announcement->id }}/delete" class="button">Usuń
 							ogłoszenie</a>
 					@endif
 				</div>

@@ -43,7 +43,7 @@ class SessionController extends Controller
 
 		User::whereId(auth()->user()->id)->update([
 			"password" => Hash::make($credentials["password"]),
-			"hasNotChangedPassword" => false
+			"hasNotChangedPassword" => true
 		]);
 
 		return \redirect("/");

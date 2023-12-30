@@ -115,7 +115,7 @@ main {
     display: block;
 }
 
-button, .payment-card__button {
+button, .button {
     border-radius: 100px;
     background-color: var(--md-primary);
     border: none;
@@ -129,9 +129,13 @@ button, .payment-card__button {
     display: inline-block;
 }
 
-button:disabled, .payment-card__button:disabled {
+button:disabled, .button:disabled {
     background-color: #1D1B201F;
     color: #1D1B20;
+}
+
+.button-margin {
+	margin-right: 1rem;
 }
 
 .payment-students {
@@ -302,6 +306,12 @@ textarea {
 	transform: none;
 }
 
+#cardCanvas {
+	background-color: white;
+	display: block;
+	margin-top: 1rem;
+}
+
 /* Media queries */
 
 @media (min-width: 768px) {
@@ -379,6 +389,15 @@ textarea {
 }
 
 /* Fonts */
+
+/* inter-300 - latin */
+@font-face {
+	font-display: swap;
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 300;
+	src: url("/fonts/inter-v13-latin-ext-300.woff2") format("woff2");
+}
 
 /* inter-regular - latin */
 @font-face {

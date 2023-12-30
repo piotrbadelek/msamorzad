@@ -10,5 +10,5 @@
 		@method("delete")
 		<button type="submit">Usuń</button>
 	</form>
-	<a href="/announcements" class="payment-card__button cancel-deletion">Anuluj</a>
+	<a href="/announcements" class="button cancel-deletion">Anuluj</a>
 @endsection
