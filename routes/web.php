@@ -20,8 +20,11 @@ Route::get("/future", function () {
 
 Route::get("/login", [\App\Http\Controllers\SessionController::class, "login"])->name("login");
 Route::post("/login", [\App\Http\Controllers\SessionController::class, "authenticate"]);
+Route::get("/change-password", [\App\Http\Controllers\SessionController::class, "changePassword"])->middleware("auth");
+Route::post("/change-password", [\App\Http\Controllers\SessionController::class, "update"])->middleware("auth");
+Route::post("/logout", [\App\Http\Controllers\SessionController::class, "logout"])->middleware("auth");
 
-Route::middleware(["auth"])->group(function() {
+Route::middleware(["auth", "password.changed"])->group(function() {
 	Route::get('/', function (\Illuminate\Http\Request $request) {
 		if ($request->user()->hasNotChangedPassword) {
 			return redirect("/change-password?changingForFirstTime=true");
@@ -60,10 +63,6 @@ Route::middleware(["auth"])->group(function() {
 	Route::get("/announcements/{announcement:id}/delete", [\App\Http\Controllers\AnnouncementController::class, "deleteForm"]);
 	Route::delete("/announcements/{announcement:id}", [\App\Http\Controllers\AnnouncementController::class, "delete"]);
 
-	Route::get("/change-password", [\App\Http\Controllers\SessionController::class, "changePassword"]);
-	Route::post("/change-password", [\App\Http\Controllers\SessionController::class, "update"]);
-	Route::post("/logout", [\App\Http\Controllers\SessionController::class, "logout"]);
-
 	Route::post("/push", [\App\Http\Controllers\NotificationController::class, "subscribe"]);
 
 	Route::view("/confirm-password", "confirm_password")->name("password.confirm");
@@ -78,9 +77,11 @@ Route::middleware(["auth"])->group(function() {
 
 		return redirect()->intended();
 	})->middleware(['auth', 'throttle:6,1']);
+
+	Route::view("/oobe", "oobe");
 });
 
-Route::middleware(["auth", "admin"])->group(function() {
+Route::middleware(["auth", "admin", "password.changed"])->group(function() {
 	Route::get("/admin", [\App\Http\Controllers\AdminController::class, "list"]);
 	Route::get("/admin/user", [\App\Http\Controllers\UserController::class, "list"]);
 	Route::get("/admin/user/new", [\App\Http\Controllers\UserController::class, "createForm"]);
