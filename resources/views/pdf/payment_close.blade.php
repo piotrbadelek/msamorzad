@@ -72,7 +72,7 @@
 
 @if (count($paid) > 0)
 <p>@foreach($paid as $user)
-		{{ $user->name }},
+		{{ \App\Models\User::where("id", $user)->first()->name }},
 	@endforeach</p>
 @else
 	<p><i>Brak</i></p>

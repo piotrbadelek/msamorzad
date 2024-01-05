@@ -21,4 +21,5 @@
 		@endforeach
 	</ul>
 	<a href="/skladki/{{ $payment->id }}/delete" class="button">Usuń składkę</a>
+	<a href="/skladki/{{ $payment->id }}/pdf" class="button">Pobierz potwierdzenie zamknięcia składki</a>
 @endsection
