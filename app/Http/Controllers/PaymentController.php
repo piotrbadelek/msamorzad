@@ -12,24 +12,28 @@ use Illuminate\Support\Str;
 
 class PaymentController extends Controller
 {
-    public function view(Request $request) {
+	public function view(Request $request)
+	{
 		if ($request->user()->isTeacher && $request->user()->notManagingAClass) {
 			abort(403);
 		}
 
-        $payments = Payment::where("classunit_id", $request->user()->classunit_id)->get();
-        return view("payment.list", [
-            "payments" => $payments,
-            "user" => $request->user()
-        ]);
-    }
+		$payments = Payment::where("classunit_id", $request->user()->classunit_id)->get();
+		return view("payment.list", [
+			"payments" => $payments,
+			"user" => $request->user()
+		]);
+	}
 
-    public function details(Payment $payment, Request $request) {
+	public function details(Payment $payment, Request $request)
+	{
 		if ($request->user()->cannot("details", $payment)) {
 			abort(403);
 		}
 
-        $not_paid = User::whereNotIn("id", json_decode($payment->paid))->where('type', '!=', 'nauczyciel')->get();
+		$not_paid = User::whereNotIn("id", json_decode($payment->paid))
+			->where('type', '!=', 'nauczyciel')
+			->where("classunit_id", "=", $payment->classunit_id)->get();
 		$paid = json_decode($payment->paid);
 
 		// $not_paid is a Collection, $paid is an array.
@@ -38,41 +42,44 @@ class PaymentController extends Controller
 		array_multisort($name, SORT_ASC, $not_paid);
 		sort($paid);
 
-        return view("payment.show", [
-            "payment" => $payment,
-            "not_paid" => $not_paid,
-            "paid" => $paid
-        ]);
-    }
+		return view("payment.show", [
+			"payment" => $payment,
+			"not_paid" => $not_paid,
+			"paid" => $paid
+		]);
+	}
 
-    public function pay(Payment $payment, Int $userid, Request $request) {
+	public function pay(Payment $payment, int $userid, Request $request)
+	{
 		if ($request->user()->cannot("pay", $payment)) {
 			abort(403);
 		}
 
-        $paymentPaid = json_decode($payment->paid);
-        if (in_array($userid, $paymentPaid)) {
-            $key = array_search($userid, $paymentPaid);
-            array_splice($paymentPaid, $key, 1);
-        } else {
-            $paymentPaid[] = $userid;
-        }
-        $payment->update(["paid" => json_encode($paymentPaid)]);
-        $payment->save();
-        return redirect()->back();
-    }
+		$paymentPaid = json_decode($payment->paid);
+		if (in_array($userid, $paymentPaid)) {
+			$key = array_search($userid, $paymentPaid);
+			array_splice($paymentPaid, $key, 1);
+		} else {
+			$paymentPaid[] = $userid;
+		}
+		$payment->update(["paid" => json_encode($paymentPaid)]);
+		$payment->save();
+		return redirect()->back();
+	}
 
-    public function createForm(Request $request) {
+	public function createForm(Request $request)
+	{
 		if ($request->user()->cannot("create", Payment::class)) {
 			abort(403);
 		}
 
-        return view("payment.create", [
-            "classUnitSize" =>  User::count("classunit_id", $request->user()->classunit_id)
-        ]);
-    }
+		return view("payment.create", [
+			"classUnitSize" => User::count("classunit_id", $request->user()->classunit_id)
+		]);
+	}
 
-	public function deleteForm(Request $request, Payment $payment) {
+	public function deleteForm(Request $request, Payment $payment)
+	{
 		if ($request->user()->cannot("delete", $payment)) {
 			abort(403);
 		}
@@ -82,32 +89,34 @@ class PaymentController extends Controller
 		]);
 	}
 
-    public function create(Request $request) {
+	public function create(Request $request)
+	{
 		if ($request->user()->cannot("create", Payment::class)) {
 			abort(403);
 		}
 
-        $data = $request->validate([
-            "money" => ["required", "numeric", "max:999"],
-            "title" => ["required", "min:3", "max:80"],
-            "deadline" => ["required", "date", "after:tomorrow"]
-        ]);
+		$data = $request->validate([
+			"money" => ["required", "numeric", "max:999"],
+			"title" => ["required", "min:3", "max:80"],
+			"deadline" => ["required", "date", "after:tomorrow"]
+		]);
 
-        $payment = new Payment;
-        $payment->amount = $data["money"];
-        $payment->title = $data["title"];
-        $payment->deadline = $data["deadline"];
-        $payment->classunit_id = $request->user()->classunit_id;
-        $payment->paid = "[]";
-        $payment->save();
+		$payment = new Payment;
+		$payment->amount = $data["money"];
+		$payment->title = $data["title"];
+		$payment->deadline = $data["deadline"];
+		$payment->classunit_id = $request->user()->classunit_id;
+		$payment->paid = "[]";
+		$payment->save();
 
 		$users = $request->user()->classUnit->users;
 		Notification::sendNow($users, new PaymentCreated($payment->title));
 
-        return redirect("/skladki/" . $payment->id);
-    }
+		return redirect("/skladki/" . $payment->id);
+	}
 
-	public function delete(Request $request, Payment $payment) {
+	public function delete(Request $request, Payment $payment)
+	{
 		if ($request->user()->cannot("delete", $payment)) {
 			abort(403);
 		}
@@ -116,7 +125,8 @@ class PaymentController extends Controller
 		return redirect("/skladki/");
 	}
 
-	public function generatePaymentConfirmation(Payment $payment, Request $request) {
+	public function generatePaymentConfirmation(Payment $payment, Request $request)
+	{
 		// TODO: Refactor duplicated code fragment into a method
 		if ($request->user()->cannot("details", $payment)) {
 			abort(403);
