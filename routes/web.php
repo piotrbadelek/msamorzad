@@ -38,6 +38,7 @@ Route::middleware(["auth", "password.changed"])->group(function() {
 	Route::get('/skladki/new', [\App\Http\Controllers\PaymentController::class, "createForm"]);
 	Route::get("/skladki/{payment:id}", [\App\Http\Controllers\PaymentController::class, "details"]);
 	Route::get("/skladki/{payment:id}/delete", [\App\Http\Controllers\PaymentController::class, "deleteForm"]);
+	Route::get("/skladki/{payment:id}/pdf", [\App\Http\Controllers\PaymentController::class, "generatePaymentConfirmation"]);
 	Route::get("/skladki/{payment:id}/{id}", [\App\Http\Controllers\PaymentController::class, "pay"]);
 	Route::post("/skladki/new", [\App\Http\Controllers\PaymentController::class, "create"]);
 	Route::delete("/skladki/{payment:id}", [\App\Http\Controllers\PaymentController::class, "delete"]);

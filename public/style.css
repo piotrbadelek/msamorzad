@@ -312,6 +312,10 @@ textarea {
 	margin-top: 1rem;
 }
 
+.oobe-view img {
+	width: 100%;
+}
+
 /* Media queries */
 
 @media (min-width: 768px) {
@@ -329,6 +333,21 @@ textarea {
 
 	.card {
 		margin-bottom: 1rem;
+	}
+
+	.oobe-view {
+		display: flex;
+		gap: 2rem;
+	}
+
+	.oobe-view img {
+		width: 50%;
+		max-height: 90vh;
+		object-fit: contain;
+	}
+
+	.oobe-view__content {
+		width: 50%;
 	}
 }
 

@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Notifications\PaymentCreated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Str;
 
 class PaymentController extends Controller
 {
@@ -113,5 +114,29 @@ class PaymentController extends Controller
 
 		$payment->delete();
 		return redirect("/skladki/");
+	}
+
+	public function generatePaymentConfirmation(Payment $payment, Request $request) {
+		// TODO: Refactor duplicated code fragment into a method
+		if ($request->user()->cannot("details", $payment)) {
+			abort(403);
+		}
+
+		$not_paid = User::whereNotIn("id", json_decode($payment->paid))->where('type', '!=', 'nauczyciel')->get();
+		$paid = json_decode($payment->paid);
+
+		// $not_paid is a Collection, $paid is an array.
+		$not_paid = $not_paid->toArray();
+		$name = array_column($not_paid, "name");
+		array_multisort($name, SORT_ASC, $not_paid);
+		sort($paid);
+
+		$pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView("pdf.payment_close", [
+			"payment" => $payment,
+			"not_paid" => $not_paid,
+			"paid" => $paid
+		]);
+
+		return $pdf->download("payment_closed_" . Str::of($payment->title)->slug() . ".pdf");
 	}
 }
