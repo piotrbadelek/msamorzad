@@ -37,11 +37,13 @@ let installPrompt = null;
 const installButton = document.querySelector("#installButton");
 const installDialouge = document.querySelector("#installDialogue");
 
-window.addEventListener("beforeinstallprompt", (event) => {
-	event.preventDefault();
-	installPrompt = event;
-	installDialouge.open = true;
-});
+if (!$("[data-dont-show-notif-prompt]")) {
+	window.addEventListener("beforeinstallprompt", (event) => {
+		event.preventDefault();
+		installPrompt = event;
+		installDialouge.open = true;
+	});
+}
 
 installButton.addEventListener("click", async () => {
 	if (!installPrompt) {
@@ -90,7 +92,7 @@ function initSW() {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-	const requestNotificationPermission = async () => {
+	window.requestNotificationPermission = async () => {
 		// Fix for iOS on versions before 16.4, as push notifications
 		// are not supported on these versions.
 		if (typeof Notification !== "undefined") {
@@ -107,7 +109,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 });
 
-function initPush() {
+function initPush(callback) {
 	if (!swReady) {
 		return;
 	}
@@ -125,14 +127,14 @@ function initPush() {
 			if (permissionResult !== 'granted') {
 				throw new Error('We weren\'t granted permission.');
 			}
-			subscribeUser();
+			subscribeUser(callback);
 		});
 }
 
 /**
  * Subscribe the user to push
  */
-function subscribeUser() {
+function subscribeUser(callback) {
 	swReady
 		.then((registration) => {
 			const subscribeOptions = {
@@ -147,7 +149,7 @@ function subscribeUser() {
 		.then((pushSubscription) => {
 			console.log('Received PushSubscription: ', JSON.stringify(pushSubscription));
 			setTimeout(() => {
-				storePushSubscription(pushSubscription);
+				storePushSubscription(pushSubscription, callback);
 			}, 500)
 		});
 }
@@ -155,8 +157,9 @@ function subscribeUser() {
 /**
  * send PushSubscription to server with AJAX.
  * @param {object} pushSubscription
+ * @param callback
  */
-function storePushSubscription(pushSubscription) {
+function storePushSubscription(pushSubscription, callback) {
 	const token = document.querySelector('meta[name=csrf-token]').getAttribute('content');
 
 	fetch('/push', {
@@ -173,7 +176,10 @@ function storePushSubscription(pushSubscription) {
 		})
 		.then((res) => {
 			console.log(res);
-			$("#notificationDialogue").open = false;
+			callback();
+			if (!callback) {
+				$("#notificationDialogue").open = false;
+			}
 		})
 		.catch((err) => {
 			console.log(err)
@@ -202,7 +208,7 @@ function urlBase64ToUint8Array(base64String) {
 
 if (store("notificationsDelayed")) {
 	if (Math.floor(Math.random() * 100) > 98) {
-		store("notificationsDelayed", "3");
+		store("notificationsDelayed", "");
 	}
 }
 

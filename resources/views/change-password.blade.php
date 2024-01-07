@@ -3,7 +3,7 @@
 @section("title", "Zmień hasło - samorząd II LO")
 
 @section("content")
-	<h1>Zmień hasło</h1>
+	<h1 data-dont-show-notif-prompt>Zmień hasło</h1>
 	@if($changingForFirstTime)
 		<h2>Po pierwszym zalogowaniu do aplikacji musisz zmienić hasło ze względów bezpieczeństwa.</h2>
 	@endif

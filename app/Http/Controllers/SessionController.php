@@ -46,7 +46,7 @@ class SessionController extends Controller
 			"hasNotChangedPassword" => false
 		]);
 
-		return \redirect("/");
+		return \redirect("/oobe");
 	}
 
 	public function logout(Request $request) {

@@ -184,8 +184,8 @@ dialog {
 }
 
 .not-primary {
-	background: #E8DEF8;
-	color: #1D192B;
+	background: var(--md-secondary-container);
+	color: var(--md-on-secondary-container);
 }
 
 #new_payment {
@@ -314,6 +314,20 @@ textarea {
 
 .oobe-view img {
 	width: 100%;
+}
+
+.hidden {
+	display: none !important;
+}
+
+.oobe-view header {
+	font-size: 2rem;
+	font-weight: bold;
+	text-align: start;
+}
+
+.oobe-no-image {
+	display: block !important;
 }
 
 /* Media queries */

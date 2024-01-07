@@ -16,5 +16,5 @@
 @endsection
 
 @section("scripts")
-	<script src="/admin.js?v=1" defer></script>
+	<script src="/js/admin.js?v=1" defer></script>
 @endsection
