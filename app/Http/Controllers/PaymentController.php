@@ -31,16 +31,8 @@ class PaymentController extends Controller
 			abort(403);
 		}
 
-		$not_paid = User::whereNotIn("id", json_decode($payment->paid))
-			->where('type', '!=', 'nauczyciel')
-			->where("classunit_id", "=", $payment->classunit_id)->get();
-		$paid = json_decode($payment->paid);
-
-		// $not_paid is a Collection, $paid is an array.
-		$not_paid = $not_paid->toArray();
-		$name = array_column($not_paid, "name");
-		array_multisort($name, SORT_ASC, $not_paid);
-		sort($paid);
+		$not_paid = $this->getNotPaidUsers($payment);
+		$paid = $this->getPaidUsers($payment);		sort($paid);
 
 		return view("payment.show", [
 			"payment" => $payment,
@@ -53,6 +45,10 @@ class PaymentController extends Controller
 	{
 		if ($request->user()->cannot("pay", $payment)) {
 			abort(403);
+		}
+
+		if (User::where("id", $userid)->first()->classunit_id !== $payment->classunit_id) {
+			abort(400);
 		}
 
 		$paymentPaid = json_decode($payment->paid);
@@ -133,16 +129,8 @@ class PaymentController extends Controller
 		}
 
 
-		$not_paid = User::whereNotIn("id", json_decode($payment->paid))
-			->where('type', '!=', 'nauczyciel')
-			->where("classunit_id", "=", $payment->classunit_id)->get();
-		$paid = json_decode($payment->paid);
-
-		// $not_paid is a Collection, $paid is an array.
-		$not_paid = $not_paid->toArray();
-		$name = array_column($not_paid, "name");
-		array_multisort($name, SORT_ASC, $not_paid);
-		sort($paid);
+		$not_paid = $this->getNotPaidUsers($payment);
+		$paid = $this->getPaidUsers($payment);
 
 		$pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView("pdf.payment_close", [
 			"payment" => $payment,
@@ -151,5 +139,23 @@ class PaymentController extends Controller
 		]);
 
 		return $pdf->download("payment_closed_" . Str::of($payment->title)->slug() . ".pdf");
+	}
+
+	protected function getNotPaidUsers(Payment $payment): array {
+		$not_paid = User::whereNotIn("id", json_decode($payment->paid))
+			->where('type', '!=', 'nauczyciel')
+			->where("classunit_id", "=", $payment->classunit_id)->get();
+
+		$not_paid = $not_paid->toArray();
+		$name = array_column($not_paid, "name");
+		array_multisort($name, SORT_ASC, $not_paid);
+
+		return $not_paid;
+	}
+
+	protected function getPaidUsers(Payment $payment): array {
+		$paid = json_decode($payment->paid);
+		sort($paid);
+		return $paid;
 	}
 }
