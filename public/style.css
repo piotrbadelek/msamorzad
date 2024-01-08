@@ -130,8 +130,8 @@ button, .button {
 }
 
 button:disabled, .button:disabled {
-    background-color: #1D1B201F;
-    color: #1D1B20;
+    background-color: color-mix(in srgb, var(--md-on-surface) 12%, transparent);
+    color: var(--md-on-surface);
 }
 
 .button-margin {
