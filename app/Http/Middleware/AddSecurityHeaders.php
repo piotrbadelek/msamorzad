@@ -18,7 +18,7 @@ class AddSecurityHeaders
 		$response = $next($request);
 		$response->header('Strict-Transport-Security', "max-age=63072000");
 
-		$response->header("Content-Security-Policy", "default-src 'none'; font-src 'self'; img-src 'self'; object-src 'none'; script-src 'self' https://js.sentry-cdn.com; style-src 'self'");
+		$response->header("Content-Security-Policy", "default-src 'self'; font-src 'self'; img-src 'self'; object-src 'none'; script-src 'self' https://js.sentry-cdn.com; style-src 'self'");
 
 		return $response;
     }
