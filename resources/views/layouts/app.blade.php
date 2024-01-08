@@ -6,7 +6,7 @@
           content="width=device-width, user-scalable=yes, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield("title")</title>
-    <link rel="stylesheet" href="/style.css?v=2">
+    <link rel="stylesheet" href="/style.css?v=3">
 	<link rel="manifest" href="/manifest.json">
 	<script
 		src="https://js.sentry-cdn.com/aabbc2c94ac8133dcdb4610c04d3395d.min.js"
