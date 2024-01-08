@@ -13,6 +13,10 @@
 		crossorigin="anonymous"
 	></script>
 	<meta name="csrf-token" content="{{ csrf_token() }}">
+	<link rel="icon" href="/favicon.ico" />
+	<link rel="apple-touch-icon" href="/img/touch/256.png">
+	<link rel="apple-touch-startup-image" href="/img/touch/256.png">
+	<meta name="apple-mobile-web-app-title" content="mSamorząd">
 </head>
 <body>
     <header>
