@@ -33,9 +33,7 @@
 				@if ($user->can("details", $payment))
 					<a href="/skladki/{{ $payment->id }}" class="button">Szczegóły</a>
 				@else
-					@if (!in_array($user->id, json_decode($payment["paid"])))
-						{{-- <button class="button">Zapłać</button> --}}
-					@else
+					@if (in_array($user->id, json_decode($payment["paid"])))
 						<button class="button" disabled>Opłacone</button>
 					@endif
 				@endif
