@@ -20,18 +20,23 @@ function calculateTotalAmount() {
 	$("#totalAmount").innerText = `Łącznie: ${$("#money").value * $("[data-total-students]").dataset.totalStudents} zł`
 }
 
+const enableNotificationsButton = $("#enableNotifications");
+
 function enableNotifications() {
 	initSW();
-	const enableNotificationsButton = $("#enableNotifications");
 	enableNotificationsButton.innerText = "Czekaj...";
 	enableNotificationsButton.disabled = true;
 	enableNotificationsButton.removeEventListener("click", enableNotifications);
 }
 
+enableNotificationsButton.addEventListener("click", enableNotifications);
+
 function disableNotifications() {
 	$("#notificationDialogue").open = false;
 	store("notificationsDelayed", "true");
 }
+
+$("#disableNotifications").addEventListener("click", disableNotifications);
 
 let installPrompt = null;
 const installButton = document.querySelector("#installButton");
@@ -62,6 +67,8 @@ function disableInAppInstallPrompt() {
 function dontInstallApp() {
 	installDialouge.open = false;
 }
+
+$("#dontInstallApp").addEventListener("click", dontInstallApp);
 
 
 /* Notifications */
@@ -176,7 +183,9 @@ function storePushSubscription(pushSubscription, callback) {
 		})
 		.then((res) => {
 			console.log(res);
-			callback();
+			if (callback) {
+				callback();
+			}
 			if (!callback) {
 				$("#notificationDialogue").open = false;
 			}

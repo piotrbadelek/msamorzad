@@ -1,7 +1,14 @@
 "use strict";
 
+const startCardInvoker = $("#startCardInvoker");
+const resetCardInvoker = $("#resetCardInvoker");
+
 function generateCard(isStarterCard) {
-	$("#cardInvoker").remove();
+	if (startCardInvoker) {
+		startCardInvoker.remove();
+	} else {
+		resetCardInvoker.remove();
+	}
 	const canvas = $("#cardCanvas");
 	const ctx = canvas.getContext("2d");
 
@@ -34,4 +41,14 @@ function createCanvasDownloadLink(canvas) {
 	downloadLink.hidden = false;
 	downloadLink.setAttribute("download", "card.png");
 	downloadLink.setAttribute("href", canvas.toDataURL("image/png").replace("image/png", "image/octet-stream"));
+}
+
+if (startCardInvoker) {
+	startCardInvoker.addEventListener("click", () => {
+		generateCard(true);
+	});
+} else if (resetCardInvoker) {
+	resetCardInvoker.addEventListener("click", () => {
+		generateCard(false);
+	});
 }

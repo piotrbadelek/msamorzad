@@ -31,15 +31,15 @@
 			<li>Ogłoszenia konkursów</li>
 			<li>Odpowiedzi na zadane pytania</li>
 		</ul>
-		<button onclick="enableNotifications();" id="enableNotifications">Włącz</button>
-		<button class="not-primary" onclick="disableNotifications();">Nie teraz</button>
+		<button id="enableNotifications">Włącz</button>
+		<button class="not-primary" id="disableNotifications">Nie teraz</button>
 	</dialog>
 
 	<dialog id="installDialogue">
 		<header>Zainstaluj aplikację</header>
 		<p>Zainstaluj aplikację, aby dodać ją do ekranu domowego</p>
 		<button id="installButton">Zainstaluj</button>
-		<button class="not-primary" onclick="dontInstallApp();">Nie teraz</button>
+		<button class="not-primary" id="dontInstallApp">Nie teraz</button>
 	</dialog>
 	<script src="/js/script.js?v=1" defer></script>
 	<script src="/js/sw.js" defer></script>
