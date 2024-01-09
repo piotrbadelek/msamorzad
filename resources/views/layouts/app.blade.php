@@ -45,7 +45,7 @@
 		<button id="installButton">Zainstaluj</button>
 		<button class="not-primary" id="dontInstallApp">Nie teraz</button>
 	</dialog>
-	<script src="/js/script.js?v=2" defer></script>
+	<script src="/js/script.js?v=3" defer></script>
 	<script src="/js/sw.js" defer></script>
 	@yield("scripts")
 </body>

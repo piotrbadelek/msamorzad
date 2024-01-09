@@ -62,5 +62,5 @@
 @endsection
 
 @section("scripts")
-	<script src="/js/oobe.js?v=1" defer></script>
+	<script src="/js/oobe.js?v=2" defer></script>
 @endsection

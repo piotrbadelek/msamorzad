@@ -72,7 +72,7 @@ function adaptInstallInstructions() {
 $("[data-oobe='enableNotifications']").addEventListener("click", () => {
 	$("[data-oobe='enableNotifications']").innerText = "Czekaj...";
 	$("[data-oobe='enableNotifications']").disabled = true;
-	initPush(() => {
+	initSW(() => {
 		$("#view2").classList.add("hidden");
 		$("#view3").classList.remove("hidden");
 	});
