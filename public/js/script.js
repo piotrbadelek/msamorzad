@@ -72,7 +72,11 @@ $("#dontInstallApp").addEventListener("click", dontInstallApp);
 
 
 /* Notifications */
-let swReady = navigator.serviceWorker.ready;
+/* Fix for iOS Safari, which sometimes randomly just doesn't allow
+	you to register service workers for whatever reason.
+	Couldn't replicate behaviour, but it definitely is a thing
+	https://msamorzad.sentry.io/issues/4837572428 */
+let swReady = navigator.serviceWorker && navigator.serviceWorker.ready;
 
 function initSW() {
 	if (!"serviceWorker" in navigator) {
