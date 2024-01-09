@@ -36,13 +36,12 @@ function disableNotifications() {
 	store("notificationsDelayed", "true");
 }
 
-$("#disableNotifications").addEventListener("click", disableNotifications);
-
 let installPrompt = null;
 const installButton = document.querySelector("#installButton");
 const installDialouge = document.querySelector("#installDialogue");
 
 if (!$("[data-dont-show-notif-prompt]")) {
+	$("#disableNotifications").addEventListener("click", disableNotifications);
 	window.addEventListener("beforeinstallprompt", (event) => {
 		event.preventDefault();
 		installPrompt = event;
