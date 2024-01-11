@@ -330,6 +330,19 @@ textarea {
 	display: block !important;
 }
 
+.outdated-ios-info {
+	background-color: var(--md-primary-container);
+	padding: 1.5rem;
+	margin-bottom: 1rem;
+	border-radius: 12px;
+	display: none;
+}
+
+.outdated-ios-info header {
+	font-weight: bold;
+	font-size: 1.5rem;
+}
+
 /* Media queries */
 
 @media (min-width: 768px) {

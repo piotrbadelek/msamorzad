@@ -3,6 +3,11 @@
 @section("title", "Samorząd II LO")
 
 @section("content")
+	<div class="outdated-ios-info">
+		<header>Zaaktualizuj system operacyjny</header>
+		<p>Twój telefon działa na przestarzałej wersji systemu iOS. Zaaktualizuj system operacyjny aby aplikacja mSamorząd mogła wysyłać powiadomienia.</p>
+	</div>
+
 	@unless($user->isTeacher && $user->notManagingAClass)
 		<a href="/skladki" class="card-container">
 			<div class="card">

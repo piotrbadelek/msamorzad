@@ -16,6 +16,16 @@ function store(name, value) {
 	}
 }
 
+const ua = window.navigator.userAgent;
+const isiOS = !!ua.match(/iPad/i) || !!ua.match(/iPhone/i);
+const isWebkit = !!ua.match(/WebKit/i);
+const isiOSSafari = isiOS && isWebkit && !ua.match(/CriOS/i);
+const isAndroid = ua.toLowerCase().indexOf("android") > -1;
+const isFirefox = ua.toLowerCase().indexOf("firefox") > -1;
+const isAndroidFirefox = isAndroid && isFirefox;
+const supportsBeforeInstallPrompt = typeof BeforeInstallPromptEvent === "function";
+
+
 function calculateTotalAmount() {
 	$("#totalAmount").innerText = `Łącznie: ${$("#money").value * $("[data-total-students]").dataset.totalStudents} zł`
 }
@@ -230,4 +240,9 @@ function search() {
 	messageContainers.forEach(el => {
 		el.hidden = !el.dataset["message"].toLowerCase().includes(searchQuery);
 	});
+}
+
+if (!supportsBeforeInstallPrompt && isiOSSafari) {
+	// Display upgrade prompt
+	$(".outdated-ios-info").style.display = "block";
 }
