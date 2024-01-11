@@ -82,6 +82,7 @@ Route::middleware(["security.headers"])->group(function() {
 		})->middleware(['auth', 'throttle:6,1']);
 
 		Route::view("/oobe", "oobe");
+		Route::view("/about", "about");
 	});
 
 	Route::middleware(["auth", "admin", "password.changed"])->group(function() {

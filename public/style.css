@@ -343,6 +343,37 @@ textarea {
 	font-size: 1.5rem;
 }
 
+.about-app-name {
+	font-size: 3rem;
+	font-weight: 700;
+	display: block;
+}
+
+.about-app-header {
+	text-align: center;
+}
+
+.about-link {
+	display: flex;
+	font-size: 1.25rem;
+	margin-bottom: 1rem;
+}
+
+.about-link svg {
+	width: 32px;
+	margin-right: .5rem;
+}
+
+details {
+	margin-top: 1rem;
+}
+
+details summary {
+	font-size: 1.25rem;
+	font-weight: 500;
+	padding: 1rem;
+}
+
 /* Media queries */
 
 @media (min-width: 768px) {

@@ -34,10 +34,10 @@
 			<p class="card_content">Kontakt</p>
 		</div>
 	</a>
-	<a href="https://forms.gle/VYPbwsUhNkTpNJef9" class="card-container">
+	<a href="/about" class="card-container">
 		<div class="card">
-			<img src="/img/bugReport.webp" alt="Zgłoś błąd">
-			<p class="card_content">Zgłoś problem / sugestię</p>
+			<img src="/img/about.webp" alt="O aplikacji">
+			<p class="card_content">O aplikacji</p>
 		</div>
 	</a>
 	@if($user->isAdministrator)

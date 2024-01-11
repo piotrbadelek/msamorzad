@@ -242,7 +242,8 @@ function search() {
 	});
 }
 
-if (!supportsBeforeInstallPrompt && isiOSSafari) {
-	// Display upgrade prompt
-	$(".outdated-ios-info").style.display = "block";
+const outdatedIosPrompt = $(".outdated-ios-info");
+
+if (outdatedIosPrompt && !supportsBeforeInstallPrompt && isiOSSafari) {
+	outdatedIosPrompt.style.display = "block";
 }
