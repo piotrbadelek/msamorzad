@@ -1,5 +1,15 @@
 <?php
 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\ClassunitController;
+use App\Http\Controllers\ContestController;
+use App\Http\Controllers\MessageController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\SessionController;
+use App\Http\Controllers\UserController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 
@@ -20,14 +30,14 @@ Route::middleware(["security.headers"])->group(function() {
 		return redirect("/future_ad.mp4");
 	});
 
-	Route::get("/login", [\App\Http\Controllers\SessionController::class, "login"])->name("login");
-	Route::post("/login", [\App\Http\Controllers\SessionController::class, "authenticate"]);
-	Route::get("/change-password", [\App\Http\Controllers\SessionController::class, "changePassword"])->middleware("auth");
-	Route::post("/change-password", [\App\Http\Controllers\SessionController::class, "update"])->middleware("auth");
-	Route::post("/logout", [\App\Http\Controllers\SessionController::class, "logout"])->middleware("auth");
+	Route::get("/login", [SessionController::class, "login"])->name("login");
+	Route::post("/login", [SessionController::class, "authenticate"]);
+	Route::get("/change-password", [SessionController::class, "changePassword"])->middleware("auth");
+	Route::post("/change-password", [SessionController::class, "update"])->middleware("auth");
+	Route::post("/logout", [SessionController::class, "logout"])->middleware("auth");
 
 	Route::middleware(["auth", "password.changed"])->group(function() {
-		Route::get('/', function (\Illuminate\Http\Request $request) {
+		Route::get('/', function (Request $request) {
 			if ($request->user()->hasNotChangedPassword) {
 				return redirect("/change-password?changingForFirstTime=true");
 			}
@@ -36,40 +46,40 @@ Route::middleware(["security.headers"])->group(function() {
 			]);
 		});
 
-		Route::get('/skladki', [\App\Http\Controllers\PaymentController::class, "view"]);
-		Route::get('/skladki/new', [\App\Http\Controllers\PaymentController::class, "createForm"]);
-		Route::get("/skladki/{payment:id}", [\App\Http\Controllers\PaymentController::class, "details"]);
-		Route::get("/skladki/{payment:id}/delete", [\App\Http\Controllers\PaymentController::class, "deleteForm"]);
-		Route::get("/skladki/{payment:id}/pdf", [\App\Http\Controllers\PaymentController::class, "generatePaymentConfirmation"]);
-		Route::get("/skladki/{payment:id}/{id}", [\App\Http\Controllers\PaymentController::class, "pay"]);
-		Route::post("/skladki/new", [\App\Http\Controllers\PaymentController::class, "create"]);
-		Route::delete("/skladki/{payment:id}", [\App\Http\Controllers\PaymentController::class, "delete"]);
+		Route::get('/skladki', [PaymentController::class, "view"]);
+		Route::get('/skladki/new', [PaymentController::class, "createForm"]);
+		Route::get("/skladki/{payment:id}", [PaymentController::class, "details"]);
+		Route::get("/skladki/{payment:id}/delete", [PaymentController::class, "deleteForm"]);
+		Route::get("/skladki/{payment:id}/pdf", [PaymentController::class, "generatePaymentConfirmation"]);
+		Route::get("/skladki/{payment:id}/{id}", [PaymentController::class, "pay"]);
+		Route::post("/skladki/new", [PaymentController::class, "create"]);
+		Route::delete("/skladki/{payment:id}", [PaymentController::class, "delete"]);
 
-		Route::get("/messages", [\App\Http\Controllers\MessageController::class, "list"]);
-		Route::post("/messages", [\App\Http\Controllers\MessageController::class, "create"]);
-		Route::get("/messages/{message:id}", [\App\Http\Controllers\MessageController::class, "show"]);
-		Route::patch("/messages/{message:id}", [\App\Http\Controllers\MessageController::class, "update"]);
-		Route::get("/messages/{message:id}/delete", [\App\Http\Controllers\MessageController::class, "deleteForm"]);
-		Route::delete("/messages/{message:id}", [\App\Http\Controllers\MessageController::class, "delete"]);
+		Route::get("/messages", [MessageController::class, "list"]);
+		Route::post("/messages", [MessageController::class, "create"]);
+		Route::get("/messages/{message:id}", [MessageController::class, "show"]);
+		Route::patch("/messages/{message:id}", [MessageController::class, "update"]);
+		Route::get("/messages/{message:id}/delete", [MessageController::class, "deleteForm"]);
+		Route::delete("/messages/{message:id}", [MessageController::class, "delete"]);
 
-		Route::get("/contests", [\App\Http\Controllers\ContestController::class, "list"]);
-		Route::get("/contests/new", [\App\Http\Controllers\ContestController::class, "createForm"]);
-		Route::post("/contests/new", [\App\Http\Controllers\ContestController::class, "create"]);
-		Route::get("/contests/{contest:id}", [\App\Http\Controllers\ContestController::class, "show"]);
-		Route::get("/contests/{contest:id}/delete", [\App\Http\Controllers\ContestController::class, "deleteForm"]);
-		Route::get("/contests/{contest:id}/enlist", [\App\Http\Controllers\ContestController::class, "enlist"]);
-		Route::delete("/contests/{contest:id}", [\App\Http\Controllers\ContestController::class, "delete"]);
+		Route::get("/contests", [ContestController::class, "list"]);
+		Route::get("/contests/new", [ContestController::class, "createForm"]);
+		Route::post("/contests/new", [ContestController::class, "create"]);
+		Route::get("/contests/{contest:id}", [ContestController::class, "show"]);
+		Route::get("/contests/{contest:id}/delete", [ContestController::class, "deleteForm"]);
+		Route::get("/contests/{contest:id}/enlist", [ContestController::class, "enlist"]);
+		Route::delete("/contests/{contest:id}", [ContestController::class, "delete"]);
 
-		Route::get("/announcements", [\App\Http\Controllers\AnnouncementController::class, "list"]);
-		Route::get("/announcements/new", [\App\Http\Controllers\AnnouncementController::class, "createForm"]);
-		Route::post("/announcements/new", [\App\Http\Controllers\AnnouncementController::class, "create"]);
-		Route::get("/announcements/{announcement:id}/delete", [\App\Http\Controllers\AnnouncementController::class, "deleteForm"]);
-		Route::delete("/announcements/{announcement:id}", [\App\Http\Controllers\AnnouncementController::class, "delete"]);
+		Route::get("/announcements", [AnnouncementController::class, "list"]);
+		Route::get("/announcements/new", [AnnouncementController::class, "createForm"]);
+		Route::post("/announcements/new", [AnnouncementController::class, "create"]);
+		Route::get("/announcements/{announcement:id}/delete", [AnnouncementController::class, "deleteForm"]);
+		Route::delete("/announcements/{announcement:id}", [AnnouncementController::class, "delete"]);
 
-		Route::post("/push", [\App\Http\Controllers\NotificationController::class, "subscribe"]);
+		Route::post("/push", [NotificationController::class, "subscribe"]);
 
 		Route::view("/confirm-password", "confirm_password")->name("password.confirm");
-		Route::post('/confirm-password', function (\Illuminate\Http\Request $request) {
+		Route::post('/confirm-password', function (Request $request) {
 			if (!Hash::check($request->password, $request->user()->password)) {
 				return back()->withErrors([
 					'password' => ['Podane hasło się nie zgadza.']
@@ -86,20 +96,20 @@ Route::middleware(["security.headers"])->group(function() {
 	});
 
 	Route::middleware(["auth", "admin", "password.changed"])->group(function() {
-		Route::get("/admin", [\App\Http\Controllers\AdminController::class, "list"]);
-		Route::get("/admin/user", [\App\Http\Controllers\UserController::class, "list"]);
-		Route::get("/admin/user/new", [\App\Http\Controllers\UserController::class, "createForm"]);
-		Route::post("/admin/user/", [\App\Http\Controllers\UserController::class, "create"]);
-		Route::get("/admin/user/{user:id}", [\App\Http\Controllers\UserController::class, "show"]);
-		Route::get("/admin/user/{user:id}/delete", [\App\Http\Controllers\UserController::class, "deleteForm"]);
-		Route::delete("/admin/user/{user:id}", [\App\Http\Controllers\UserController::class, "delete"]);
-		Route::get("/admin/user/{user:id}/reset_password", [\App\Http\Controllers\UserController::class, "adminResetPassword"]);
-		Route::get("/admin/user/{user:id}/update", [\App\Http\Controllers\UserController::class, "updateForm"]);
-		Route::patch("/admin/user/{user:id}", [\App\Http\Controllers\UserController::class, "update"]);
+		Route::get("/admin", [AdminController::class, "list"]);
+		Route::get("/admin/user", [UserController::class, "list"]);
+		Route::get("/admin/user/new", [UserController::class, "createForm"]);
+		Route::post("/admin/user/", [UserController::class, "create"]);
+		Route::get("/admin/user/{user:id}", [UserController::class, "show"]);
+		Route::get("/admin/user/{user:id}/delete", [UserController::class, "deleteForm"]);
+		Route::delete("/admin/user/{user:id}", [UserController::class, "delete"]);
+		Route::get("/admin/user/{user:id}/reset_password", [UserController::class, "adminResetPassword"]);
+		Route::get("/admin/user/{user:id}/update", [UserController::class, "updateForm"]);
+		Route::patch("/admin/user/{user:id}", [UserController::class, "update"]);
 
-		Route::get("/admin/classunit", [\App\Http\Controllers\ClassunitController::class, "list"]);
-		Route::get("/admin/classunit/{classunit:id}", [\App\Http\Controllers\ClassunitController::class, "deleteForm"])->middleware(["password.confirm"]);
-		Route::delete("/admin/classunit/{classunit:id}", [\App\Http\Controllers\ClassunitController::class, "delete"])->middleware(["password.confirm"]);
+		Route::get("/admin/classunit", [ClassunitController::class, "list"]);
+		Route::get("/admin/classunit/{classunit:id}", [ClassunitController::class, "deleteForm"])->middleware(["password.confirm"]);
+		Route::delete("/admin/classunit/{classunit:id}", [ClassunitController::class, "delete"])->middleware(["password.confirm"]);
 	});
 });
 
