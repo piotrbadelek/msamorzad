@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -22,5 +23,18 @@ class SessionControllerTest extends TestCase
 
 		$response->assertStatus(302);
 		$response->assertSessionHasErrors(["username", "password"]);
+	}
+
+	/** @test */
+	public function login_authenticates_and_redirects_user_to_password_change(): void {
+		$user = User::factory()->create();
+
+		$response = $this->post("/login", [
+			"username" => $user->username,
+			"password" => "password"
+		]);
+
+		$response->assertRedirect("/change-password?changingForFirstTime=true");
+		$this->assertAuthenticatedAs($user);
 	}
 }
