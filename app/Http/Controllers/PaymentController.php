@@ -103,6 +103,7 @@ class PaymentController extends Controller
 		$payment->deadline = $data["deadline"];
 		$payment->classunit_id = $request->user()->classunit_id;
 		$payment->paid = "[]";
+		$payment->isGlobal = false;
 		$payment->save();
 
 		$users = $request->user()->classUnit->users;
@@ -123,7 +124,6 @@ class PaymentController extends Controller
 
 	public function generatePaymentConfirmation(Payment $payment, Request $request)
 	{
-		// TODO: Refactor duplicated code fragment into a method
 		if ($request->user()->cannot("details", $payment)) {
 			abort(403);
 		}
