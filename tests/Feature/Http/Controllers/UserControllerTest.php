@@ -213,6 +213,30 @@ class UserControllerTest extends TestCase
 		$response->assertSessionHasErrors(["username", "name", "classunit_id", "type", "samorzadType"]);
 	}
 
+	/** @test */
+	public function teacher_gets_created() {
+		$this->generateAdminUser();
+
+		$fakeData = $this->getFakeUserData();
+
+		$response = $this->post("/admin/user", [
+			"username" => $fakeData["username"],
+			"name" => $fakeData["name"],
+			"classunit_id" => $fakeData["classunit_id"],
+			"type" => "nauczyciel",
+			"samorzadType" => $fakeData["samorzadType"]
+		]);
+
+		$this->assertDatabaseHas("users", [
+			"username" => $fakeData["username"],
+			"name" => $fakeData["name"],
+			"classunit_id" => $fakeData["classunit_id"],
+			"type" => "nauczyciel",
+			"samorzadType" => $fakeData["samorzadType"],
+			"notManagingAClass" => false
+		]);
+	}
+
 	protected function getFakeUserData(): array
 	{
 		$types = ["student", "przewodniczacy", "nauczyciel", "wiceprzewodniczacy", "skarbnik"];
