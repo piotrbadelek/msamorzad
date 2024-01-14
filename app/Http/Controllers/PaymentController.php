@@ -7,6 +7,7 @@ use App\Models\Payment;
 use App\Models\User;
 use App\Notifications\PaymentCreated;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Str;
 
@@ -107,7 +108,13 @@ class PaymentController extends Controller
 		$payment->save();
 
 		$users = $request->user()->classUnit->users;
-		Notification::sendNow($users, new PaymentCreated($payment->title));
+
+		try {
+			Notification::sendNow($users, new PaymentCreated($payment->title));
+		} catch (\Exception $e) {
+			Log::error("Failed to send notifications due to invalid keys. Further investigation required." . $e->getMessage());
+		}
+
 
 		return redirect("/skladki/" . $payment->id);
 	}
