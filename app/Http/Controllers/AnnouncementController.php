@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Notifications\AnnouncementCreated;
 use App\Notifications\PaymentCreated;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Validation\Rules\File;
 
@@ -76,13 +77,17 @@ class AnnouncementController extends Controller
 		if ($canPostGlobally && $data["postArea"] == "school") {
 			$announcement->global = true;
 			$users = User::all();
-			Notification::sendNow($users, new AnnouncementCreated($announcement->title));
-		} else if ($canPostToClass) {
+		} else if ($canPostToClass && $data["postArea"] == "class") {
 			$announcement->global = false;
 			$users = $request->user()->classUnit->users;
-			Notification::sendNow($users, new AnnouncementCreated($announcement->title));
 		} else {
 			abort(400);
+		}
+
+		try {
+			Notification::sendNow($users, new AnnouncementCreated($announcement->title));
+		} catch (\Exception $e) {
+			Log::error("Failed to send notifications due to invalid keys. Further investigation required." . $e->getMessage());
 		}
 
 		if ($request->hasFile("image")) {

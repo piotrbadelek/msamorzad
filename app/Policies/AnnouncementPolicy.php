@@ -39,7 +39,7 @@ class AnnouncementPolicy
 		if ($announcement->global) {
 			return $user->isSamorzadSzkolny || $user->isTeacher;
 		} else {
-			return $user->classunit_id == $announcement->classunit_id;
+			return ($user->classunit_id == $announcement->classunit_id) && $user->isSamorzadKlasowy;
 		}
 	}
 }
