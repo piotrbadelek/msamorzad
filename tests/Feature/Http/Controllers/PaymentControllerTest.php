@@ -323,4 +323,35 @@ class PaymentControllerTest extends TestCase
 		$response = $this->get("/skladki/{$payment->id}/pdf");
 		$response->assertStatus(403);
 	}
+
+	/** @test */
+	public function payment_can_be_moved_to_trash() {
+		$this->generateSkarbnik();
+		$payment = Payment::factory()->create([
+			"classunit_id" => 1
+		]);
+
+		$response = $this->get("/skladki/{$payment->id}/trash");
+		$response->assertStatus(302);
+		$this->assertDatabaseHas("payments", [
+			"id" => $payment->id,
+			"inTrash" => true
+		]);
+	}
+
+	/** @test */
+	public function payment_cannot_be_moved_to_trash_by_a_student() {
+		$user = User::factory()->create([
+			"classunit_id" => 1,
+			"type" => "student",
+			"samorzadType" => "student"
+		]);
+		Auth::login($user);
+		$payment = Payment::factory()->create([
+			"classunit_id" => 1
+		]);
+
+		$response = $this->get("/skladki/{$payment->id}/trash");
+		$response->assertStatus(403);
+	}
 }

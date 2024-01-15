@@ -20,6 +20,10 @@
 			<li><a href="/skladki/{{ $payment->id }}/{{ $user["id"] }}">{{ $user["name"] }}</a></li>
 		@endforeach
 	</ul>
-	<a href="/skladki/{{ $payment->id }}/delete" class="button">Usuń składkę</a>
+	@if ($payment->inTrash)
+		<a href="/skladki/{{ $payment->id }}/delete" class="button">Usuń składkę</a>
+	@else
+		<a href="/skladki/{{ $payment->id }}/trash" class="button">Przenieś składkę do kosza</a>
+	@endif
 	<a href="/skladki/{{ $payment->id }}/pdf" class="button">Pobierz potwierdzenie zamknięcia składki</a>
 @endsection

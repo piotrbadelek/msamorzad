@@ -19,10 +19,19 @@ class PaymentController extends Controller
 			abort(403);
 		}
 
-		$payments = Payment::where("classunit_id", $request->user()->classunit_id)->get();
+		$payments = Payment::where("classunit_id", $request->user()->classunit_id)->where("inTrash", false)->get();
+
+		$userIsSamorzadKlasowy = $request->user()->isSamorzadKlasowy;
+
+		if ($userIsSamorzadKlasowy) {
+			$paymentsInTrash = Payment::where("classunit_id", $request->user()->classunit_id)->where("inTrash", true)->get();
+		}
+
 		return view("payment.list", [
 			"payments" => $payments,
-			"user" => $request->user()
+			"user" => $request->user(),
+			"isSamorzadKlasowy" => $userIsSamorzadKlasowy,
+			"paymentsInTrash" => $paymentsInTrash ?? []
 		]);
 	}
 
@@ -146,6 +155,16 @@ class PaymentController extends Controller
 		]);
 
 		return $pdf->download("payment_closed_" . Str::of($payment->title)->slug() . ".pdf");
+	}
+
+	public function movePaymentToTrash(Payment $payment, Request $request) {
+		if ($request->user()->cannot("delete", $payment)) {
+			abort(403);
+		}
+
+		$payment->inTrash = true;
+		$payment->save();
+		return redirect("/skladki/");
 	}
 
 	protected function getNotPaidUsers(Payment $payment): array {
