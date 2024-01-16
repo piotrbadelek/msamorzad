@@ -41,7 +41,7 @@ class PaymentDueSoonReminder extends Command
 				return;
 			}
 
-			if ($diff < 3) {
+			if ($diff < 4) {
 				$not_paid = User::whereNotIn("id", json_decode($payment->paid))->where('type', '!=', 'nauczyciel')->get();
 				Notification::sendNow($not_paid, new PaymentDueSoon($diff, $payment->amount));
 			}

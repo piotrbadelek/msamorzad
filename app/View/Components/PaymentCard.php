@@ -3,6 +3,7 @@
 namespace App\View\Components;
 
 use App\Models\Payment;
+use App\Models\User;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
@@ -15,7 +16,8 @@ class PaymentCard extends Component
      * Create a new component instance.
      */
     public function __construct(
-		public Payment $payment
+		public Payment $payment,
+		public User $user
 	)
     {
 		//
@@ -31,9 +33,10 @@ class PaymentCard extends Component
 		$hasExpired = $currentDate > new \DateTime($this->payment["deadline"]);
 
         return view('components.payment-card', [
-			"userCanViewPaymentDetails" => Auth::user()->can("details", $this->payment),
+			"userCanViewPaymentDetails" => $this->user->can("details", $this->payment),
 			"hasExpired" => $hasExpired,
-			"diffDate" => $diffDate
+			"diffDate" => $diffDate,
+			"user" => $this->user
 		]);
     }
 }
