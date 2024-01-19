@@ -29,7 +29,8 @@
 			</div>
 			<div id="safariInstall">
 				<small><i>Ponieważ wykryliśmy, że korzystasz z iOS'a:</i></small>
-				<p>Aby zainstalować aplikację mSamorząd, otwórz menu "udostępnij", a następnie dodaj do ekranu głównego.</p>
+				<p>Aby zainstalować aplikację mSamorząd, otwórz menu "udostępnij", a następnie dodaj do ekranu głównego.
+					<br>Pamiętaj, aby korzystać z przeglądarki Safari.</p>
 				<button data-oobe="continueButton">Dalej</button>
 				<button class="not-primary" data-oobe="notNowButton">Nie teraz</button>
 			</div>
