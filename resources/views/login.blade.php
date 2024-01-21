@@ -15,6 +15,6 @@
         <input type="password" name="password" id="password">
         <button type="submit">Zaloguj</button>
     </form><br>
-	<a href="/pomoc.html">Uzyskaj pomoc</a>
+	<a href="https://pomoc.msamorzad.pl">Uzyskaj pomoc</a>
 	<footer data-dont-show-notif-prompt>mSamorząd Beta</footer>
 @endsection
