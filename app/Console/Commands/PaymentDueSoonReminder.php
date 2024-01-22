@@ -30,16 +30,11 @@ class PaymentDueSoonReminder extends Command
      */
     public function handle()
     {
-        $payments = Payment::all();
+        $payments = Payment::where("inTrash", false)->get();
 		foreach ($payments as $payment) {
 			$now = new DateTime();
 			$due_date = new DateTime($payment->deadline);
 			$diff = $now->diff($due_date)->format("%r%a");
-
-			if ($diff < -7) {
-				$payment->delete();
-				return;
-			}
 
 			if ($diff < 4) {
 				$not_paid = User::whereNotIn("id", json_decode($payment->paid))->where('type', '!=', 'nauczyciel')->get();
