@@ -42,7 +42,8 @@ class PaymentController extends Controller
 		}
 
 		$not_paid = $this->getNotPaidUsers($payment);
-		$paid = $this->getPaidUsers($payment);		sort($paid);
+		$paid = $this->getPaidUsers($payment);
+		sort($paid);
 
 		return view("payment.show", [
 			"payment" => $payment,
@@ -118,10 +119,12 @@ class PaymentController extends Controller
 
 		$users = $request->user()->classUnit->users;
 
-		try {
-			Notification::sendNow($users, new PaymentCreated($payment->title));
-		} catch (\Exception $e) {
-			Log::error("Failed to send notifications due to invalid keys. Further investigation required." . $e->getMessage());
+		if (!app()->isDownForMaintenance()) {
+			try {
+				Notification::sendNow($users, new PaymentCreated($payment->title));
+			} catch (\Exception $e) {
+				Log::error("Failed to send notifications due to invalid keys. Further investigation required." . $e->getMessage());
+			}
 		}
 
 
@@ -157,7 +160,8 @@ class PaymentController extends Controller
 		return $pdf->download("payment_closed_" . Str::of($payment->title)->slug() . ".pdf");
 	}
 
-	public function movePaymentToTrash(Payment $payment, Request $request) {
+	public function movePaymentToTrash(Payment $payment, Request $request)
+	{
 		if ($request->user()->cannot("delete", $payment)) {
 			abort(403);
 		}
@@ -167,7 +171,8 @@ class PaymentController extends Controller
 		return redirect("/skladki/");
 	}
 
-	protected function getNotPaidUsers(Payment $payment): array {
+	protected function getNotPaidUsers(Payment $payment): array
+	{
 		$not_paid = User::whereNotIn("id", json_decode($payment->paid))
 			->where('type', '!=', 'nauczyciel')
 			->where("classunit_id", "=", $payment->classunit_id)->get();
@@ -179,7 +184,8 @@ class PaymentController extends Controller
 		return $not_paid;
 	}
 
-	protected function getPaidUsers(Payment $payment): array {
+	protected function getPaidUsers(Payment $payment): array
+	{
 		$paid = json_decode($payment->paid);
 		sort($paid);
 		return $paid;
