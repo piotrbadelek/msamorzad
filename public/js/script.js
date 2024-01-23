@@ -25,7 +25,11 @@ const isFirefox = ua.toLowerCase().indexOf("firefox") > -1;
 const isAndroidFirefox = isAndroid && isFirefox;
 const supportsBeforeInstallPrompt = typeof BeforeInstallPromptEvent === "function";
 
+const moneyInput = $("#money");
 
+if (moneyInput) {
+	moneyInput.addEventListener("input", calculateTotalAmount);
+}
 function calculateTotalAmount() {
 	$("#totalAmount").innerText = `Łącznie: ${$("#money").value * $("[data-total-students]").dataset.totalStudents} zł`
 }
