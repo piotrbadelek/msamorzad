@@ -238,8 +238,13 @@ if (store("notificationsDelayed")) {
 	}
 }
 
+const searchInput = $("#search");
+if (searchInput) {
+	searchInput.addEventListener("keyup", search);
+}
+
 function search() {
-	const searchQuery = $("#search").value.toLowerCase();
+	const searchQuery = searchInput.value.toLowerCase();
 	const messageContainers = document.querySelectorAll(".message_container");
 	messageContainers.forEach(el => {
 		el.hidden = !el.dataset["message"].toLowerCase().includes(searchQuery);

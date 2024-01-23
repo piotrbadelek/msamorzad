@@ -12,7 +12,7 @@
 		<button type="submit">Wyślij</button>
 	</form>
 	<label for="search" class="search-label">Wyszukaj pytanie</label>
-	<input type="search" name="search" id="search" onkeyup="search();">
+	<input type="search" name="search" id="search">
 	@if (sizeof($messages) > 0)
 	@foreach($messages as $message)
 		@if($isSamorzadSzkolny)
