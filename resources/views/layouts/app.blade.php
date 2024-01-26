@@ -17,6 +17,8 @@
 	<link rel="apple-touch-icon" href="/img/touch/256.png">
 	<link rel="apple-touch-startup-image" href="/img/touch/256.png">
 	<meta name="apple-mobile-web-app-title" content="mSamorząd">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="theme-color" content="#505B92">
 </head>
 <body>
     <header>
