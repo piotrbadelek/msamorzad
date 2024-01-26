@@ -107,7 +107,7 @@ function initSW() {
 	}
 
 	//register the service worker
-	navigator.serviceWorker.register('/js/sw.js')
+	navigator.serviceWorker.register('/sw.js')
 		.then((reg) => {
 			console.log('SW registered!', reg)
 			initPush();
