@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Classunit;
 use App\Models\Payment;
 use App\Models\User;
 use App\Notifications\PaymentDueSoon;
@@ -30,15 +31,17 @@ class PaymentDueSoonReminder extends Command
      */
     public function handle()
     {
-        $payments = Payment::where("inTrash", false)->get();
-		foreach ($payments as $payment) {
-			$now = new DateTime();
-			$due_date = new DateTime($payment->deadline);
-			$diff = $now->diff($due_date)->format("%r%a");
+		foreach (Classunit::all() as $classunit) {
+			$payments = Payment::where("inTrash", false)->where("classunit_id", $classunit->id)->get();
+			foreach ($payments as $payment) {
+				$now = new DateTime();
+				$due_date = new DateTime($payment->deadline);
+				$diff = $now->diff($due_date)->format("%r%a");
 
-			if ($diff < 4) {
-				$not_paid = User::whereNotIn("id", json_decode($payment->paid))->where('type', '!=', 'nauczyciel')->get();
-				Notification::sendNow($not_paid, new PaymentDueSoon($diff, $payment->amount));
+				if ($diff < 4) {
+					$not_paid = User::whereNotIn("id", json_decode($payment->paid))->where('type', '!=', 'nauczyciel')->where("classunit_id", $classunit->id)->get();
+					Notification::sendNow($not_paid, new PaymentDueSoon($diff, $payment->amount));
+				}
 			}
 		}
     }
