@@ -45,7 +45,7 @@ class PaymentPolicy
 	}
 
 	/**
-	 * Only allow to mark students as paid,
+	 * Only allow to mark student as paid,
 	 * if the user is part of a class council,
 	 * and the user belongs to the same class unit
 	 * as the payment

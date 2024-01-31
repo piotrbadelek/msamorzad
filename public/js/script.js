@@ -31,7 +31,7 @@ if (moneyInput) {
 	moneyInput.addEventListener("input", calculateTotalAmount);
 }
 function calculateTotalAmount() {
-	$("#totalAmount").innerText = `Łącznie: ${$("#money").value * $("[data-total-students]").dataset.totalStudents} zł`
+	$("#totalAmount").innerText = `Łącznie: ${$("#money").value * $("[data-total-student]").dataset.totalStudents} zł`
 }
 
 const enableNotificationsButton = $("#enableNotifications");

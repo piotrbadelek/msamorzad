@@ -40,6 +40,15 @@
 			<p class="card_content">O aplikacji</p>
 		</div>
 	</a>
+	@if($user->isTutor)
+		<a href="/tutor/students" class="card-container">
+			<div class="card">
+				<img src="/img/classunit.webp" alt="Twoja klasa" aria-hidden="true">
+				<p class="card_content">Twoja klasa</p>
+			</div>
+		</a>
+	@endif
+
 	@if($user->isAdministrator)
 		<a href="/admin" class="card-container">
 			<div class="card">

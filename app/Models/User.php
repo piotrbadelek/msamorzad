@@ -81,4 +81,8 @@ class User extends Authenticatable
 	public function getIsTeacherAttribute(): bool {
 		return $this->type == "nauczyciel";
 	}
+
+	public function getIsTutorAttribute(): bool {
+		return $this->type == "nauczyciel" && !$this->notManagingAClass;
+	}
 }

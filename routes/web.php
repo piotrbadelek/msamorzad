@@ -96,6 +96,9 @@ Route::middleware(["security.headers"])->group(function() {
 		Route::view("/about", "about");
 	});
 
+	Route::get("/tutor/students", [\App\Http\Controllers\TutorController::class, "listStudents"]);
+	Route::get("/tutor/students/{user:id}", [\App\Http\Controllers\TutorController::class, "editStudent"]);
+
 	Route::middleware(["auth", "admin", "password.changed"])->group(function() {
 		Route::get("/admin", [AdminController::class, "list"]);
 		Route::get("/admin/user", [UserController::class, "list"]);

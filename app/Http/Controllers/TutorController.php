@@ -10,14 +10,22 @@ class TutorController extends Controller
     public function listStudents(Request $request) {
 		$user = $request->user();
 
-		if (!$user->isTeacher) {
+		if (!$user->isTutor) {
 			abort(403);
 		}
 
-		$users = User::whereNot("username", "ghost")->where("classunit_id", $user->classunit_id)->get();
+		$users = User::whereNot("type", "nauczyciel")->where("classunit_id", $user->classunit_id)->get();
 
-		return view("admin.user.list", [
+		return view("tutor.student.list", [
 			"users" => $users
 		]);
+	}
+
+	public function editStudent(Request $request, User $user) {
+		$requestUser = $request->user();
+
+		if (!$user->isTutor || $user->classunit_id !== $requestUser->classunit_id) {
+			abort(403);
+		}
 	}
 }
