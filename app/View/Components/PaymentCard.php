@@ -17,7 +17,8 @@ class PaymentCard extends Component
      */
     public function __construct(
 		public Payment $payment,
-		public User $user
+		public User $user,
+		public Bool $inTrash = false
 	)
     {
 		//
@@ -36,7 +37,8 @@ class PaymentCard extends Component
 			"userCanViewPaymentDetails" => $this->user->can("details", $this->payment),
 			"hasExpired" => $hasExpired,
 			"diffDate" => $diffDate,
-			"user" => $this->user
+			"user" => $this->user,
+			"inTrash" => $this->inTrash
 		]);
     }
 }

@@ -9,7 +9,11 @@
 			@endif
 			@if($userCanViewPaymentDetails)
 				| Zapłaciło {{ sizeof(json_decode($payment["paid"])) }}
-			@endif</span>
+			@endif
+			@if($inTrash)
+				| W koszu
+			@endif
+		</span>
 	</div>
 
 	@if ($userCanViewPaymentDetails)

@@ -17,7 +17,7 @@
 		@if (sizeof($paymentsInTrash) > 0)
 			<h2>Składki w koszu</h2>
 			@foreach($paymentsInTrash as $payment)
-				<x-payment-card :payment="$payment" :user="$user"/>
+				<x-payment-card :payment="$payment" :user="$user" :inTrash="true"/>
 			@endforeach
 		@endif
 	@else

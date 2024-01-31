@@ -111,6 +111,8 @@ Route::middleware(["security.headers"])->group(function() {
 		Route::get("/admin/classunit", [ClassunitController::class, "list"]);
 		Route::get("/admin/classunit/{classunit:id}", [ClassunitController::class, "deleteForm"])->middleware(["password.confirm"]);
 		Route::delete("/admin/classunit/{classunit:id}", [ClassunitController::class, "delete"])->middleware(["password.confirm"]);
+
+		Route::get("/admin/payments", [AdminController::class, "listPayments"]);
 	});
 });
 
