@@ -72,7 +72,7 @@ class UserController extends Controller
 
 	public function update(Request $request, User $user) {
 		$data = $request->validate([
-			"username" => ["required", "min:3", "max:128"],
+			"username" => ["required", "min:3", "max:128", "unique:users"],
 			"name" => ["required", "min:3", "max:128"],
 			"classunit_id" => ["required"],
 			"type" => ["required"],
@@ -92,7 +92,7 @@ class UserController extends Controller
 
 	public function create(Request $request) {
 		$data = $request->validate([
-			"username" => ["required", "min:3", "max:128"],
+			"username" => ["required", "min:3", "max:128", "unique:users"],
 			"name" => ["required", "min:3", "max:128"],
 			"classunit_id" => ["required"],
 			"type" => ["required"],

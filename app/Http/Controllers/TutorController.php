@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Classunit;
 use App\Models\Message;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -79,6 +80,11 @@ class TutorController extends Controller
 			"type" => ["required"]
 		]);
 
+		if ($data["type"] == "nauczyciel") {
+			abort(400);
+			// Teachers cannot add teachers
+		}
+
 		$user->username = $data["username"];
 		$user->name = $data["name"];
 		$user->type = $data["type"];
@@ -104,6 +110,10 @@ class TutorController extends Controller
 			abort(403);
 		}
 
+		if ($user->id == $requestUser->id) {
+			abort(400);
+		}
+
 		$ghost_user = User::where("username", "ghost")->first();
 		$messages = Message::where("user_id", $user->id)->get();
 		foreach ($messages as $message) {
@@ -114,5 +124,50 @@ class TutorController extends Controller
 		$user->deleteOrFail();
 
 		return redirect("/tutor/students");
+	}
+
+	public function createStudentForm(Request $request) {
+		$user = $request->user();
+
+		if (!$user->isTutor) {
+			abort(403);
+		}
+
+		return view("tutor.student.create");
+	}
+
+	public function createStudent(Request $request) {
+		$requestUser = $request->user();
+		if (!$requestUser->isTutor) {
+			abort(403);
+		}
+
+		$data = $request->validate([
+			"username" => ["required", "min:3", "max:128", "unique:users"],
+			"name" => ["required", "min:3", "max:128"],
+			"type" => ["required"]
+		]);
+
+		if ($data["type"] == "nauczyciel") {
+			abort(400);
+			// Teachers cannot add teachers
+		}
+
+		$user = new User();
+
+		$temporaryPassword = Str::password(10, true, true, false);
+		$user->password = Hash::make($temporaryPassword);
+
+		$user->username = $data["username"];
+		$user->name = $data["name"];
+		$user->classunit_id = $requestUser->classunit_id;
+		$user->type = $data["type"];
+		$user->samorzadType = "student";
+		$user->saveOrFail();
+
+		return view("tutor.student.created", [
+			"user" => $user,
+			"temporaryPassword" => $temporaryPassword
+		]);
 	}
 }

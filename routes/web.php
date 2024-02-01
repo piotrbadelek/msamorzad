@@ -79,6 +79,16 @@ Route::middleware(["security.headers"])->group(function() {
 
 		Route::post("/push", [NotificationController::class, "subscribe"]);
 
+		Route::get("/tutor/students", [\App\Http\Controllers\TutorController::class, "listStudents"]);
+		Route::post("/tutor/students", [\App\Http\Controllers\TutorController::class, "createStudent"]);
+		Route::get("/tutor/students/new", [\App\Http\Controllers\TutorController::class, "createStudentForm"]);
+		Route::get("/tutor/students/{user:id}", [\App\Http\Controllers\TutorController::class, "studentDetails"]);
+		Route::patch("/tutor/students/{user:id}/", [\App\Http\Controllers\TutorController::class, "updateStudent"]);
+		Route::delete("/tutor/students/{user:id}/", [\App\Http\Controllers\TutorController::class, "deleteUser"]);
+		Route::get("/tutor/students/{user:id}/reset_password", [\App\Http\Controllers\TutorController::class, "studentResetPassword"]);
+		Route::get("/tutor/students/{user:id}/update", [\App\Http\Controllers\TutorController::class, "updateStudentForm"]);
+		Route::get("/tutor/students/{user:id}/delete", [\App\Http\Controllers\TutorController::class, "deleteStudentForm"]);
+
 		Route::view("/confirm-password", "confirm_password")->name("password.confirm");
 		Route::post('/confirm-password', function (Request $request) {
 			if (!Hash::check($request->password, $request->user()->password)) {
@@ -95,14 +105,6 @@ Route::middleware(["security.headers"])->group(function() {
 		Route::view("/oobe", "oobe");
 		Route::view("/about", "about");
 	});
-
-	Route::get("/tutor/students", [\App\Http\Controllers\TutorController::class, "listStudents"]);
-	Route::get("/tutor/students/{user:id}", [\App\Http\Controllers\TutorController::class, "studentDetails"]);
-	Route::patch("/tutor/students/{user:id}/", [\App\Http\Controllers\TutorController::class, "updateStudent"]);
-	Route::delete("/tutor/students/{user:id}/", [\App\Http\Controllers\TutorController::class, "deleteUser"]);
-	Route::get("/tutor/students/{user:id}/reset_password", [\App\Http\Controllers\TutorController::class, "studentResetPassword"]);
-	Route::get("/tutor/students/{user:id}/update", [\App\Http\Controllers\TutorController::class, "updateStudentForm"]);
-	Route::get("/tutor/students/{user:id}/delete", [\App\Http\Controllers\TutorController::class, "deleteStudentForm"]);
 
 	Route::middleware(["auth", "admin", "password.changed"])->group(function() {
 		Route::get("/admin", [AdminController::class, "list"]);
