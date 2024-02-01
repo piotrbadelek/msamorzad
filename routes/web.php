@@ -97,7 +97,12 @@ Route::middleware(["security.headers"])->group(function() {
 	});
 
 	Route::get("/tutor/students", [\App\Http\Controllers\TutorController::class, "listStudents"]);
-	Route::get("/tutor/students/{user:id}", [\App\Http\Controllers\TutorController::class, "editStudent"]);
+	Route::get("/tutor/students/{user:id}", [\App\Http\Controllers\TutorController::class, "studentDetails"]);
+	Route::patch("/tutor/students/{user:id}/", [\App\Http\Controllers\TutorController::class, "updateStudent"]);
+	Route::delete("/tutor/students/{user:id}/", [\App\Http\Controllers\TutorController::class, "deleteUser"]);
+	Route::get("/tutor/students/{user:id}/reset_password", [\App\Http\Controllers\TutorController::class, "studentResetPassword"]);
+	Route::get("/tutor/students/{user:id}/update", [\App\Http\Controllers\TutorController::class, "updateStudentForm"]);
+	Route::get("/tutor/students/{user:id}/delete", [\App\Http\Controllers\TutorController::class, "deleteStudentForm"]);
 
 	Route::middleware(["auth", "admin", "password.changed"])->group(function() {
 		Route::get("/admin", [AdminController::class, "list"]);

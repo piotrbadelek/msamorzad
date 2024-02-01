@@ -1,10 +1,10 @@
 @extends("layouts.app")
 
-@section("title", "Zresetuj hasło - samorząd II LO")
+@section("title", "Zresetowano hasło - samorząd II LO")
 
 @section("content")
 	<h1>Zresetowano hasło</h1>
-	<p>Zresetowano hasło dla użytkownika {{ $user->name }}. Tymczasowe hasło: <b>{{ $temporaryPassword }}</b></p>
+	<p>Zresetowano hasło dla ucznia {{ $user->name }}. Tymczasowe hasło: <b>{{ $temporaryPassword }}</b></p>
 	<p>Użytkownik będzie musiał zmienić hasło przy następnym logowaniu.</p>
 	<p>Karta zmiany hasła:</p>
 	<button id="resetCardInvoker">Wygeneruj kartę zmiany hasła.</button>
@@ -17,5 +17,5 @@
 @endsection
 
 @section("scripts")
-<script src="/js/admin.js?v=1" defer></script>
+	<script src="/js/admin.js?v=1" defer></script>
 @endsection
