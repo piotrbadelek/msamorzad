@@ -39,4 +39,8 @@
 		<textarea name="content" id="content" cols="30" rows="10" maxlength="960" required></textarea>
 		<button type="submit">Wyślij</button>
 	</form>
+
+	@if ($user->isSamorzadSzkolny)
+		<br><a href="/valentine/export" class="button button-margin">Pobierz listy do druku</a>
+	@endif
 @endsection
