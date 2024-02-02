@@ -92,6 +92,7 @@ Route::middleware(["security.headers"])->group(function() {
 		Route::middleware(["valentines.day"])->group(function() {
 			Route::get("/valentine", [\App\Http\Controllers\ValentinesDayMessageController::class, "index"]);
 			Route::post("/valentine", [\App\Http\Controllers\ValentinesDayMessageController::class, "create"]);
+			Route::get("/valentine/export", [\App\Http\Controllers\ValentinesDayMessageController::class, "export"]);
 		});
 
 		Route::view("/confirm-password", "confirm_password")->name("password.confirm");

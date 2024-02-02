@@ -17,7 +17,9 @@ class ValentinesDayMessageFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+			"recipient" => $this->faker->name(),
+			"content" => $this->faker->text(random_int(32, 512)),
+			"user_id" => random_int(1, 5)
         ];
     }
 }

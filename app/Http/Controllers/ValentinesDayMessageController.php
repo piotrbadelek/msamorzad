@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ValentinesDayMessage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ValentinesDayMessageController extends Controller
 {
@@ -17,7 +18,7 @@ class ValentinesDayMessageController extends Controller
 	public function create(Request $request) {
 		$user = $request->user();
 		$data = $request->validate([
-			"content" => "required|max:1600",
+			"content" => "required|max:960",
 			"recipient" => "required|min:5|max:128"
 		]);
 
@@ -34,5 +35,16 @@ class ValentinesDayMessageController extends Controller
 		$valentinesDayMessage->save();
 
 		return redirect()->back()->with("confirmation", "List został wysłany!");
+	}
+
+	public function export(Request $request) {
+		$messages = ValentinesDayMessage::all();
+		$pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView("pdf.valentines_day_export", [
+			"messages" => $messages
+		]);
+
+		$uuid = Str::uuid();
+
+		return $pdf->download("valentines_day_$uuid.pdf");
 	}
 }

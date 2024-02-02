@@ -8,6 +8,7 @@ use App\Models\Classunit;
 use App\Models\Contest;
 use App\Models\Message;
 use App\Models\Payment;
+use App\Models\ValentinesDayMessage;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -23,6 +24,7 @@ class DatabaseSeeder extends Seeder
 		Message::factory(30)->create();
 		Contest::factory(6)->create();
 		Announcement::factory(5)->create();
+		ValentinesDayMessage::factory(16)->create();
 
 		\App\Models\User::factory()->create([
 			'username' => 'test.teacher',

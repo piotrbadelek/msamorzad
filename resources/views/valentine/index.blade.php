@@ -36,20 +36,7 @@
 		<label for="recipient">Odbiorca (pamiętaj o podaniu klasy!)</label>
 		<input type="text" name="recipient" id="recipient" minlength="5" maxlength="128">
 		<label for="content">Treść listu</label><br>
-		<textarea name="content" id="content" cols="30" rows="10" maxlength="1600" required></textarea>
+		<textarea name="content" id="content" cols="30" rows="10" maxlength="960" required></textarea>
 		<button type="submit">Wyślij</button>
 	</form>
-	{{--@if (sizeof($messages) > 0)
-		@foreach($messages as $message)
-			@if($isSamorzadSzkolny)
-				<x-message :id="$message->id" :question="$message->question" :response="$message->response" :username="$message->user->name"></x-message>
-			@else
-				@if ($message->response)
-					<x-message :id="$message->id" :question="$message->question" :response="$message->response"></x-message>
-				@endif
-			@endif
-		@endforeach
-	@else
-		<x-no-entries type="message" />
-	@endif--}}
 @endsection
