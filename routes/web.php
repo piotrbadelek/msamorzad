@@ -89,6 +89,11 @@ Route::middleware(["security.headers"])->group(function() {
 		Route::get("/tutor/students/{user:id}/update", [\App\Http\Controllers\TutorController::class, "updateStudentForm"]);
 		Route::get("/tutor/students/{user:id}/delete", [\App\Http\Controllers\TutorController::class, "deleteStudentForm"]);
 
+		Route::middleware(["valentines.day"])->group(function() {
+			Route::get("/valentine", [\App\Http\Controllers\ValentinesDayMessageController::class, "index"]);
+			Route::post("/valentine", [\App\Http\Controllers\ValentinesDayMessageController::class, "create"]);
+		});
+
 		Route::view("/confirm-password", "confirm_password")->name("password.confirm");
 		Route::post('/confirm-password', function (Request $request) {
 			if (!Hash::check($request->password, $request->user()->password)) {

@@ -5,57 +5,27 @@
 @section("content")
 	<div class="outdated-ios-info">
 		<header>Zaaktualizuj system operacyjny</header>
-		<p>Twój telefon działa na przestarzałej wersji systemu iOS. Zaaktualizuj system operacyjny aby aplikacja mSamorząd mogła wysyłać powiadomienia.</p>
+		<p>Twój telefon działa na przestarzałej wersji systemu iOS. Zaaktualizuj system operacyjny aby aplikacja
+			mSamorząd mogła wysyłać powiadomienia.</p>
 	</div>
 
 	@unless($user->isTeacher && $user->notManagingAClass)
-		<a href="/skladki" class="card-container">
-			<div class="card">
-				<img src="/img/money.webp" alt="Składki" aria-hidden="true">
-				<p class="card_content">Składki</p>
-			</div>
-		</a>
+		<x-start-card name="Składki" imageFile="money" url="skladki"/>
 	@endunless
-	<a href="/contests" class="card-container">
-		<div class="card">
-			<img src="/img/contests.webp" alt="Konkursy" aria-hidden="true">
-			<p class="card_content">Konkursy</p>
-		</div>
-	</a>
-	<a href="/announcements" class="card-container">
-		<div class="card">
-			<img src="/img/ogloszenia.webp" alt="Ogłoszenia" aria-hidden="true">
-			<p class="card_content">Ogłoszenia</p>
-		</div>
-	</a>
-	<a href="/messages" class="card-container">
-		<div class="card">
-			<img src="/img/contact.webp" alt="Kontakt" aria-hidden="true">
-			<p class="card_content">Kontakt</p>
-		</div>
-	</a>
-	<a href="/about" class="card-container">
-		<div class="card">
-			<img src="/img/about.webp" alt="O aplikacji" aria-hidden="true">
-			<p class="card_content">O aplikacji</p>
-		</div>
-	</a>
+	<x-start-card name="Konkursy" imageFile="contests" url="contests"/>
+	<x-start-card name="Ogłoszenia" imageFile="ogloszenia" url="announcements"/>
+	<x-start-card name="Kontakt" imageFile="contact" url="messages"/>
+	<x-start-card name="O aplikacji" imageFile="about" url="about"/>
 	@if($user->isTutor)
-		<a href="/tutor/students" class="card-container">
-			<div class="card">
-				<img src="/img/classunit.webp" alt="Twoja klasa" aria-hidden="true">
-				<p class="card_content">Twoja klasa</p>
-			</div>
-		</a>
+		<x-start-card name="Twoja klasa" imageFile="classunit" url="tutor/students"/>
+	@endif
+
+	@if(!$user->isTeacher && \App\Utilities\EventActivation::isValentinesDayEventActive())
+		<x-start-card name="Poczta walentynkowa" imageFile="valentinemail" url="valentine"/>
 	@endif
 
 	@if($user->isAdministrator)
-		<a href="/admin" class="card-container">
-			<div class="card">
-				<img src="/img/admin.webp" alt="Administracja" aria-hidden="true">
-				<p class="card_content">Administracja</p>
-			</div>
-		</a>
+		<x-start-card name="Administracja" imageFile="admin" url="admin"/>
 	@endif
 	<form action="/logout" method="post">
 		@csrf
