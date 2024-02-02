@@ -2,7 +2,7 @@
 <html lang="pl" dir="ltr">
 <head>
 	<meta charset="UTF-8">
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<meta name="viewport"
 		  content="width=device-width, user-scalable=yes, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -49,14 +49,19 @@
 	@for ($i = 0; $i < count($messages); $i += 2)
 		<tr>
 			<td>Dla: {{ $messages[$i]->recipient }}</td>
-			<td>Dla: {{ $messages[$i + 1]->recipient }}</td>
+			@if (isset($messages[$i + 1]))
+				<td>Dla: {{ $messages[$i + 1]->recipient }}</td>
+			@endif
 		</tr>
 		<tr>
 			<td>{{ $messages[$i]->content }}</td>
-			<td>{{ $messages[$i + 1]->content }}</td>
+			@if (isset($messages[$i + 1]))
+				<td>{{ $messages[$i + 1]->content }}</td>
+			@endif
 		</tr>
 	@endfor
 </table>
-<footer>{{ (new DateTime())->format("Y-m-d H:i:s") }} | msamorzad.pl | Wygenerowano za pomocą wersji {{ config("app.version") }}</footer>
+<footer>{{ (new DateTime())->format("Y-m-d H:i:s") }} | msamorzad.pl | Wygenerowano za pomocą
+	wersji {{ config("app.version") }}</footer>
 </body>
 </html>

@@ -129,6 +129,8 @@ Route::middleware(["security.headers"])->group(function() {
 		Route::delete("/admin/classunit/{classunit:id}", [ClassunitController::class, "delete"])->middleware(["password.confirm"]);
 
 		Route::get("/admin/payments", [AdminController::class, "listPayments"]);
+
+		Route::view("/admin/events", "admin.events");
 	});
 });
 

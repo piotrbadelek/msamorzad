@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
-	public function list(Request $request) {
+	public function list() {
 		return view("admin.list");
 	}
 
