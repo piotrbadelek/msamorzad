@@ -30,4 +30,15 @@ class AdminControllerTest extends TestCase
 		$response = $this->get("/admin");
 		$response->assertStatus(403);
 	}
+
+	/** @test */
+	public function can_list_time_limited_events()
+	{
+		Auth::login(User::factory()->create([
+			"isAdministrator" => true
+		]));
+		$response = $this->get("/admin/events");
+		$response->assertStatus(200);
+		$response->assertViewIs("admin.events");
+	}
 }
