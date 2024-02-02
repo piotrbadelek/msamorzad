@@ -38,6 +38,10 @@ class ValentinesDayMessageController extends Controller
 	}
 
 	public function export(Request $request) {
+		if (!$request->user()->isSamorzadSzkolny) {
+			abort(403);
+		}
+
 		$messages = ValentinesDayMessage::all();
 		$pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView("pdf.valentines_day_export", [
 			"messages" => $messages
