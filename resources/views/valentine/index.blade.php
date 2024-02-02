@@ -14,12 +14,12 @@
 	<div class="info-alert">
 		@if ($user->isAdministrator)
 			@if (\App\Utilities\EventActivation::isValentinesDayEventActive())
-				<p>Poczta walentynkowa trwa od 12 do 14 lutego. Uczniowie obecnie widzą tą zakładkę i mogą wysyłać wiadomości.</p>
+				<p>Poczta walentynkowa trwa od 10 do 20:00 13 lutego. Uczniowie obecnie widzą tą zakładkę i mogą wysyłać wiadomości.</p>
 			@else
-				<p>Poczta walentynkowa nie jest obecnie aktywna - będzie trwać od 12 do 14 lutego. Uczniowie obecnie nie widzą tej zakładki.</p>
+				<p>Poczta walentynkowa nie jest obecnie aktywna - będzie trwać od 10 do 20:00 13 lutego. Uczniowie obecnie nie widzą tej zakładki.</p>
 			@endif
 		@else
-			<p>Poczta walentynkowa trwa od 12 do 14 lutego.</p>
+			<p>Poczta walentynkowa trwa od 10 do 20:00 13 lutego.</p>
 		@endif
 	</div>
 

@@ -2,6 +2,8 @@
 
 namespace App\Utilities;
 
+use Illuminate\Support\Carbon;
+
 /**
  * Provides timekeeping services to determine
  * if time-limited events are currently active or not.
@@ -9,22 +11,24 @@ namespace App\Utilities;
 
 class EventActivation
 {
+	protected static function determineIfBetweenDates(string $start, string $end) {
+		$now = Carbon::now();
+		$startDate = Carbon::parse($start);
+		$endDate = Carbon::parse($start);
+
+		return $now->between($startDate, $endDate);
+	}
+
 	public static function isValentinesDayEventActive(): bool
 	{
 		if (config("app.debug")) {
 			return true;
 		}
 
-		$currentDate = date("Y-m-d");
-		$currentDate = date('Y-m-d', strtotime($currentDate));
 		$currentYear = date("Y");
-		$eventBegin = date('Y-m-d', strtotime("$currentYear-02-12"));
-		$eventEnd = date('Y-m-d', strtotime("$currentYear-02-14"));
+		$start = "$currentYear-02-10T00:00:00+01:00";
+		$end = "$currentYear-02-13T20:00:00+01:00";
 
-		if (($currentDate >= $eventBegin) && ($currentDate <= $eventEnd)) {
-			return true;
-		} else {
-			return false;
-		}
+		return EventActivation::determineIfBetweenDates($start, $end);
 	}
 }
