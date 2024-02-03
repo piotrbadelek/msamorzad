@@ -8,10 +8,10 @@ use Illuminate\Support\Carbon;
  * Provides timekeeping services to determine
  * if time-limited events are currently active or not.
  */
-
 class EventActivation
 {
-	protected static function determineIfBetweenDates(string $start, string $end) {
+	protected static function determineIfBetweenDates(string $start, string $end): bool
+	{
 		$now = Carbon::now();
 		$startDate = Carbon::parse($start);
 		$endDate = Carbon::parse($start);

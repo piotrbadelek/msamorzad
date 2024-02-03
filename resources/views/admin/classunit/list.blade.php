@@ -5,7 +5,7 @@
 @section("content")
 	<h1>Administracja - klasy</h1>
 	<a href="/admin/" class="button">Cofnij</a>
-	<a href="/admin/user/new" class="button">Nowa klasa</a>
+	<a href="/admin/classunit/new" class="button">Nowa klasa</a>
 	<p>Kliknij na klasę, aby ją usunąć wraz ze wszystkimi uczniami.</p>
 	<ul class="payment-students">
 		@foreach($classunits as $classunit)

@@ -10,19 +10,22 @@ use Illuminate\Http\Request;
 
 class ClassunitController extends Controller
 {
-    public function list(Request $request) {
+	public function list()
+	{
 		return view("admin.classunit.list", [
 			"classunits" => Classunit::all()
 		]);
 	}
 
-	public function deleteForm(Request $request, Classunit $classunit) {
+	public function deleteForm(Classunit $classunit)
+	{
 		return view("admin.classunit.delete", [
 			"classunit" => $classunit
 		]);
 	}
 
-	public function delete(Request $request, Classunit $classunit) {
+	public function delete(Classunit $classunit)
+	{
 		$ghost_user = User::where("username", "ghost")->first();
 		$users = User::where("classunit_id", $classunit->id)->get();
 
@@ -41,6 +44,24 @@ class ClassunitController extends Controller
 		}
 
 		$classunit->deleteOrFail();
+
+		return redirect("/admin/classunit");
+	}
+
+	public function createForm()
+	{
+		return view("admin.classunit.create");
+	}
+
+	public function create(Request $request)
+	{
+		$data = $request->validate([
+			"name" => ["required", "min:4", "max:8"]
+		]);
+
+		$classunit = new Classunit;
+		$classunit->name = $data["name"];
+		$classunit->save();
 
 		return redirect("/admin/classunit");
 	}

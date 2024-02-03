@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware(["security.headers"])->group(function() {
+Route::middleware(["security.headers"])->group(function () {
 
 	Route::get("/future", function () {
 		return redirect("/future_ad.mp4");
@@ -36,7 +36,7 @@ Route::middleware(["security.headers"])->group(function() {
 	Route::post("/change-password", [SessionController::class, "update"])->middleware("auth");
 	Route::post("/logout", [SessionController::class, "logout"])->middleware("auth");
 
-	Route::middleware(["auth", "password.changed"])->group(function() {
+	Route::middleware(["auth", "password.changed"])->group(function () {
 		Route::get('/', function (Request $request) {
 			if ($request->user()->hasNotChangedPassword) {
 				return redirect("/change-password?changingForFirstTime=true");
@@ -89,7 +89,7 @@ Route::middleware(["security.headers"])->group(function() {
 		Route::get("/tutor/students/{user:id}/update", [\App\Http\Controllers\TutorController::class, "updateStudentForm"]);
 		Route::get("/tutor/students/{user:id}/delete", [\App\Http\Controllers\TutorController::class, "deleteStudentForm"]);
 
-		Route::middleware(["valentines.day"])->group(function() {
+		Route::middleware(["valentines.day"])->group(function () {
 			Route::get("/valentine", [\App\Http\Controllers\ValentinesDayMessageController::class, "index"]);
 			Route::post("/valentine", [\App\Http\Controllers\ValentinesDayMessageController::class, "create"]);
 			Route::get("/valentine/export", [\App\Http\Controllers\ValentinesDayMessageController::class, "export"]);
@@ -112,7 +112,7 @@ Route::middleware(["security.headers"])->group(function() {
 		Route::view("/about", "about");
 	});
 
-	Route::middleware(["auth", "admin", "password.changed"])->group(function() {
+	Route::middleware(["auth", "admin", "password.changed"])->group(function () {
 		Route::get("/admin", [AdminController::class, "list"]);
 		Route::get("/admin/user", [UserController::class, "list"]);
 		Route::get("/admin/user/new", [UserController::class, "createForm"]);
@@ -125,6 +125,8 @@ Route::middleware(["security.headers"])->group(function() {
 		Route::patch("/admin/user/{user:id}", [UserController::class, "update"]);
 
 		Route::get("/admin/classunit", [ClassunitController::class, "list"]);
+		Route::post("/admin/classunit", [ClassunitController::class, "create"]);
+		Route::get("/admin/classunit/new", [ClassunitController::class, "createForm"]);
 		Route::get("/admin/classunit/{classunit:id}", [ClassunitController::class, "deleteForm"])->middleware(["password.confirm"]);
 		Route::delete("/admin/classunit/{classunit:id}", [ClassunitController::class, "delete"])->middleware(["password.confirm"]);
 
