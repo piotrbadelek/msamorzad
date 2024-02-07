@@ -175,12 +175,14 @@ dialog {
 	background: #ECE6F0;
 	border: none;
 	padding: 1.5rem;
-	position: absolute;
+	position: fixed;
 	left: 0;
 	right: 0;
 	top: 0;
 	bottom: 0;
 	margin: auto;
+	width: 75vw;
+	max-width: 576px;
 }
 
 .not-primary {
