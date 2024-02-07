@@ -4,8 +4,6 @@ namespace Tests\Feature\Http\Controllers;
 
 use App\Models\Payment;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Tests\TestCase;
@@ -105,6 +103,21 @@ class PaymentControllerTest extends TestCase
 
 		$payment->refresh();
 		$this->assertTrue(in_array($user->id, json_decode($payment->paid)));
+	}
+
+	/** @test */
+	public function cannot_mark_excluded_student_as_paid()
+	{
+		$this->generateSkarbnik();
+		$user = User::factory()->create([
+			"classunit_id" => 1
+		]);
+		$payment = Payment::factory()->create([
+			"classunit_id" => 1,
+			"excludedStudents" => json_encode(["$user->id"])
+		]);
+		$response = $this->get("/skladki/" . $payment->id . "/" . $user->id);
+		$response->assertStatus(400);
 	}
 
 	/** @test */
@@ -231,6 +244,34 @@ class PaymentControllerTest extends TestCase
 		]);
 	}
 
+	public function can_create_payment_with_excluded_students()
+	{
+		$user = $this->generateSkarbnik();
+		$excludedStudent = User::factory()->create([
+			"classunit_id" => 1,
+			"samorzadType" => "student"
+		]);
+
+		$amount = rand(1, 999);
+		$deadline = date('Y-m-d H:i:s', time() + 604800);
+
+		$response = $this->post("/skladki/new", [
+			"money" => $amount,
+			"title" => "test123",
+			"deadline" => $deadline,
+			"student[$excludedStudent->id]" => "on"
+		]);
+
+		$response->assertStatus(302);
+		$this->assertDatabaseHas("payments", [
+			"amount" => $amount,
+			"title" => "test123",
+			"deadline" => $deadline,
+			"classunit_id" => $user->classunit_id,
+			"excludedStudents" => ["$excludedStudent->id"]
+		]);
+	}
+
 	/** @test */
 	public function deny_creating_payment_to_regular_students()
 	{
@@ -300,7 +341,8 @@ class PaymentControllerTest extends TestCase
 	}
 
 	/** @test */
-	public function deny_generating_payment_confirmations_to_regular_students() {
+	public function deny_generating_payment_confirmations_to_regular_students()
+	{
 		$payment = Payment::factory()->create([
 			"classunit_id" => 1
 		]);
@@ -314,7 +356,8 @@ class PaymentControllerTest extends TestCase
 	}
 
 	/** @test */
-	public function deny_generating_payment_confirmations_to_users_from_different_classes() {
+	public function deny_generating_payment_confirmations_to_users_from_different_classes()
+	{
 		$this->generateSkarbnik();
 		$payment = Payment::factory()->create([
 			"classunit_id" => 2
@@ -325,7 +368,8 @@ class PaymentControllerTest extends TestCase
 	}
 
 	/** @test */
-	public function payment_can_be_moved_to_trash() {
+	public function payment_can_be_moved_to_trash()
+	{
 		$this->generateSkarbnik();
 		$payment = Payment::factory()->create([
 			"classunit_id" => 1
@@ -340,7 +384,8 @@ class PaymentControllerTest extends TestCase
 	}
 
 	/** @test */
-	public function payment_cannot_be_moved_to_trash_by_a_student() {
+	public function payment_cannot_be_moved_to_trash_by_a_student()
+	{
 		$user = User::factory()->create([
 			"classunit_id" => 1,
 			"type" => "student",
