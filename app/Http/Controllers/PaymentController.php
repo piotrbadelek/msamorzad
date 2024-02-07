@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Classunit;
 use App\Models\Payment;
 use App\Models\User;
 use App\Notifications\PaymentCreated;
@@ -15,21 +14,24 @@ class PaymentController extends Controller
 {
 	public function view(Request $request)
 	{
-		if ($request->user()->isTeacher && $request->user()->notManagingAClass) {
+		$user = $request->user();
+		if ($user->isTeacher && $user->notManagingAClass) {
 			abort(403);
 		}
 
-		$payments = Payment::where("classunit_id", $request->user()->classunit_id)->where("inTrash", false)->get();
+		$payments = Payment::where("classunit_id", $user->classunit_id)->where("inTrash", false)->get();
 
-		$userIsSamorzadKlasowy = $request->user()->isSamorzadKlasowy;
+		$userIsSamorzadKlasowy = $user->isSamorzadKlasowy;
 
 		if ($userIsSamorzadKlasowy) {
-			$paymentsInTrash = Payment::where("classunit_id", $request->user()->classunit_id)->where("inTrash", true)->get();
+			$paymentsInTrash = Payment::where("classunit_id", $user->classunit_id)->where("inTrash", true)->get();
+		} else {
+			$payments = $payments->filter(fn($payment) => !in_array($user->id, $payment->excluded_students_array));
 		}
 
 		return view("payment.list", [
 			"payments" => $payments,
-			"user" => $request->user(),
+			"user" => $user,
 			"isSamorzadKlasowy" => $userIsSamorzadKlasowy,
 			"paymentsInTrash" => $paymentsInTrash ?? []
 		]);
@@ -58,7 +60,12 @@ class PaymentController extends Controller
 			abort(403);
 		}
 
-		if (User::where("id", $userid)->first()->classunit_id !== $payment->classunit_id) {
+		$student = User::where("id", $userid)->first();
+		if ($student->classunit_id !== $payment->classunit_id) {
+			abort(400);
+		}
+
+		if (in_array($userid, $payment->excluded_students_array)) {
 			abort(400);
 		}
 
@@ -76,12 +83,16 @@ class PaymentController extends Controller
 
 	public function createForm(Request $request)
 	{
-		if ($request->user()->cannot("create", Payment::class)) {
+		$user = $request->user();
+		if ($user->cannot("create", Payment::class)) {
 			abort(403);
 		}
 
+		$students = User::where("classunit_id", $user->classunit_id)->get();
+
 		return view("payment.create", [
-			"classUnitSize" => User::count("classunit_id", $request->user()->classunit_id)
+			"classUnitSize" => $students->count(),
+			"classUnitStudents" => $students
 		]);
 	}
 
@@ -98,7 +109,8 @@ class PaymentController extends Controller
 
 	public function create(Request $request)
 	{
-		if ($request->user()->cannot("create", Payment::class)) {
+		$user = $request->user();
+		if ($user->cannot("create", Payment::class)) {
 			abort(403);
 		}
 
@@ -109,15 +121,23 @@ class PaymentController extends Controller
 		]);
 
 		$payment = new Payment;
+
+		if ($request->has("excludeStudents")) {
+			$excludedStudents = $request->input("student");
+			$excludedStudents = array_keys($excludedStudents);
+			$payment->excludedStudents = json_encode($excludedStudents);
+			$users = $user->classUnit->users->whereNotIn("id", $excludedStudents);
+		} else {
+			$users = $user->classUnit->users;
+		}
+
 		$payment->amount = $data["money"];
 		$payment->title = $data["title"];
 		$payment->deadline = $data["deadline"];
-		$payment->classunit_id = $request->user()->classunit_id;
+		$payment->classunit_id = $user->classunit_id;
 		$payment->paid = "[]";
 		$payment->isGlobal = false;
 		$payment->save();
-
-		$users = $request->user()->classUnit->users;
 
 		if (!app()->isDownForMaintenance()) {
 			try {
@@ -173,7 +193,11 @@ class PaymentController extends Controller
 
 	protected function getNotPaidUsers(Payment $payment): array
 	{
-		$not_paid = User::whereNotIn("id", json_decode($payment->paid))
+		$paidStudents = json_decode($payment->paid);
+		$excludedStudents = $payment->excluded_students_array;
+		$paidAndExcludedStudents = array_merge($paidStudents, $excludedStudents);
+
+		$not_paid = User::whereNotIn("id", $paidAndExcludedStudents)
 			->where('type', '!=', 'nauczyciel')
 			->where("classunit_id", "=", $payment->classunit_id)->get();
 

@@ -51,16 +51,16 @@
 }
 
 body {
-    font-family: Inter, -system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, sans-serif;
-    line-height: 1.625;
+	font-family: Inter, -system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, sans-serif;
+	line-height: 1.625;
 	background-color: var(--md-surface);
 	color: var(--md-on-surface);
 }
 
 header {
-    text-align: center;
-    margin-top: 1.2rem;
-    margin-bottom: 2rem;
+	text-align: center;
+	margin-top: 1.2rem;
+	margin-bottom: 2rem;
 }
 
 header a {
@@ -69,69 +69,69 @@ header a {
 }
 
 main {
-    width: 90vw;
-    margin: 0 auto;
+	width: 90vw;
+	margin: 0 auto;
 	min-height: 90vh;
 	position: relative;
 }
 
 .card {
-    border-radius: 0.75rem;
-    background: var(--md-surface-container);
+	border-radius: 0.75rem;
+	background: var(--md-surface-container);
 }
 
 .card img {
-    width: 100%;
+	width: 100%;
 	border-radius: .75rem .75rem 0 0;
 }
 
 .card_content {
-    margin-top: .75rem;
-    padding-bottom: .75rem;
-    margin-left: 1rem;
-    font-size: 1.25rem;
-    font-weight: 500;
-    color: var(--md-on-surface);
+	margin-top: .75rem;
+	padding-bottom: .75rem;
+	margin-left: 1rem;
+	font-size: 1.25rem;
+	font-weight: 500;
+	color: var(--md-on-surface);
 }
 
 .card-container {
-    text-decoration: none;
+	text-decoration: none;
 }
 
 .payment-card {
-    border-radius: 12px;
-    display: flex;
-    background-color: var(--md-surface-container);
-    flex-direction: row;
-    padding: 16px;
-    margin-bottom: 1rem;
+	border-radius: 12px;
+	display: flex;
+	background-color: var(--md-surface-container);
+	flex-direction: row;
+	padding: 16px;
+	margin-bottom: 1rem;
 }
 
 .payment-card__content {
-    flex: 1;
+	flex: 1;
 }
 
 .payment-card__content * {
-    display: block;
+	display: block;
 }
 
 button, .button {
-    border-radius: 100px;
-    background-color: var(--md-primary);
-    border: none;
-    color: var(--md-on-primary);
-    padding: 10px 24px;
-    font-weight: 500;
-    font-family: inherit;
-    font-size: 1rem;
-    text-decoration: none;
-    height: min-content;
-    display: inline-block;
+	border-radius: 100px;
+	background-color: var(--md-primary);
+	border: none;
+	color: var(--md-on-primary);
+	padding: 10px 24px;
+	font-weight: 500;
+	font-family: inherit;
+	font-size: 1rem;
+	text-decoration: none;
+	height: min-content;
+	display: inline-block;
 }
 
 button:disabled, .button:disabled {
-    background-color: color-mix(in srgb, var(--md-on-surface) 12%, transparent);
-    color: var(--md-on-surface);
+	background-color: color-mix(in srgb, var(--md-on-surface) 12%, transparent);
+	color: var(--md-on-surface);
 }
 
 .button-margin {
@@ -189,18 +189,28 @@ dialog {
 }
 
 #new_payment {
-    margin-bottom: 1rem;
+	margin-bottom: 1rem;
 }
 
 input {
-    display: block;
-    border-radius: 4px;
-    border: 1px solid var(--md-outline);
-    padding: 8px 0 8px 16px;
-    width: 85vw;
-    margin-bottom: 1rem;
+	display: block;
+	border-radius: 4px;
+	border: 1px solid var(--md-outline);
+	padding: 8px 0 8px 16px;
+	width: 85vw;
+	margin-bottom: 1rem;
 	font-family: inherit;
 	background-color: var(--md-surface);
+}
+
+input[type="checkbox"] {
+	display: inline-block;
+	width: 2rem;
+	transform: scale(1.25);
+}
+
+.payment-students input[type="checkbox"] {
+	margin-bottom: 0;
 }
 
 .message {
@@ -381,6 +391,15 @@ details summary {
 	padding: 1rem;
 }
 
+.block {
+	display: block;
+}
+
+.icon-text, .icon-svg {
+	vertical-align: middle;
+	display: inline-block;
+}
+
 /* Media queries */
 
 @media (min-width: 768px) {
@@ -388,6 +407,7 @@ details summary {
 		width: 23%;
 		display: inline-block;
 	}
+
 	.announcement-image {
 		width: 25vw;
 	}
@@ -485,36 +505,36 @@ details summary {
 
 /* inter-regular - latin */
 @font-face {
-    font-display: swap;
-    font-family: "Inter";
-    font-style: normal;
-    font-weight: 400;
-    src: url("/fonts/inter-v13-latin-ext-regular.woff2") format("woff2");
+	font-display: swap;
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 400;
+	src: url("/fonts/inter-v13-latin-ext-regular.woff2") format("woff2");
 }
 
 /* inter-500 - latin */
 @font-face {
-    font-display: swap;
-    font-family: "Inter";
-    font-style: normal;
-    font-weight: 500;
-    src: url("/fonts/inter-v13-latin-ext-500.woff2") format("woff2");
+	font-display: swap;
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 500;
+	src: url("/fonts/inter-v13-latin-ext-500.woff2") format("woff2");
 }
 
 /* inter-600 - latin */
 @font-face {
-    font-display: swap;
-    font-family: "Inter";
-    font-style: normal;
-    font-weight: 600;
-    src: url("/fonts/inter-v13-latin-ext-600.woff2") format("woff2");
+	font-display: swap;
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 600;
+	src: url("/fonts/inter-v13-latin-ext-600.woff2") format("woff2");
 }
 
 /* inter-700 - latin */
 @font-face {
-    font-display: swap;
-    font-family: "Inter";
-    font-style: normal;
-    font-weight: 700;
-    src: url("/fonts/inter-v13-latin-ext-700.woff2") format("woff2");
+	font-display: swap;
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 700;
+	src: url("/fonts/inter-v13-latin-ext-700.woff2") format("woff2");
 }

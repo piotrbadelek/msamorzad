@@ -30,8 +30,9 @@ const moneyInput = $("#money");
 if (moneyInput) {
 	moneyInput.addEventListener("input", calculateTotalAmount);
 }
+
 function calculateTotalAmount() {
-	$("#totalAmount").innerText = `Łącznie: ${$("#money").value * $("[data-total-student]").dataset.totalStudents} zł`
+	$("#totalAmount").innerText = `Łącznie: ${$("#money").value * $("[data-total-students]").dataset.totalStudents} zł`
 }
 
 const enableNotificationsButton = $("#enableNotifications");
@@ -255,4 +256,24 @@ const outdatedIosPrompt = $(".outdated-ios-info");
 
 if (outdatedIosPrompt && !supportsBeforeInstallPrompt && isiOSSafari) {
 	outdatedIosPrompt.style.display = "block";
+}
+
+const featureGuideExcludeStudentsInvoker = $("#feature-guide-exclude-students-invoker");
+if (featureGuideExcludeStudentsInvoker) {
+	const featureGuideExcludeStudentsDialogue = $("#feature-guide-exclude-students");
+	featureGuideExcludeStudentsInvoker.addEventListener("click", event => {
+		event.preventDefault();
+		featureGuideExcludeStudentsDialogue.open = true;
+	});
+
+	$("#feature-guide-exclude-students button").addEventListener("click", () => {
+		featureGuideExcludeStudentsDialogue.open = false;
+	});
+}
+
+const excludeStudentsCheckbox = $("#excludeStudents");
+if (excludeStudentsCheckbox) {
+	excludeStudentsCheckbox.addEventListener("click", () => {
+		$("#excludedStudentsForm").hidden = !excludeStudentsCheckbox.checked;
+	});
 }
