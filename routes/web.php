@@ -38,6 +38,7 @@ Route::middleware(["security.headers"])->group(function () {
 
 	Route::middleware(["auth", "password.changed"])->group(function () {
 		Route::get('/', function (Request $request) {
+			abort(503);
 			if ($request->user()->hasNotChangedPassword) {
 				return redirect("/change-password?changingForFirstTime=true");
 			}

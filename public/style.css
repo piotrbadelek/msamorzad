@@ -402,6 +402,15 @@ details summary {
 	display: inline-block;
 }
 
+.error-svg {
+	color: var(--md-error);
+	position: fixed;
+	bottom: -64px;
+	right: -64px;
+	width: 300px;
+	height: 300px;
+}
+
 /* Media queries */
 
 @media (min-width: 768px) {
