@@ -259,6 +259,7 @@ class PaymentControllerTest extends TestCase
 			"money" => $amount,
 			"title" => "test123",
 			"deadline" => $deadline,
+			"excludeStudents" => "on",
 			"student[$excludedStudent->id]" => "on"
 		]);
 
