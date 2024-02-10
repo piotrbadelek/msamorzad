@@ -3,8 +3,6 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use NotificationChannels\WebPush\WebPushChannel;
 use NotificationChannels\WebPush\WebPushMessage;
@@ -18,6 +16,7 @@ class PaymentDueSoon extends Notification
 	 */
 	protected int $daysRemaining;
 	protected int $paymentAmount;
+
 	public function __construct(int $daysRemaining, int $paymentAmount)
 	{
 		$this->daysRemaining = $daysRemaining;
@@ -46,7 +45,7 @@ class PaymentDueSoon extends Notification
 
 		return (new WebPushMessage)
 			->title('Upływa termin płatności składki.')
-			->icon('/img/touch/256.png')
+			->icon('/img/touch/192.png')
 			->body($notificationBody)
 			->options(['TTL' => 1000]);
 		// ->data(['id' => $notification->id])

@@ -3,8 +3,6 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use NotificationChannels\WebPush\WebPushChannel;
 use NotificationChannels\WebPush\WebPushMessage;
@@ -18,6 +16,7 @@ class AnnouncementCreated extends Notification
 	 */
 
 	protected string $announcementTitle;
+
 	public function __construct(string $announcementTitle)
 	{
 		$this->announcementTitle = $announcementTitle;
@@ -37,7 +36,7 @@ class AnnouncementCreated extends Notification
 	{
 		return (new WebPushMessage)
 			->title('Nowe ogłoszenie')
-			->icon('/img/touch/256.png')
+			->icon('/img/touch/192.png')
 			->body('Dodano nowe ogłoszenie: ' . $this->announcementTitle)
 			->options(['TTL' => 1000]);
 		// ->data(['id' => $notification->id])
