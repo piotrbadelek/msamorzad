@@ -14,7 +14,7 @@ class EventActivation
 	{
 		$now = Carbon::now();
 		$startDate = Carbon::parse($start);
-		$endDate = Carbon::parse($start);
+		$endDate = Carbon::parse($end);
 
 		return $now->between($startDate, $endDate);
 	}

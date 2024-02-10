@@ -2,24 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\ValentinesDayMessage;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class ValentinesDayMessageController extends Controller
 {
-    public function index(Request $request) {
+	public function index(Request $request)
+	{
 		$user = $request->user();
 		return view("valentine.index", [
 			"user" => $user
 		]);
 	}
 
-	public function create(Request $request) {
+	public function create(Request $request)
+	{
 		$user = $request->user();
 		$data = $request->validate([
-			"content" => "required|max:960",
-			"recipient" => "required|min:5|max:128"
+			"content" => "required|max:960"
 		]);
 
 		if (ValentinesDayMessage::where("user_id", $user->id)->count() > 8) {
@@ -31,19 +34,30 @@ class ValentinesDayMessageController extends Controller
 		$valentinesDayMessage = new ValentinesDayMessage;
 		$valentinesDayMessage->user_id = $user->id;
 		$valentinesDayMessage->content = $data["content"];
-		$valentinesDayMessage->recipient = $data["recipient"];
+
+		if ($request->filled("recipient")) {
+			$data = $request->validate([
+				"recipient" => "required|max:128"
+			]);
+			$valentinesDayMessage->recipient = $data["recipient"];
+		} else {
+			$randomRecipient = User::inRandomOrder()->first();
+			$valentinesDayMessage->recipient = "$randomRecipient->name ({$randomRecipient->classunit->name})";
+		}
+
 		$valentinesDayMessage->save();
 
 		return redirect()->back()->with("confirmation", "List został wysłany!");
 	}
 
-	public function export(Request $request) {
+	public function export(Request $request)
+	{
 		if (!$request->user()->isSamorzadSzkolny) {
 			abort(403);
 		}
 
 		$messages = ValentinesDayMessage::all();
-		$pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView("pdf.valentines_day_export", [
+		$pdf = Pdf::loadView("pdf.valentines_day_export", [
 			"messages" => $messages
 		]);
 
