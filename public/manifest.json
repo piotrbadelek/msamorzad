@@ -121,5 +121,22 @@
 			"form_factor": "wide",
 			"label": "Ogłoszenia"
 		}
+	],
+	"edge_side_panel": {
+		"preferred_width": 400
+	},
+	"shortcuts": [
+		{
+			"name": "Składki",
+			"url": "/skladki"
+		},
+		{
+			"name": "Ogłoszenia",
+			"url": "/announcements"
+		},
+		{
+			"name": "Konkursy",
+			"url": "/contests"
+		}
 	]
 }

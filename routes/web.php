@@ -24,6 +24,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::view("/offline", "errors.offline");
+
 Route::middleware(["security.headers"])->group(function () {
 
 	Route::get("/future", function () {
