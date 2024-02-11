@@ -2,10 +2,18 @@
 	"name": "mSamorząd",
 	"short_name": "mSamorząd",
 	"start_url": "/",
+	"id": "/",
 	"display": "standalone",
+	"dir": "ltr",
+	"lang": "pl",
+	"prefer_related_applications": false,
 	"background_color": "#505B92",
 	"theme_color": "#505B92",
 	"description": "Szkolna aplikacja samorządu uczniowskiego",
+	"orientation": "portrait",
+	"categories": [
+		"education"
+	],
 	"icons": [
 		{
 			"src": "/img/touch/48.png",
@@ -48,6 +56,70 @@
 			"sizes": "512x512",
 			"type": "image/png",
 			"purpose": "maskable any"
+		}
+	],
+	"launch_handler": {
+		"client_mode": [
+			"navigate-existing",
+			"auto"
+		]
+	},
+	"screenshots": [
+		{
+			"src": "/img/screenshots/mobile1.webp",
+			"sizes": "1080x1920",
+			"type": "image/webp",
+			"form_factor": "narrow",
+			"label": "Strona domowa aplikacji"
+		},
+		{
+			"src": "/img/screenshots/mobile2.webp",
+			"sizes": "1080x1920",
+			"type": "image/webp",
+			"form_factor": "narrow",
+			"label": "Składki"
+		},
+		{
+			"src": "/img/screenshots/mobile3.webp",
+			"sizes": "1080x1920",
+			"type": "image/webp",
+			"form_factor": "narrow",
+			"label": "Konkursy"
+		},
+		{
+			"src": "/img/screenshots/mobile4.webp",
+			"sizes": "1080x1920",
+			"type": "image/webp",
+			"form_factor": "narrow",
+			"label": "Ogłoszenia"
+		},
+		{
+			"src": "/img/screenshots/desktop1.webp",
+			"sizes": "1920x1080",
+			"type": "image/webp",
+			"form_factor": "wide",
+			"label": "Strona domowa aplikacji"
+		},
+		{
+			"src": "/img/screenshots/desktop2.webp",
+			"sizes": "1920x1080",
+			"type": "image/webp",
+			"form_factor": "wide",
+			"label": "Składki"
+		},
+		{
+			"src": "/img/screenshots/desktop3.webp",
+			"sizes": "1920x1080",
+			"type": "image/webp",
+			"form_factor": "wide",
+			"label": "Konkursy"
+		},
+		{
+			"src": "/img/screenshots/desktop4.webp",
+			"sizes": "1920x1080",
+			"type": "image/webp",
+			"form_factor": "wide",
+			"label": "Ogłoszenia"
 		}
 	]
 }
