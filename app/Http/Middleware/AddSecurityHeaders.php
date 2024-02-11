@@ -21,7 +21,7 @@ class AddSecurityHeaders
 		$appUrl = config("app.url");
 
 		if (!config("app.debug")) {
-			$response->header("Content-Security-Policy", "default-src 'self' *.sentry.io; font-src 'self'; img-src 'self'; object-src 'none'; script-src 'self' *.sentry-cdn.com; style-src 'self'; worker-src 'self' blob:$appUrl");
+			$response->header("Content-Security-Policy", "default-src 'self' *.sentry.io; font-src 'self'; img-src 'self'; object-src 'none'; script-src 'self' *.sentry-cdn.com; style-src 'self'; worker-src *");
 		}
 
 		return $response;
