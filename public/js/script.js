@@ -92,7 +92,7 @@ $("#dontInstallApp").addEventListener("click", dontInstallApp);
 	https://msamorzad.sentry.io/issues/4837572428 */
 let swReady = navigator.serviceWorker && navigator.serviceWorker.ready;
 
-function initSW() {
+function initSW(callInitPush = true) {
 	if (!"serviceWorker" in navigator) {
 		//service worker isn't supported
 		alert("Wystąpił błąd. Zaaktualizuj przeglądarkę aby włączyć powiadomienia.");
@@ -111,12 +111,16 @@ function initSW() {
 	navigator.serviceWorker.register('/sw.js')
 		.then((reg) => {
 			console.log('SW registered!', reg)
-			initPush();
+
+			if (callInitPush) {
+				initPush();
+			}
 		})
 		.catch(err => console.log(err));
 }
 
 document.addEventListener('DOMContentLoaded', function () {
+	initSW(false);
 	window.requestNotificationPermission = async () => {
 		// Fix for iOS on versions before 16.4, as push notifications
 		// are not supported on these versions.
