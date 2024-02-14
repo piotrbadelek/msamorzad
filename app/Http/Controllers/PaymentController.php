@@ -88,7 +88,9 @@ class PaymentController extends Controller
 			abort(403);
 		}
 
-		$students = User::where("classunit_id", $user->classunit_id)->get();
+		$students = User::where("classunit_id", $user->classunit_id)
+			->where('type', '!=', 'nauczyciel')
+			->get();
 
 		return view("payment.create", [
 			"classUnitSize" => $students->count(),
