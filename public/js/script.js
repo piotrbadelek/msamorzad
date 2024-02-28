@@ -55,7 +55,7 @@ let installPrompt = null;
 const installButton = document.querySelector("#installButton");
 const installDialouge = document.querySelector("#installDialogue");
 
-if (!$("[data-dont-show-notif-prompt]")) {
+if (!$("[data-dont-show-notif-prompt]") && !store("installDelayed")) {
 	$("#disableNotifications").addEventListener("click", disableNotifications);
 	window.addEventListener("beforeinstallprompt", (event) => {
 		event.preventDefault();
@@ -80,6 +80,7 @@ function disableInAppInstallPrompt() {
 
 function dontInstallApp() {
 	installDialouge.open = false;
+	store("installDelayed", "true");
 }
 
 $("#dontInstallApp").addEventListener("click", dontInstallApp);
@@ -240,6 +241,12 @@ function urlBase64ToUint8Array(base64String) {
 if (store("notificationsDelayed")) {
 	if (Math.floor(Math.random() * 100) > 98) {
 		store("notificationsDelayed", "");
+	}
+}
+
+if (store("installDelayed")) {
+	if (Math.floor(Math.random() * 100) > 88) {
+		store("installDelayed", "");
 	}
 }
 
