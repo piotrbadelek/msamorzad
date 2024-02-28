@@ -63,16 +63,29 @@ class UserController extends Controller
 		]);
 	}
 
-	public function updateForm(Request $request, User $user) {
+	public function updateForm(Request $request, User $user)
+	{
 		return view("admin.user.update", [
 			"user" => $user,
 			"classunits" => Classunit::all()
 		]);
 	}
 
-	public function update(Request $request, User $user) {
+	public function update(Request $request, User $user)
+	{
+		$validateUsernameUniqueness = true;
+		$uniquenessRequirement = "unique:users";
+
+		if ($request->has("username") && $user->username === $request->post("username")) {
+			$validateUsernameUniqueness = false;
+		}
+
+		if (!$validateUsernameUniqueness) {
+			$uniquenessRequirement = "";
+		}
+
 		$data = $request->validate([
-			"username" => ["required", "min:3", "max:128", "unique:users"],
+			"username" => ["required", "min:3", "max:128", $uniquenessRequirement],
 			"name" => ["required", "min:3", "max:128"],
 			"classunit_id" => ["required"],
 			"type" => ["required"],
@@ -84,13 +97,15 @@ class UserController extends Controller
 		return redirect("/admin/user/" . $user->id);
 	}
 
-	public function createForm(Request $request) {
+	public function createForm(Request $request)
+	{
 		return view("admin.user.create", [
 			"classunits" => Classunit::all()
 		]);
 	}
 
-	public function create(Request $request) {
+	public function create(Request $request)
+	{
 		$data = $request->validate([
 			"username" => ["required", "min:3", "max:128", "unique:users"],
 			"name" => ["required", "min:3", "max:128"],
@@ -119,7 +134,8 @@ class UserController extends Controller
 		]);
 	}
 
-	protected function updateUserAttributes(User $user, Array $data) {
+	protected function updateUserAttributes(User $user, array $data)
+	{
 		$user->username = $data["username"];
 		$user->name = $data["name"];
 		$user->classunit_id = $data["classunit_id"];
