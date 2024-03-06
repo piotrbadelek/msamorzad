@@ -6,7 +6,7 @@
 		  content="width=device-width, user-scalable=yes, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>@yield("title")</title>
-	<link rel="stylesheet" href="/style.css?v=5">
+	<link rel="stylesheet" href="/style.css?v=6">
 	<link rel="manifest" href="/manifest.json">
 	<script
 		src="https://js.sentry-cdn.com/aabbc2c94ac8133dcdb4610c04d3395d.min.js"
@@ -48,7 +48,7 @@
 	<button id="installButton">Zainstaluj</button>
 	<button class="not-primary" id="dontInstallApp">Nie teraz</button>
 </dialog>
-<script src="/js/script.js?v=5" defer></script>
+<script src="/js/script.js?v=6" defer></script>
 <script src="/sw.js" defer></script>
 @yield("scripts")
 </body>

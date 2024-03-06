@@ -94,17 +94,15 @@ $("#dontInstallApp").addEventListener("click", dontInstallApp);
 let swReady = navigator.serviceWorker && navigator.serviceWorker.ready;
 
 function initSW(callInitPush = true) {
-	if (!"serviceWorker" in navigator) {
+	if (!swReady) {
 		//service worker isn't supported
-		alert("Wystąpił błąd. Zaaktualizuj przeglądarkę aby włączyć powiadomienia.");
 		return;
 	}
 
 	//don't use it here if you use service worker
 	//for other stuff.
-	if (!"PushManager" in window) {
+	if (!"PushManager" in window || !"Notification" in window) {
 		//push isn't supported
-		alert("Wystąpił błąd. Zaaktualizuj przeglądarkę aby włączyć powiadomienia.");
 		return;
 	}
 
@@ -154,10 +152,11 @@ function initPush(callback) {
 		}
 	})
 		.then(permissionResult => {
-			if (permissionResult !== 'granted') {
-				throw new Error('We weren\'t granted permission.');
-			}
+			$("#notificationDialogue").open = false;
 			subscribeUser(callback);
+		})
+		.catch(() => {
+			alert("Nastąpił błąd. Zaaktualizuj przeglądarkę bądź ją zmień. Jeżeli korzystasz z systemu Android, skorzystaj z Firefoxa bądź Chrome, jeżeli korzystasz z iOSa, skorzystaj z Safari.");
 		});
 }
 
@@ -265,7 +264,7 @@ function search() {
 
 const outdatedIosPrompt = $(".outdated-ios-info");
 
-if (outdatedIosPrompt && !supportsBeforeInstallPrompt && isiOSSafari) {
+if (outdatedIosPrompt && typeof Notification === "undefined" && isiOSSafari) {
 	outdatedIosPrompt.style.display = "block";
 }
 

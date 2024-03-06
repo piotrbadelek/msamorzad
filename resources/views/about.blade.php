@@ -26,6 +26,20 @@
 			href="https://forms.gle/VYPbwsUhNkTpNJef9">https://forms.gle/VYPbwsUhNkTpNJef9</a><br><br>
 		Prosimy o zgłaszanie wszelkich potencjalnych luk bezpieczeństwa: <a
 			href="mailto:piotrbadelek@proton.me?subject=mSamorząd - [Bezpieczeństwo]">piotrbadelek@proton.me</a>
+
+		<p>Pomoc techniczna: <a
+				href="mailto:piotrbadelek@proton.me?subject=mSamorząd - [Pomoc]">piotrbadelek@proton.me</a></p>
+
+		<p>Zespół:</p>
+		<ul>
+			<li>Piotr Badełek - Programowanie, design</li>
+			<li>Bartłomiej Bernaciak - Zarządzanie danymi, promocja</li>
+			<li>Wiktor Pawlak - Zarządzanie danymi, promocja, PR</li>
+		</ul>
+		<p>Specjalne podziękowania:</p>
+		<ul>
+			<li>Paweł Krupa - Ikona</li>
+		</ul>
 	</details>
 
 	<details>
@@ -38,7 +52,9 @@
 			<li>Nazwa użytkownika</li>
 			<li>Klasa</li>
 		</ul>
-		Aplikacja wykorzystuje bibliotekę <b>Sentry</b> firmy <i>Functional Software, inc.</i> w celu rejestrowania błędów aplikacji oraz poprawiania jej jakości. Sentry nie zbiera żadnych informacji osobistych o użytkowniku.<br>
+		Aplikacja wykorzystuje bibliotekę <b>Sentry</b> firmy <i>Functional Software, inc.</i> w celu rejestrowania
+		błędów aplikacji oraz poprawiania jej jakości. Sentry nie zbiera żadnych informacji osobistych o
+		użytkowniku.<br>
 		<a href="https://sentry.io/trust/privacy/">Informacje o przetwarzaniu danych przez Sentry.</a>
 	</details>
 @endsection

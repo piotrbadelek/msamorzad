@@ -8,6 +8,7 @@ use App\Http\Controllers\MessageController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\SessionController;
+use App\Http\Controllers\StatisticsController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -133,6 +134,9 @@ Route::middleware(["security.headers"])->group(function () {
 		Route::delete("/admin/classunit/{classunit:id}", [ClassunitController::class, "delete"])->middleware(["password.confirm"]);
 
 		Route::get("/admin/payments", [AdminController::class, "listPayments"]);
+
+		Route::view("/admin/stats", "admin.stats.list");
+		Route::get("/admin/stats/active-users", [StatisticsController::class, "activeUsers"]);
 
 		Route::view("/admin/events", "admin.events");
 	});

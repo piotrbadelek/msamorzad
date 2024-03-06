@@ -15,10 +15,10 @@ let oobeInstallPrompt = null;
 
 function isInstalled() {
 	// For iOS
-	if(window.navigator.standalone) return true
+	if (window.navigator.standalone) return true
 
 	// For Android
-	if(window.matchMedia('(display-mode: standalone)').matches) return true
+	if (window.matchMedia('(display-mode: standalone)').matches) return true
 
 	// If neither is true, it's not installed
 	return false
@@ -63,7 +63,7 @@ function adaptInstallInstructions() {
 $("[data-oobe='enableNotifications']").addEventListener("click", () => {
 	$("[data-oobe='enableNotifications']").innerText = "Czekaj...";
 	$("[data-oobe='enableNotifications']").disabled = true;
-	initSW(() => {
+	initPush(() => {
 		$("#view2").classList.add("hidden");
 		$("#view3").classList.remove("hidden");
 	});

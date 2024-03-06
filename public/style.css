@@ -411,6 +411,40 @@ details summary {
 	height: 300px;
 }
 
+
+th,
+td {
+	border: 1px solid var(--md-surface-container-highest);
+}
+
+table {
+	overflow: auto;
+	width: 100%;
+	display: block;
+	margin: 1rem auto 0;
+	border-spacing: 0;
+	font-size: 1.25rem;
+	max-height: 20vh;
+}
+
+tbody {
+	white-space: nowrap;
+}
+
+th,
+td {
+	padding: 5px 10px;
+	border-top-width: 0;
+	border-left-width: 0;
+}
+
+th {
+	position: sticky;
+	top: 0;
+	background: var(--md-primary-container);
+	vertical-align: bottom;
+}
+
 /* Media queries */
 
 @media (min-width: 768px) {
