@@ -4,7 +4,7 @@
 
 @section("content")
 	<h1>Statystyki - aktywni użytkownicy</h1>
-	<a href="/" class="button">Cofnij</a>
+	<a href="/admin/stats" class="button">Cofnij</a>
 	<table>
 		<thead>
 		<tr>
