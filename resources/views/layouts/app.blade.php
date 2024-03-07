@@ -20,6 +20,11 @@
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="theme-color" content="#505B92">
 	<meta name="description" content="Aplikacja samorządu uczniowskiego dla II LO w Tomaszowie Mazowieckim">
+
+	<script src="/js/script.js?v=7" defer></script>
+	<script src="/sw.js" defer></script>
+	<script src="/js/turbo.min.js" type="module"></script>
+	@yield("scripts")
 </head>
 <body>
 <header>
@@ -48,8 +53,5 @@
 	<button id="installButton">Zainstaluj</button>
 	<button class="not-primary" id="dontInstallApp">Nie teraz</button>
 </dialog>
-<script src="/js/script.js?v=6" defer></script>
-<script src="/sw.js" defer></script>
-@yield("scripts")
 </body>
 </html>

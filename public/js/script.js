@@ -249,41 +249,50 @@ if (store("installDelayed")) {
 	}
 }
 
-const searchInput = $("#search");
-if (searchInput) {
-	searchInput.addEventListener("keyup", search);
-}
+addEventListener("turbo:submit-start", ({target}) => {
+	if (target.querySelector("button")) {
+		target.querySelector("button").innerText = "Czekaj...";
+		target.querySelector("button").disabled = true;
+	}
+})
 
-function search() {
-	const searchQuery = searchInput.value.toLowerCase();
-	const messageContainers = document.querySelectorAll(".message_container");
-	messageContainers.forEach(el => {
-		el.hidden = !el.dataset["message"].toLowerCase().includes(searchQuery);
-	});
-}
+document.addEventListener("turbo:load", function () {
+	const searchInput = $("#search");
+	if (searchInput) {
+		searchInput.addEventListener("keyup", search);
+	}
 
-const outdatedIosPrompt = $(".outdated-ios-info");
+	function search() {
+		const searchQuery = searchInput.value.toLowerCase();
+		const messageContainers = document.querySelectorAll(".message_container");
+		messageContainers.forEach(el => {
+			el.hidden = !el.dataset["message"].toLowerCase().includes(searchQuery);
+		});
+	}
 
-if (outdatedIosPrompt && typeof Notification === "undefined" && isiOSSafari) {
-	outdatedIosPrompt.style.display = "block";
-}
+	const outdatedIosPrompt = $(".outdated-ios-info");
 
-const featureGuideExcludeStudentsInvoker = $("#feature-guide-exclude-students-invoker");
-if (featureGuideExcludeStudentsInvoker) {
-	const featureGuideExcludeStudentsDialogue = $("#feature-guide-exclude-students");
-	featureGuideExcludeStudentsInvoker.addEventListener("click", event => {
-		event.preventDefault();
-		featureGuideExcludeStudentsDialogue.open = true;
-	});
+	if (outdatedIosPrompt && typeof Notification === "undefined" && isiOSSafari) {
+		outdatedIosPrompt.style.display = "block";
+	}
 
-	$("#feature-guide-exclude-students button").addEventListener("click", () => {
-		featureGuideExcludeStudentsDialogue.open = false;
-	});
-}
+	const featureGuideExcludeStudentsInvoker = $("#feature-guide-exclude-students-invoker");
+	if (featureGuideExcludeStudentsInvoker) {
+		const featureGuideExcludeStudentsDialogue = $("#feature-guide-exclude-students");
+		featureGuideExcludeStudentsInvoker.addEventListener("click", event => {
+			event.preventDefault();
+			featureGuideExcludeStudentsDialogue.open = true;
+		});
 
-const excludeStudentsCheckbox = $("#excludeStudents");
-if (excludeStudentsCheckbox) {
-	excludeStudentsCheckbox.addEventListener("click", () => {
-		$("#excludedStudentsForm").hidden = !excludeStudentsCheckbox.checked;
-	});
-}
+		$("#feature-guide-exclude-students button").addEventListener("click", () => {
+			featureGuideExcludeStudentsDialogue.open = false;
+		});
+	}
+
+	const excludeStudentsCheckbox = $("#excludeStudents");
+	if (excludeStudentsCheckbox) {
+		excludeStudentsCheckbox.addEventListener("click", () => {
+			$("#excludedStudentsForm").hidden = !excludeStudentsCheckbox.checked;
+		});
+	}
+})
