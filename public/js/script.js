@@ -257,12 +257,12 @@ addEventListener("turbo:submit-start", ({target}) => {
 })
 
 document.addEventListener("turbo:load", function () {
-	const searchInput = $("#search");
+	const searchInput = $("#messageSearch");
 	if (searchInput) {
-		searchInput.addEventListener("keyup", search);
+		searchInput.addEventListener("keyup", messageSearch);
 	}
 
-	function search() {
+	function messageSearch() {
 		const searchQuery = searchInput.value.toLowerCase();
 		const messageContainers = document.querySelectorAll(".message_container");
 		messageContainers.forEach(el => {

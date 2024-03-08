@@ -82,15 +82,19 @@ Route::middleware(["security.headers"])->group(function () {
 
 		Route::post("/push", [NotificationController::class, "subscribe"]);
 
-		Route::get("/tutor/students", [\App\Http\Controllers\TutorController::class, "listStudents"]);
-		Route::post("/tutor/students", [\App\Http\Controllers\TutorController::class, "createStudent"]);
-		Route::get("/tutor/students/new", [\App\Http\Controllers\TutorController::class, "createStudentForm"]);
-		Route::get("/tutor/students/{user:id}", [\App\Http\Controllers\TutorController::class, "studentDetails"]);
-		Route::patch("/tutor/students/{user:id}/", [\App\Http\Controllers\TutorController::class, "updateStudent"]);
-		Route::delete("/tutor/students/{user:id}/", [\App\Http\Controllers\TutorController::class, "deleteUser"]);
-		Route::get("/tutor/students/{user:id}/reset_password", [\App\Http\Controllers\TutorController::class, "studentResetPassword"]);
-		Route::get("/tutor/students/{user:id}/update", [\App\Http\Controllers\TutorController::class, "updateStudentForm"]);
-		Route::get("/tutor/students/{user:id}/delete", [\App\Http\Controllers\TutorController::class, "deleteStudentForm"]);
+		Route::middleware(["tutor"])->group(function () {
+			Route::view("/tutor", "tutor.list");
+			Route::get("/tutor/students", [\App\Http\Controllers\TutorController::class, "listStudents"]);
+			Route::post("/tutor/students", [\App\Http\Controllers\TutorController::class, "createStudent"]);
+			Route::get("/tutor/students/new", [\App\Http\Controllers\TutorController::class, "createStudentForm"]);
+			Route::get("/tutor/students/{user:id}", [\App\Http\Controllers\TutorController::class, "studentDetails"]);
+			Route::patch("/tutor/students/{user:id}/", [\App\Http\Controllers\TutorController::class, "updateStudent"]);
+			Route::delete("/tutor/students/{user:id}/", [\App\Http\Controllers\TutorController::class, "deleteUser"]);
+			Route::get("/tutor/students/{user:id}/reset_password", [\App\Http\Controllers\TutorController::class, "studentResetPassword"]);
+			Route::get("/tutor/students/{user:id}/update", [\App\Http\Controllers\TutorController::class, "updateStudentForm"]);
+			Route::get("/tutor/students/{user:id}/delete", [\App\Http\Controllers\TutorController::class, "deleteStudentForm"]);
+			Route::get("/tutor/student-payment-stats", [\App\Http\Controllers\TutorController::class, "studentPaymentStats"]);
+		});
 
 		Route::middleware(["valentines.day"])->group(function () {
 			Route::get("/valentine", [\App\Http\Controllers\ValentinesDayMessageController::class, "index"]);

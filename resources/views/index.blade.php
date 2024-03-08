@@ -17,7 +17,7 @@
 	<x-start-card name="Kontakt" imageFile="contact" url="messages"/>
 	<x-start-card name="O aplikacji" imageFile="about" url="about"/>
 	@if($user->isTutor)
-		<x-start-card name="Twoja klasa" imageFile="classunit" url="tutor/students"/>
+		<x-start-card name="Twoja klasa" imageFile="classunit" url="tutor"/>
 	@endif
 
 	@if(!$user->isTeacher && \App\Utilities\EventActivation::isValentinesDayEventActive())

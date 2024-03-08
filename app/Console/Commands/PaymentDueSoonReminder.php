@@ -42,6 +42,14 @@ class PaymentDueSoonReminder extends Command
 					$not_paid = User::whereNotIn("id", json_decode($payment->paid))->where('type', '!=', 'nauczyciel')->where("classunit_id", $classunit->id)->get();
 					Notification::sendNow($not_paid, new PaymentDueSoon($diff, $payment->amount));
 				}
+
+				if ($diff < 0) {
+					$not_paid = User::whereNotIn("id", json_decode($payment->paid))->where('type', '!=', 'nauczyciel')->where("classunit_id", $classunit->id)->get();
+					foreach ($not_paid as $unpaid_user) {
+						$unpaid_user->total_late_days += 1;
+						$unpaid_user->save();
+					}
+				}
 			}
 		}
     }

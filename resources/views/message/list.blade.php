@@ -11,8 +11,8 @@
 		<textarea name="question" id="question" cols="30" rows="10" maxlength="800" required></textarea>
 		<button type="submit">Wyślij</button>
 	</form>
-	<label for="search" class="search-label">Wyszukaj pytanie</label>
-	<input type="search" name="search" id="search">
+	<label for="messageSearch" class="search-label">Wyszukaj pytanie</label>
+	<input type="search" name="messageSearch" id="messageSearch">
 	@if (sizeof($messages) > 0)
 	@foreach($messages as $message)
 		@if($isSamorzadSzkolny)

@@ -4,7 +4,7 @@
 
 @section("content")
 	<h1>Twoja klasa - uczniowie</h1>
-	<a href="/" class="button">Cofnij</a>
+	<a href="/tutor" class="button">Cofnij</a>
 	<a href="/tutor/students/new" class="button">Nowy uczeń</a>
 	<ul class="payment-students">
 		@foreach($users as $user)

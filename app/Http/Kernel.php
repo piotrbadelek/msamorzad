@@ -5,6 +5,7 @@ namespace App\Http;
 use App\Http\Middleware\AddSecurityHeaders;
 use App\Http\Middleware\EnsureUserHasChangedPassword;
 use App\Http\Middleware\EnsureUserIsAdmin;
+use App\Http\Middleware\EnsureUserIsTutor;
 use App\Http\Middleware\EnsureValentinesDayEventInProgress;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -69,6 +70,7 @@ class Kernel extends HttpKernel
         'precognitive' => \Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests::class,
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+		"tutor" => EnsureUserIsTutor::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
 		"valentines.day" => EnsureValentinesDayEventInProgress::class,
 		"security.headers" => AddSecurityHeaders::class

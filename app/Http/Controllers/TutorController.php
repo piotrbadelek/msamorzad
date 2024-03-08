@@ -170,4 +170,18 @@ class TutorController extends Controller
 			"temporaryPassword" => $temporaryPassword
 		]);
 	}
+
+	public function studentPaymentStats(Request $request) {
+		$user = $request->user();
+
+		if (!$user->isTutor) {
+			abort(403);
+		}
+
+		$users = User::whereNot("type", "nauczyciel")->where("classunit_id", $user->classunit_id)->orderBy("total_late_days", "DESC")->get();
+
+		return view("tutor.late_days_stats", [
+			"users" => $users
+		]);
+	}
 }
