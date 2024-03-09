@@ -8,10 +8,14 @@
 	<title>@yield("title")</title>
 	<link rel="stylesheet" href="/style.css?v=6">
 	<link rel="manifest" href="/manifest.json">
-	<script
-		src="https://js.sentry-cdn.com/aabbc2c94ac8133dcdb4610c04d3395d.min.js"
-		crossorigin="anonymous"
-	></script>
+	{{-- Do not load sentry in dev envrioments --}}
+	@if (!config("app.debug"))
+		<script
+			src="https://js.sentry-cdn.com/aabbc2c94ac8133dcdb4610c04d3395d.min.js"
+			crossorigin="anonymous"
+		></script>
+		<script src="/js/turbo.min.js" type="module"></script>
+	@endif
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<link rel="icon" href="/favicon.ico">
 	<link rel="apple-touch-icon" href="/img/touch/128.png">
@@ -23,7 +27,6 @@
 
 	<script src="/js/script.js?v=7" defer></script>
 	<script src="/sw.js" defer></script>
-	<script src="/js/turbo.min.js" type="module"></script>
 	@yield("scripts")
 </head>
 <body>

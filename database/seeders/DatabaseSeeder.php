@@ -8,6 +8,7 @@ use App\Models\Classunit;
 use App\Models\Contest;
 use App\Models\Message;
 use App\Models\Payment;
+use App\Models\User;
 use App\Models\ValentinesDayMessage;
 use Illuminate\Database\Seeder;
 
@@ -20,32 +21,37 @@ class DatabaseSeeder extends Seeder
 	{
 		Classunit::factory(5)->create();
 		Payment::factory(8)->create();
-		\App\Models\User::factory(10)->create();
+		User::factory(10)->create();
 		Message::factory(30)->create();
 		Contest::factory(6)->create();
 		Announcement::factory(5)->create();
 		ValentinesDayMessage::factory(16)->create();
 
-		\App\Models\User::factory()->create([
+		User::factory()->create([
 			'username' => 'test.teacher',
 			'type' => 'nauczyciel',
 			"notManagingAClass" => false,
 			"isAdministrator" => true
 		]);
 
-		\App\Models\User::factory()->create([
+		User::factory()->create([
 			'username' => 'test.admin',
 			'type' => 'student',
 			'samorzadType' => 'student',
 			"isAdministrator" => true
 		]);
 
-		\App\Models\User::factory()->create([
+		$ghostClassunit = Classunit::factory()->create([
+			"name" => "Brak klasy"
+		]);
+
+		User::factory()->create([
 			"name" => "Konto usunięte",
 			'username' => 'ghost',
 			'type' => 'student',
 			'samorzadType' => 'student',
-			"isAdministrator" => true
+			"isAdministrator" => true,
+			"classunit_id" => $ghostClassunit->id
 		]);
 
 		// \App\Models\User::factory()->create([

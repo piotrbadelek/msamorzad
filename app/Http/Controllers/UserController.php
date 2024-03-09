@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Classunit;
-use App\Models\Message;
 use App\Models\User;
+use App\Utilities\UserPurge;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -38,11 +38,10 @@ class UserController extends Controller
 	public function delete(Request $request, User $user)
 	{
 		$ghost_user = User::where("username", "ghost")->first();
-		$messages = Message::where("user_id", $user->id)->get();
-		foreach ($messages as $message) {
-			$message->user_id = $ghost_user->id;
-			$message->save();
-		}
+
+		UserPurge::deleteMessages($user, $ghost_user);
+		UserPurge::removeFromPayments($user, $ghost_user);
+		UserPurge::deleteValentineMessages($user);
 
 		$user->deleteOrFail();
 

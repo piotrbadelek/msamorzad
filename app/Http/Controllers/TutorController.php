@@ -2,21 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Classunit;
-use App\Models\Message;
 use App\Models\User;
+use App\Utilities\UserPurge;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class TutorController extends Controller
 {
-    public function listStudents(Request $request) {
+	public function listStudents(Request $request)
+	{
 		$user = $request->user();
-
-		if (!$user->isTutor) {
-			abort(403);
-		}
 
 		$users = User::whereNot("type", "nauczyciel")->where("classunit_id", $user->classunit_id)->get();
 
@@ -25,10 +21,11 @@ class TutorController extends Controller
 		]);
 	}
 
-	public function studentDetails(Request $request, User $user) {
+	public function studentDetails(Request $request, User $user)
+	{
 		$requestUser = $request->user();
 
-		if (!$requestUser->isTutor || $user->classunit_id !== $requestUser->classunit_id) {
+		if ($user->classunit_id !== $requestUser->classunit_id) {
 			abort(403);
 		}
 
@@ -37,10 +34,11 @@ class TutorController extends Controller
 		]);
 	}
 
-	public function studentResetPassword(Request $request, User $user) {
+	public function studentResetPassword(Request $request, User $user)
+	{
 		$requestUser = $request->user();
 
-		if (!$requestUser->isTutor || $user->classunit_id !== $requestUser->classunit_id) {
+		if ($user->classunit_id !== $requestUser->classunit_id) {
 			abort(403);
 		}
 
@@ -56,10 +54,11 @@ class TutorController extends Controller
 		]);
 	}
 
-	public function updateStudentForm(Request $request, User $user) {
+	public function updateStudentForm(Request $request, User $user)
+	{
 		$requestUser = $request->user();
 
-		if (!$requestUser->isTutor || $user->classunit_id !== $requestUser->classunit_id) {
+		if ($user->classunit_id !== $requestUser->classunit_id) {
 			abort(403);
 		}
 
@@ -68,9 +67,10 @@ class TutorController extends Controller
 		]);
 	}
 
-	public function updateStudent(Request $request, User $user) {
+	public function updateStudent(Request $request, User $user)
+	{
 		$requestUser = $request->user();
-		if (!$requestUser->isTutor || $user->classunit_id !== $requestUser->classunit_id) {
+		if ($user->classunit_id !== $requestUser->classunit_id) {
 			abort(403);
 		}
 
@@ -93,9 +93,10 @@ class TutorController extends Controller
 		return redirect("/tutor/students/" . $user->id);
 	}
 
-	public function deleteStudentForm(Request $request, User $user) {
+	public function deleteStudentForm(Request $request, User $user)
+	{
 		$requestUser = $request->user();
-		if (!$requestUser->isTutor || $user->classunit_id !== $requestUser->classunit_id) {
+		if ($user->classunit_id !== $requestUser->classunit_id) {
 			abort(403);
 		}
 
@@ -104,9 +105,10 @@ class TutorController extends Controller
 		]);
 	}
 
-	public function deleteUser(Request $request, User $user) {
+	public function deleteUser(Request $request, User $user)
+	{
 		$requestUser = $request->user();
-		if (!$requestUser->isTutor || $user->classunit_id !== $requestUser->classunit_id) {
+		if ($user->classunit_id !== $requestUser->classunit_id) {
 			abort(403);
 		}
 
@@ -115,32 +117,24 @@ class TutorController extends Controller
 		}
 
 		$ghost_user = User::where("username", "ghost")->first();
-		$messages = Message::where("user_id", $user->id)->get();
-		foreach ($messages as $message) {
-			$message->user_id = $ghost_user->id;
-			$message->save();
-		}
+
+		UserPurge::deleteMessages($user, $ghost_user);
+		UserPurge::removeFromPayments($user, $ghost_user);
+		UserPurge::deleteValentineMessages($user);
 
 		$user->deleteOrFail();
 
 		return redirect("/tutor/students");
 	}
 
-	public function createStudentForm(Request $request) {
-		$user = $request->user();
-
-		if (!$user->isTutor) {
-			abort(403);
-		}
-
+	public function createStudentForm()
+	{
 		return view("tutor.student.create");
 	}
 
-	public function createStudent(Request $request) {
+	public function createStudent(Request $request)
+	{
 		$requestUser = $request->user();
-		if (!$requestUser->isTutor) {
-			abort(403);
-		}
 
 		$data = $request->validate([
 			"username" => ["required", "min:3", "max:128", "unique:users"],
@@ -171,12 +165,9 @@ class TutorController extends Controller
 		]);
 	}
 
-	public function studentPaymentStats(Request $request) {
+	public function studentPaymentStats(Request $request)
+	{
 		$user = $request->user();
-
-		if (!$user->isTutor) {
-			abort(403);
-		}
 
 		$users = User::whereNot("type", "nauczyciel")->where("classunit_id", $user->classunit_id)->orderBy("total_late_days", "DESC")->get();
 
