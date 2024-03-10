@@ -3,6 +3,20 @@
 @section("title", "Samorząd II LO")
 
 @section("content")
+	@if ($unpaidPayments > 0)
+		<div class="at-a-glance">
+			<header>W skrócie</header>
+			@if ($unpaidPayments > 1 && $latePayments > 0)
+				<p>Masz <b>{{ $unpaidPayments }}</b> niezapłacone składki, z czego <b>{{ $latePayments }}</b> jest po
+					terminie.</p>
+			@elseif ($unpaidPayments == 1 && $latePayments == 1)
+				<p>Masz jedną nieopłaconą składkę, która jest po terminie.</p>
+			@elseif ($unpaidPayments == 1 && $latePayments == 0)
+				<p>Masz jedną nieopłaconą składkę.</p>
+			@endif
+		</div>
+	@endif
+
 	<div class="outdated-ios-info">
 		<header>Zaaktualizuj system operacyjny</header>
 		<p>Twój telefon działa na przestarzałej wersji systemu iOS. Zaaktualizuj system operacyjny aby aplikacja

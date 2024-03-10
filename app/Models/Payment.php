@@ -22,4 +22,11 @@ class Payment extends Model
 	{
 		return json_decode($this->excludedStudents) ?? [];
 	}
+
+	public function getIsLateAttribute()
+	{
+		$currentDate = new \DateTime();
+		$deadline = new \DateTime($this->deadline);
+		return $currentDate > $deadline;
+	}
 }

@@ -40,14 +40,7 @@ Route::middleware(["security.headers"])->group(function () {
 	Route::post("/logout", [SessionController::class, "logout"])->middleware("auth");
 
 	Route::middleware(["auth", "password.changed"])->group(function () {
-		Route::get('/', function (Request $request) {
-			if ($request->user()->hasNotChangedPassword) {
-				return redirect("/change-password?changingForFirstTime=true");
-			}
-			return view("index", [
-				"user" => $request->user()
-			]);
-		});
+		Route::get('/', [\App\Http\Controllers\IndexController::class, "home"]);
 
 		Route::get('/skladki', [PaymentController::class, "view"]);
 		Route::get('/skladki/new', [PaymentController::class, "createForm"]);

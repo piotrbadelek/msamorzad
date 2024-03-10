@@ -444,6 +444,24 @@ th {
 	vertical-align: bottom;
 }
 
+.at-a-glance {
+	background-color: var(--md-surface-container);
+	border-radius: .75rem;
+	padding: 1.5rem;
+	margin-bottom: 1rem;
+}
+
+.at-a-glance header {
+	font-size: 1.25rem;
+	margin-bottom: 0;
+	margin-top: 0;
+	font-weight: bold;
+}
+
+.at-a-glance p:last-of-type {
+	margin-bottom: 0;
+}
+
 /* Media queries */
 
 @media (min-width: 768px) {
