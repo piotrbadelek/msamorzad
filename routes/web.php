@@ -87,6 +87,7 @@ Route::middleware(["security.headers"])->group(function () {
 			Route::get("/tutor/students/{user:id}/update", [\App\Http\Controllers\TutorController::class, "updateStudentForm"]);
 			Route::get("/tutor/students/{user:id}/delete", [\App\Http\Controllers\TutorController::class, "deleteStudentForm"]);
 			Route::get("/tutor/student-payment-stats", [\App\Http\Controllers\TutorController::class, "studentPaymentStats"]);
+			Route::get("/tutor/student-payment-stats/pdf", [\App\Http\Controllers\TutorController::class, "studentPaymentStatsPDF"]);
 		});
 
 		Route::middleware(["valentines.day"])->group(function () {

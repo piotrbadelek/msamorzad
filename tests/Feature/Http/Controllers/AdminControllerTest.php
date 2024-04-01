@@ -3,8 +3,6 @@
 namespace Tests\Feature\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 
@@ -40,5 +38,16 @@ class AdminControllerTest extends TestCase
 		$response = $this->get("/admin/events");
 		$response->assertStatus(200);
 		$response->assertViewIs("admin.events");
+	}
+
+	/** @test */
+	public function can_list_all_payments()
+	{
+		Auth::login(User::factory()->create([
+			"isAdministrator" => true
+		]));
+		$response = $this->get("/admin/payments");
+		$response->assertStatus(200);
+		$response->assertViewIs("admin.payment.list");
 	}
 }

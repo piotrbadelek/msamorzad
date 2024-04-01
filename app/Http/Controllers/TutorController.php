@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Utilities\UserPurge;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -174,5 +175,21 @@ class TutorController extends Controller
 		return view("tutor.late_days_stats", [
 			"users" => $users
 		]);
+	}
+
+	public function studentPaymentStatsPDF(Request $request)
+	{
+		$user = $request->user();
+
+		$users = User::whereNot("type", "nauczyciel")->where("classunit_id", $user->classunit_id)->orderBy("total_late_days", "DESC")->get();
+
+		$pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView("pdf.late_students", [
+			"classunit_name" => $user->classunit->name,
+			"users" => $users
+		]);
+
+		$date = new DateTime();
+
+		return $pdf->download("late_students_" . $date->format("Ymd\THis") . ".pdf");
 	}
 }

@@ -2,10 +2,8 @@
 
 namespace Tests\Feature\Http\Controllers;
 
-use App\Models\Classunit;
 use App\Models\Message;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
@@ -171,6 +169,34 @@ class UserControllerTest extends TestCase
 	}
 
 	/** @test */
+	public function user_updates_without_changing_username_write_to_database()
+	{
+		$this->generateAdminUser();
+
+		$user = User::factory()->create();
+
+		$fakeData = $this->getFakeUserData();
+
+		$response = $this->patch("/admin/user/" . $user->id, [
+			"username" => $user->username,
+			"name" => $fakeData["name"],
+			"classunit_id" => $fakeData["classunit_id"],
+			"type" => $fakeData["type"],
+			"samorzadType" => $fakeData["samorzadType"]
+		]);
+
+		$response->assertStatus(302);
+		$this->assertDatabaseHas("users", [
+			"id" => $user->id,
+			"username" => $user->username,
+			"name" => $fakeData["name"],
+			"classunit_id" => $fakeData["classunit_id"],
+			"type" => $fakeData["type"],
+			"samorzadType" => $fakeData["samorzadType"]
+		]);
+	}
+
+	/** @test */
 	public function displays_create_user_form()
 	{
 		$this->generateAdminUser();
@@ -214,7 +240,8 @@ class UserControllerTest extends TestCase
 	}
 
 	/** @test */
-	public function teacher_gets_created() {
+	public function teacher_gets_created()
+	{
 		$this->generateAdminUser();
 
 		$fakeData = $this->getFakeUserData();

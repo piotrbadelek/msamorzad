@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Classunit;
-use App\Models\Message;
 use App\Models\Payment;
 use App\Models\User;
+use App\Utilities\UserPurge;
 use Illuminate\Http\Request;
 
 class ClassunitController extends Controller
@@ -30,12 +30,9 @@ class ClassunitController extends Controller
 		$users = User::where("classunit_id", $classunit->id)->get();
 
 		foreach ($users as $user) {
-			$messages = Message::where("user_id", $user->id)->get();
-			foreach ($messages as $message) {
-				$message->user_id = $ghost_user->id;
-				$message->save();
-			}
-			$user->delete();
+			UserPurge::deleteMessages($user, $ghost_user);
+			UserPurge::removeFromPayments($user, $ghost_user);
+			UserPurge::deleteValentineMessages($user);
 		}
 
 		$payments = Payment::where("classunit_id", $classunit->id)->get();

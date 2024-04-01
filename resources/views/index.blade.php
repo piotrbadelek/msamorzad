@@ -9,6 +9,8 @@
 			@if ($unpaidPayments > 1 && $latePayments > 0)
 				<p>Masz <b>{{ $unpaidPayments }}</b> niezapłacone składki, z czego <b>{{ $latePayments }}</b> jest po
 					terminie.</p>
+			@elseif ($unpaidPayments > 1 && $latePayments == 0)
+				<p>Masz <b>{{ $unpaidPayments }}</b> niezapłacone składki.</p>
 			@elseif ($unpaidPayments == 1 && $latePayments == 1)
 				<p>Masz jedną nieopłaconą składkę, która jest po terminie.</p>
 			@elseif ($unpaidPayments == 1 && $latePayments == 0)

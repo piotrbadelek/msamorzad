@@ -12,20 +12,21 @@ class ValentinesDayMessageControllerTest extends TestCase
 	use WithFaker;
 
 	/** @test */
-    public function can_display_index(): void
-    {
+	public function can_display_index(): void
+	{
 		Auth::login(User::factory()->create([
 			"isAdministrator" => true
 		]));
 
-        $response = $this->get("/valentine");
+		$response = $this->get("/valentine");
 
-        $response->assertStatus(200);
+		$response->assertStatus(200);
 		$response->assertViewIs("valentine.index");
-    }
+	}
 
 	/** @test */
-	public function can_send_a_latter(): void {
+	public function can_send_a_latter(): void
+	{
 		Auth::login(User::factory()->create([
 			"isAdministrator" => true
 		]));
@@ -48,7 +49,29 @@ class ValentinesDayMessageControllerTest extends TestCase
 	}
 
 	/** @test */
-	public function can_export_messages(): void {
+	public function can_send_a_latter_to_random_user(): void
+	{
+		Auth::login(User::factory()->create([
+			"isAdministrator" => false
+		]));
+
+		$content = $this->faker()->text(random_int(32, 512));
+
+		$response = $this->post("/valentine", [
+			"content" => $content
+		]);
+
+		$response->assertStatus(302);
+		$response->assertSessionHas("confirmation");
+
+		$this->assertDatabaseHas("valentines_day_messages", [
+			"content" => $content
+		]);
+	}
+
+	/** @test */
+	public function can_export_messages(): void
+	{
 		Auth::login(User::factory()->create([
 			"isAdministrator" => true
 		]));
@@ -56,5 +79,18 @@ class ValentinesDayMessageControllerTest extends TestCase
 		$response = $this->get("/valentine/export");
 		$response->assertStatus(200);
 		$response->assertHeader("Content-Type", "application/pdf");
+	}
+
+	/** @test */
+	public function regular_user_cannot_export_messages(): void
+	{
+		Auth::login(User::factory()->create([
+			"isAdministrator" => false,
+			"type" => "student",
+			"samorzadType" => "student"
+		]));
+
+		$response = $this->get("/valentine/export");
+		$response->assertStatus(403);
 	}
 }

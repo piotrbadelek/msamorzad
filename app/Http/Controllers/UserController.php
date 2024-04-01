@@ -72,14 +72,9 @@ class UserController extends Controller
 
 	public function update(Request $request, User $user)
 	{
-		$validateUsernameUniqueness = true;
 		$uniquenessRequirement = "unique:users";
 
 		if ($request->has("username") && $user->username === $request->post("username")) {
-			$validateUsernameUniqueness = false;
-		}
-
-		if (!$validateUsernameUniqueness) {
 			$uniquenessRequirement = "";
 		}
 

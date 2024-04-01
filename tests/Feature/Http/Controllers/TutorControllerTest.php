@@ -3,7 +3,6 @@
 namespace Tests\Feature\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
@@ -295,6 +294,21 @@ class TutorControllerTest extends TestCase
 	}
 
 	/** @test */
+	public function denies_deleting_students_from_other_classes(): void
+	{
+		$this->generateTutor();
+		$student = User::factory()->create([
+			"type" => "student",
+			"samorzadType" => "student",
+			"classunit_id" => 2
+		]);
+
+		$response = $this->delete("/tutor/students/$student->id");
+
+		$response->assertStatus(403);
+	}
+
+	/** @test */
 	public function denies_deleting_student_to_regular_users(): void
 	{
 		$this->generateStudent();
@@ -310,7 +324,8 @@ class TutorControllerTest extends TestCase
 	}
 
 	/** @test */
-	public function denies_deleting_own_user(): void {
+	public function denies_deleting_own_user(): void
+	{
 		$tutor = $this->generateTutor();
 
 		$response = $this->delete("/tutor/students/$tutor->id");
@@ -319,7 +334,8 @@ class TutorControllerTest extends TestCase
 	}
 
 	/** @test */
-	public function shows_student_creation_form(): void {
+	public function shows_student_creation_form(): void
+	{
 		$this->generateTutor();
 
 		$response = $this->get("/tutor/students/new");
@@ -329,7 +345,8 @@ class TutorControllerTest extends TestCase
 	}
 
 	/** @test */
-	public function denies_showing_student_creation_form_to_regular_students(): void {
+	public function denies_showing_student_creation_form_to_regular_students(): void
+	{
 		$this->generateStudent();
 
 		$response = $this->get("/tutor/students/new");
@@ -338,7 +355,8 @@ class TutorControllerTest extends TestCase
 	}
 
 	/** @test */
-	public function creates_student(): void {
+	public function creates_student(): void
+	{
 		$tutor = $this->generateTutor();
 
 		$types = ["student", "przewodniczacy", "wiceprzewodniczacy", "skarbnik"];
@@ -363,7 +381,8 @@ class TutorControllerTest extends TestCase
 	}
 
 	/** @test */
-	public function denies_teacher_creation(): void {
+	public function denies_teacher_creation(): void
+	{
 		$this->generateTutor();
 
 		$username = $this->faker()->userName();
@@ -380,7 +399,8 @@ class TutorControllerTest extends TestCase
 	}
 
 	/** @test */
-	public function denies_student_creation_to_regular_users(): void {
+	public function denies_student_creation_to_regular_users(): void
+	{
 		$this->generateStudent();
 
 		$username = $this->faker()->userName();
@@ -394,5 +414,25 @@ class TutorControllerTest extends TestCase
 		]);
 
 		$response->assertStatus(403);
+	}
+
+	/** @test */
+	public function displays_student_payment_stats()
+	{
+		$this->generateTutor();
+		$response = $this->get("/tutor/student-payment-stats");
+
+		$response->assertStatus(200);
+		$response->assertViewIs("tutor.late_days_stats");
+	}
+
+	/** @test */
+	public function creates_student_payment_stats_pdf()
+	{
+		$this->generateTutor();
+		$response = $this->get("/tutor/student-payment-stats/pdf");
+
+		$response->assertStatus(200);
+		$response->assertHeader("Content-Type", "application/pdf");
 	}
 }

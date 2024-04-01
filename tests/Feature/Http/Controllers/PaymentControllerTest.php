@@ -31,6 +31,20 @@ class PaymentControllerTest extends TestCase
 	}
 
 	/** @test */
+	public function lists_payments_as_student()
+	{
+		$user = User::factory()->create([
+			"classunit_id" => 1,
+			"type" => "student"
+		]);
+		Auth::login($user);
+
+		$response = $this->get("/skladki");
+		$response->assertStatus(200);
+		$response->assertViewIs("payment.list");
+	}
+
+	/** @test */
 	public function deny_listing_payments_for_teachers_without_a_class()
 	{
 		$user = User::factory()->create([

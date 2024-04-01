@@ -4,8 +4,6 @@ namespace Tests\Feature\Http\Controllers;
 
 use App\Models\Classunit;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 
@@ -47,4 +45,29 @@ class ClassunitControllerTest extends TestCase
 		// Redirect to verify password
 		$response->assertStatus(302);
 	}
+
+	/** @test */
+	public function classunit_create_form_gets_shown()
+	{
+		$this->generateAdminUser();
+		$response = $this->get("/admin/classunit/new");
+		$response->assertStatus(200);
+	}
+
+	/** @test */
+	public function classunit_gets_created()
+	{
+		$classunit_name = rand(1, 4) . " i-m";
+
+		$this->generateAdminUser();
+		$response = $this->post("/admin/classunit", [
+			"name" => $classunit_name
+		]);
+		$response->assertStatus(302);
+		$response->assertRedirect("/admin/classunit");
+		$this->assertDatabaseHas("classunits", [
+			"name" => $classunit_name
+		]);
+	}
+
 }
