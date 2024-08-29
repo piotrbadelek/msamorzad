@@ -1,6 +1,6 @@
 @extends("layouts.app")
 
-@section("title", "Edytuj ucznia - samorząd II LO")
+@section("title", "Edytuj ucznia - mSamorząd")
 
 @section("content")
 	<h1>Twoja klasa - {{ $user->name }}</h1>

@@ -1,6 +1,6 @@
 @extends("layouts.app")
 
-@section("title", "Usuń wiadomość - samorząd II LO")
+@section("title", "Usuń wiadomość - mSamorząd")
 
 @section("content")
 	<h1>Usuń wiadomość</h1>

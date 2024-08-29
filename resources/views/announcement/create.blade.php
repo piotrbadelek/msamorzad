@@ -1,6 +1,6 @@
 @extends("layouts.app")
 
-@section("title", "Utwórz ogłoszenie - samorząd II LO")
+@section("title", "Utwórz ogłoszenie - mSamorząd")
 
 @section("content")
 	<h1>Utwórz ogłoszenie</h1>
@@ -29,9 +29,11 @@
 				<option value="class">klasowym ({{ $class }})</option>
 			</select>
 		@elseif ($canPostGlobally)
-			<span title="Nie masz uprawnień do postowania na forum klasowym gdyż nie jesteś członkiem żadnego samorządu klasowego.">Postujesz na forum szkolnym.</span>
+			<span
+				title="Nie masz uprawnień do postowania na forum klasowym gdyż nie jesteś członkiem żadnego samorządu klasowego.">Postujesz na forum szkolnym.</span>
 		@else
-			<span title="Nie masz uprawnień do postowania na forum szkolnym gdyż nie jesteś członkiem samorządu szkolnego.">Postujesz na forum klasowym.</span>
+			<span
+				title="Nie masz uprawnień do postowania na forum szkolnym gdyż nie jesteś członkiem samorządu szkolnego.">Postujesz na forum klasowym.</span>
 		@endif
 
 		<button type="submit">Utwórz</button>

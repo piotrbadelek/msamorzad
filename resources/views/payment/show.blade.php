@@ -1,6 +1,6 @@
 @extends("layouts.app")
 
-@section("title", "Składki - samorząd II LO")
+@section("title", "Składki - mSamorząd")
 
 @section("content")
 	<h1>Składka {{ $payment->title }}</h1>
@@ -10,7 +10,9 @@
 	<span>Łącznie: {{ count($paid) * $payment->amount }} zł</span>
 	<ul class="payment-students">
 		@foreach($paid as $user)
-			<li><a href="/skladki/{{ $payment->id }}/{{ $user }}">{{ \App\Models\User::where("id", $user)->first()->name }}</a></li>
+			<li>
+				<a href="/skladki/{{ $payment->id }}/{{ $user }}">{{ \App\Models\User::where("id", $user)->first()->name }}</a>
+			</li>
 		@endforeach
 	</ul>
 	<b>Nie zapłaciło:</b><br>

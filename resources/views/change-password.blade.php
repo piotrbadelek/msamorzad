@@ -1,6 +1,6 @@
 @extends("layouts.app")
 
-@section("title", "Zmień hasło - samorząd II LO")
+@section("title", "Zmień hasło - mSamorząd")
 
 @section("content")
 	<h1 data-dont-show-notif-prompt>Zmień hasło</h1>

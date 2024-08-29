@@ -1,6 +1,6 @@
 @extends("layouts.app")
 
-@section("title", "Składki - samorząd II LO")
+@section("title", "Składki - mSamorząd")
 
 @section("content")
 	@if($user->can("create", \App\Models\Payment::class))

@@ -1,6 +1,6 @@
 @extends("layouts.app")
 
-@section("title", "Twoja klasa - samorząd II LO")
+@section("title", "Twoja klasa - mSamorząd")
 
 @section("content")
 	<h1>Twoja klasa - uczniowie</h1>

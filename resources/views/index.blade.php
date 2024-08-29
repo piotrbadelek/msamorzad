@@ -1,6 +1,6 @@
 @extends("layouts.app")
 
-@section("title", "Samorząd II LO")
+@section("title", "mSamorząd")
 
 @section("content")
 	@if ($unpaidPayments > 0)

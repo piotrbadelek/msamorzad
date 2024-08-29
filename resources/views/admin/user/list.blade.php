@@ -1,9 +1,9 @@
 @extends("layouts.app")
 
-@section("title", "Administracja - samorząd II LO")
+@section("title", "Administracja - mSamorząd")
 
 @section("content")
-    <h1>Administracja - użytkownicy</h1>
+	<h1>Administracja - użytkownicy</h1>
 	<a href="/admin/" class="button">Cofnij</a>
 	<a href="/admin/user/new" class="button">Nowy użytkownik</a>
 	<ul class="payment-students">

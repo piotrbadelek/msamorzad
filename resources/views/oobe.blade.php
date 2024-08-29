@@ -1,6 +1,6 @@
 @extends("layouts.app")
 
-@section("title", "Samorząd II LO")
+@section("title", "mSamorząd")
 
 @section("content")
 	<div class="oobe-view" id="view0" data-dont-show-notif-prompt>

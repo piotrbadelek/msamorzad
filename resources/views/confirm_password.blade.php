@@ -1,6 +1,6 @@
 @extends("layouts.app")
 
-@section("title", "Wymagana autoryzacja - samorząd II LO")
+@section("title", "Wymagana autoryzacja - mSamorząd")
 
 @section("content")
 	@if ($errors->any())

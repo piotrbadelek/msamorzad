@@ -1,6 +1,6 @@
 @extends("layouts.app")
 
-@section("title", "Samorząd II LO")
+@section("title", "mSamorząd")
 
 @section("content")
 	<h1>503 Service Unavailable</h1>

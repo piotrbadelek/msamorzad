@@ -1,6 +1,6 @@
 @extends("layouts.app")
 
-@section("title", "Konkursy - samorząd II LO")
+@section("title", "Konkursy - mSamorząd")
 
 @section("content")
 	<h1>{{ $contest->title }}</h1>

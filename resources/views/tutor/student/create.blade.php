@@ -1,6 +1,6 @@
 @extends("layouts.app")
 
-@section("title", "Utwórz użytkownika - samorząd II LO")
+@section("title", "Utwórz użytkownika - mSamorząd")
 
 @section("content")
 	<h1>Twoja klasa - utwórz użytkownika</h1>
@@ -20,7 +20,9 @@
 		</select><br>
 
 		<div class="info-alert">
-			<p>Jeżeli dodajesz ucznia, który ma specjalną rolę w samorządzie szkolnym (przewodniczący, wiceprzewodniczący, skarbnik lub sekretarz) skontaktuj się z samorządem szkolnym aby nadać mu specjalne uprawnienia.</p>
+			<p>Jeżeli dodajesz ucznia, który ma specjalną rolę w samorządzie szkolnym (przewodniczący,
+				wiceprzewodniczący, skarbnik lub sekretarz) skontaktuj się z samorządem szkolnym aby nadać mu specjalne
+				uprawnienia.</p>
 		</div>
 
 		<button type="submit">Zapisz</button>

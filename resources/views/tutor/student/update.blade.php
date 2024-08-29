@@ -1,6 +1,6 @@
 @extends("layouts.app")
 
-@section("title", "Administracja - samorząd II LO")
+@section("title", "Administracja - mSamorząd")
 
 @section("content")
 	<h1>Administracja - {{ $user->name }}</h1>
@@ -27,7 +27,9 @@
 		<select name="type" id="type">
 			<option value="student" @if($user->type == "student") selected @endif>Uczeń</option>
 			<option value="skarbnik" @if($user->type == "skarbnik") selected @endif>Skarbnik</option>
-			<option value="wiceprzewodniczacy" @if($user->type == "wiceprzewodniczacy") selected @endif>Wiceprzewodniczący</option>
+			<option value="wiceprzewodniczacy" @if($user->type == "wiceprzewodniczacy") selected @endif>
+				Wiceprzewodniczący
+			</option>
 			<option value="przewodniczacy" @if($user->type == "przewodniczacy") selected @endif>Przewodniczący</option>
 		</select><br>
 

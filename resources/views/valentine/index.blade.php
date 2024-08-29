@@ -1,6 +1,6 @@
 @extends("layouts.app")
 
-@section("title", "Poczta walentynkowa - samorząd II LO")
+@section("title", "Poczta walentynkowa - mSamorząd")
 
 @section("content")
 	<h1>Poczta walentynkowa</h1>

@@ -23,7 +23,7 @@
 	<meta name="apple-mobile-web-app-title" content="mSamorząd">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="theme-color" content="#505B92">
-	<meta name="description" content="Aplikacja samorządu uczniowskiego dla II LO w Tomaszowie Mazowieckim">
+	<meta name="description" content="Aplikacja samorządu uczniowskiego dla szkół podstawowych i ponadpodstawowych">
 
 	<script src="/js/script.js?v=7" defer></script>
 	<script src="/sw.js" defer></script>

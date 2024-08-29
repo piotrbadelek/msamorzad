@@ -1,6 +1,6 @@
 @extends("layouts.app")
 
-@section("title", "Login - samorząd II LO")
+@section("title", "Login - mSamorząd")
 
 @section("content")
 	<h1>Zaloguj</h1>
