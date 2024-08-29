@@ -1,66 +1,94 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+![mSamorząd - System zarządzania samorządem uczniowskim w szkołach podstawowych i ponadpodstawowych](.github/header.png)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# mSamorząd
 
-## About Laravel
+Aplikacja mSamorząd pomaga zarządzać samorządem uczniowskim, a uczniom dowiadywać się o konkursach czy składkach
+obowiązujących w ich klasie i szkole.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+<img src="public/img/screenshots/mobile1.webp" width="200" alt="Zaangażuj się w życie szkolne">
+<img src="public/img/screenshots/mobile2.webp" width="200" alt="Dowiaduj się o składkach">
+<img src="public/img/screenshots/mobile3.webp" width="200" alt="Zapisuj się na konkursy">
+<img src="public/img/screenshots/mobile4.webp" width="200" alt="Czytaj ogłoszenia szkolne i klasowe">
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Uruchamianie
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Aplikacja (a tak właściwie PWA) została wykonana za pomocą następujących technologii:
 
-## Learning Laravel
+- PHP 8.1
+- Laravel 10 (trzeba zrobić kiedyś upgrade do 11)
+- MySQL
+- Laravel Pulse
+- Laravel Octane
+- Swoole
+- Hotwire Turbo
+- nginx
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Do uruchomienia aplikacji zalecamy wykorzystanie systemu operacyjnego Linux bądź *BSD. My na instancji wdrożonej w II LO
+w Tomaszowie wykorzystujemy Ubuntu Server 22.04. Nie jesteśmy w stanie zapewnić wsparcia dla hostów na Windowsie.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Strona internetowa działa na najnowszych wersjach wszystkich przeglądarek: Chrome, Firefox oraz Safari.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+1. zainstaluj dependency za pomocą Composer'a: ```composer install```
+2. uzupełnij plik .env credentialami do bazy danych
+3. Uruchom ```php artisan migrate --seed```
+4. Wygeneruj klucz aplikacji: ```php artisan key:generate```
+5. Uruchom serwer deweloperski za pomocą ```php artisan serve```
+6. Zaloguj się na konto test.admin za pomocą hasła `password`. Usuń resztę zseedowanych użytkowników, postów, składek,
+   etc z bazy danych.
+7. Zaadaptuj następujący config nginx'a pod swoją domenę:
 
-## Laravel Sponsors
+```nginx
+server {
+        server_name msamorzad.pl;
+        server_tokens off;
+        root /var/www/msamorzad.pl/public;
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+        index index.php;
 
-### Premium Partners
+        charset utf-8;
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+        location /index.php {
+                try_files /not_exists @octane;
+        }
 
-## Contributing
+        location / {
+                try_files $uri $uri/ @octane;
+        }
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+        location = /favicon.ico { access_log off; log_not_found off; }
+        location = /robots.txt  { access_log off; log_not_found off; }
 
-## Code of Conduct
+        access_log off;
+        error_log /var/log/nginx/msamorzad.pl-error.log error;
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+        error_page 404 /index.php;
 
-## Security Vulnerabilities
+        location @octane {
+                set $suffix "";
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+                if ($uri = /index.php) {
+                        set $suffix ?$query_string;
+                }
 
-## License
+                proxy_http_version 1.1;
+                proxy_set_header Host $http_host;
+                proxy_set_header Scheme $scheme;
+                proxy_set_header SERVER_PORT $server_port;
+                proxy_set_header REMOTE_ADDR $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection $connection_upgrade;
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+                proxy_pass http://127.0.0.1:8000$suffix;
+        }
+}
+```
+
+8. Opcjonalnie, skonfiguruj CRON job'a od wysyłania powiadomień - komenda od wysyłania powiadomień to ```payment:due```
+
+Jeżeli udało ci się wykonać poprzednie kroki - gratulacje, udało ci się postawić mSamorząd na swoim serwerze!
+[Uruchamiasz mSamorząd w szkole? Zapraszamy do podzielenia się z nami tą informacją!](https://t.me/dzienniczektrolliusz)
+
+### Licencja
+
+Aplikacja mSamorząd jest udostępniona na licencji [GNU AGPL 3.0](LICENCE)
