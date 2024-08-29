@@ -5,10 +5,12 @@
 Aplikacja mSamorząd pomaga zarządzać samorządem uczniowskim, a uczniom dowiadywać się o konkursach czy składkach
 obowiązujących w ich klasie i szkole.
 
+<p float="left">
 <img src="public/img/screenshots/mobile1.webp" width="200" alt="Zaangażuj się w życie szkolne">
 <img src="public/img/screenshots/mobile2.webp" width="200" alt="Dowiaduj się o składkach">
 <img src="public/img/screenshots/mobile3.webp" width="200" alt="Zapisuj się na konkursy">
 <img src="public/img/screenshots/mobile4.webp" width="200" alt="Czytaj ogłoszenia szkolne i klasowe">
+</p>
 
 ## Uruchamianie
 
