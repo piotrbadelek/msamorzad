@@ -28,11 +28,6 @@ use Illuminate\Support\Facades\Route;
 Route::view("/offline", "errors.offline");
 
 Route::middleware(["security.headers"])->group(function () {
-
-	Route::get("/future", function () {
-		return redirect("/future_ad.mp4");
-	});
-
 	Route::get("/login", [SessionController::class, "login"])->name("login");
 	Route::post("/login", [SessionController::class, "authenticate"]);
 	Route::get("/change-password", [SessionController::class, "changePassword"])->middleware("auth");
