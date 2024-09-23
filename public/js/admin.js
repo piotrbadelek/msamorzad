@@ -32,7 +32,7 @@ function generateCard(isStarterCard) {
 	ctx.fillText(`Tymczasowe hasło: ${password}`, 15, 160);
 	ctx.fillText(`Hasło zmienisz po zalogowaniu.`, 15, 190);
 	ctx.font = "bold 16px Inter";
-	ctx.fillText(`https://msamorzad.pl`, 15, 220);
+	ctx.fillText(location.hostname, 15, 220);
 	createCanvasDownloadLink(canvas);
 }
 
