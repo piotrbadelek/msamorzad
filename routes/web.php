@@ -43,6 +43,7 @@ Route::middleware(["security.headers"])->group(function () {
 		Route::get("/skladki/{payment:id}/delete", [PaymentController::class, "deleteForm"]);
 		Route::get("/skladki/{payment:id}/pdf", [PaymentController::class, "generatePaymentConfirmation"]);
 		Route::get("/skladki/{payment:id}/trash", [PaymentController::class, "movePaymentToTrash"]);
+		Route::get("/skladki/{payment:id}/blik", [PaymentController::class, "blikInfo"]);
 		Route::get("/skladki/{payment:id}/{id}", [PaymentController::class, "pay"]);
 		Route::post("/skladki/new", [PaymentController::class, "create"]);
 		Route::delete("/skladki/{payment:id}", [PaymentController::class, "delete"]);

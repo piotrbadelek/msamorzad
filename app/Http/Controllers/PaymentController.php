@@ -133,6 +133,11 @@ class PaymentController extends Controller
 			$users = $user->classUnit->users;
 		}
 
+		if ($request->has("blikPayments")) {
+			$payment->blik_recipient_name = $request->input("blik_recipient_name");
+			$payment->blik_recipient_number = $request->input("blik_phone_number");
+		}
+
 		$payment->amount = $data["money"];
 		$payment->title = $data["title"];
 		$payment->deadline = $data["deadline"];
@@ -191,6 +196,17 @@ class PaymentController extends Controller
 		$payment->inTrash = true;
 		$payment->save();
 		return redirect("/skladki/");
+	}
+
+	public function blikInfo(Payment $payment, Request $request)
+	{
+		if ($request->user()->cannot("details", $payment)) {
+			abort(403);
+		}
+
+		return view("payment.blik", [
+			"payment" => $payment
+		]);
 	}
 
 	protected function getNotPaidUsers(Payment $payment): array

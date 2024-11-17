@@ -17,10 +17,17 @@
 	</div>
 
 	@if ($userCanViewPaymentDetails)
+		@if($payment->blik_recipient_number != null)
+			<a href="/skladki/{{ $payment->id }}/blik" class="button button-margin">BLIK</a>
+		@endif
 		<a href="/skladki/{{ $payment->id }}" class="button">Szczegóły</a>
 	@else
 		@if (in_array($user->id, json_decode($payment["paid"])))
 			<button class="button" disabled>Opłacone</button>
+		@else
+			@if($payment->blik_recipient_number != null)
+				<a href="/skladki/{{ $payment->id }}/blik" class="button">BLIK</a>
+			@endif
 		@endif
 	@endif
 </div>

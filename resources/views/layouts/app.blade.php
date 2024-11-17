@@ -6,7 +6,7 @@
 		  content="width=device-width, user-scalable=yes, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>@yield("title")</title>
-	<link rel="stylesheet" href="/style.css?v=6">
+	<link rel="stylesheet" href="/style.css?v=7">
 	<link rel="manifest" href="/manifest.json">
 	{{-- Do not load sentry in dev envrioments --}}
 	@if (!config("app.debug"))
@@ -25,7 +25,7 @@
 	<meta name="theme-color" content="#505B92">
 	<meta name="description" content="Aplikacja samorządu uczniowskiego dla szkół podstawowych i ponadpodstawowych">
 
-	<script src="/js/script.js?v=7" defer></script>
+	<script src="/js/script.js?v=8" defer></script>
 	<script src="/sw.js" defer></script>
 	@yield("scripts")
 </head>

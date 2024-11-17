@@ -256,7 +256,7 @@ addEventListener("turbo:submit-start", ({target}) => {
 	}
 })
 
-document.addEventListener("turbo:load", function () {
+const detectFeatures = function () {
 	const searchInput = $("#messageSearch");
 	if (searchInput) {
 		searchInput.addEventListener("keyup", messageSearch);
@@ -289,10 +289,33 @@ document.addEventListener("turbo:load", function () {
 		});
 	}
 
+	const featureGuideBlikPaymentsInvoker = $("#blik-payments-guide-invoker");
+	if (featureGuideBlikPaymentsInvoker) {
+		const featureGuideBlikPaymentsDialogue = $("#feature-guide-blik-payments");
+		featureGuideBlikPaymentsInvoker.addEventListener("click", event => {
+			event.preventDefault();
+			featureGuideBlikPaymentsDialogue.open = true;
+		});
+
+		$("#feature-guide-blik-payments button").addEventListener("click", () => {
+			featureGuideBlikPaymentsDialogue.open = false;
+		});
+	}
+
 	const excludeStudentsCheckbox = $("#excludeStudents");
 	if (excludeStudentsCheckbox) {
 		excludeStudentsCheckbox.addEventListener("click", () => {
 			$("#excludedStudentsForm").hidden = !excludeStudentsCheckbox.checked;
 		});
 	}
-})
+
+	const enableBlikPaymentsCheckbox = $("#blikPayments");
+	if (enableBlikPaymentsCheckbox) {
+		enableBlikPaymentsCheckbox.addEventListener("click", () => {
+			$("#blikPaymentsForm").hidden = !enableBlikPaymentsCheckbox.checked;
+		});
+	}
+}
+
+document.addEventListener("turbo:load", detectFeatures);
+detectFeatures();

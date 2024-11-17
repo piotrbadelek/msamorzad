@@ -172,7 +172,7 @@ dialog header {
 
 dialog {
 	border-radius: 1.75rem;
-	background: #ECE6F0;
+	background: var(--md-on-primary-container);
 	border: none;
 	padding: 1.5rem;
 	position: fixed;

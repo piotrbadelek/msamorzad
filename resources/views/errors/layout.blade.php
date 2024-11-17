@@ -6,7 +6,7 @@
 		  content="width=device-width, user-scalable=yes, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>@yield("error")</title>
-	<link rel="stylesheet" href="/style.css?v=5">
+	<link rel="stylesheet" href="/style.css?v=7">
 	<link rel="manifest" href="/manifest.json">
 	<link rel="icon" href="/favicon.ico">
 	<link rel="apple-touch-icon" href="/img/touch/256.png">

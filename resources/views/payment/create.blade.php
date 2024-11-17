@@ -45,6 +45,24 @@
 				@endforeach
 			</ul>
 		</div>
+		<br>
+		<input type="checkbox" name="blikPayments" id="blikPayments">
+		<label for="blikPayments"><span class="icon-text">Płatności BLIK</span>
+			<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24" fill="currentColor"
+				 class="icon-svg" id="blik-payments-guide-invoker">
+				<path
+					d="M478-240q21 0 35.5-14.5T528-290q0-21-14.5-35.5T478-340q-21 0-35.5 14.5T428-290q0 21 14.5 35.5T478-240Zm-36-154h74q0-33 7.5-52t42.5-52q26-26 41-49.5t15-56.5q0-56-41-86t-97-30q-57 0-92.5 30T342-618l66 26q5-18 22.5-39t53.5-21q32 0 48 17.5t16 38.5q0 20-12 37.5T506-526q-44 39-54 59t-10 73Zm38 314q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/>
+			</svg>
+		</label>
+
+		<div id="blikPaymentsForm" hidden>
+			<p>Podaj dane do przelewów BLIK:</p>
+			<label for="blik_phone_number">Numer telefonu</label>
+			<input type="number" name="blik_phone_number" id="blik_phone_number" pattern="[789][0-9]{9}"
+				   min="100000000">
+			<label for="blik_recipient_name">Imię i nazwisko odbiorcy</label>
+			<input type="text" name="blik_recipient_name" id="blik_recipient_name">
+		</div>
 
 		<button class="block" type="submit">Utwórz</button>
 	</form>
@@ -53,6 +71,13 @@
 		<header>Składka nie dotyczy całej klasy</header>
 		<p>Ta funkcja pozwala ci utworzyć składkę, która będzie dotyczyć tylko niektórych uczniów. Jednym z zastosowań
 			tej funkcji może być utworzenie składki na wycieczkę, w której bierze udział tylko część klasy.</p>
+		<button>Zrozumiano</button>
+	</dialog>
+
+	<dialog id="feature-guide-blik-payments">
+		<header>Płatności BLIK</header>
+		<p>Ta funkcja pozwala ci dodać do składki numer telefonu, na który uczniowie będą mogli przelać pieniądze za
+			składkę. mSamorząd nie przetwarza płatności, a jedynie wyświetla dane do przelewu.</p>
 		<button>Zrozumiano</button>
 	</dialog>
 @endsection
