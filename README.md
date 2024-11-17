@@ -16,8 +16,8 @@ obowiązujących w ich klasie i szkole.
 
 Aplikacja (a tak właściwie PWA) została wykonana za pomocą następujących technologii:
 
-- PHP 8.1
-- Laravel 10 (trzeba zrobić kiedyś upgrade do 11)
+- PHP 8.2
+- Laravel 11
 - MySQL
 - Laravel Pulse
 - Laravel Octane
