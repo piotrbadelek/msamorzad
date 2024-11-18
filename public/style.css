@@ -70,9 +70,9 @@ header a {
 
 main {
 	width: 90vw;
-	margin: 0 auto;
 	min-height: 90vh;
 	position: relative;
+	margin: 0 auto 6rem;
 }
 
 .card {
@@ -460,6 +460,45 @@ th {
 
 .at-a-glance p:last-of-type {
 	margin-bottom: 0;
+}
+
+.navigation-bar {
+	list-style: none;
+	display: flex;
+	flex-wrap: wrap;
+	background-color: var(--md-surface-container);
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	margin: 0;
+	width: 100%;
+	justify-content: space-evenly;
+	padding: .75rem 0;
+	box-sizing: border-box;
+}
+
+.navigation-bar li {
+	text-align: center;
+}
+
+.navigation-bar li svg {
+	display: block;
+	margin: 0 auto;
+}
+
+.navigation-bar a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.navigation-bar__selected svg {
+	padding: 0 1rem;
+	border-radius: 100px;
+	background-color: var(--md-secondary-container);
+}
+
+.navigation-bar__selected {
+	font-weight: 500;
 }
 
 /* Media queries */

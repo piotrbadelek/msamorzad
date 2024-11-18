@@ -43,9 +43,5 @@
 	@if($user->isAdministrator)
 		<x-start-card name="Administracja" imageFile="admin" url="admin"/>
 	@endif
-	<form action="/logout" method="post">
-		@csrf
-		<button type="submit">Wyloguj</button>
-	</form>
 	<footer class="appver">mSamorząd {{ config("app.version") }} (on PHP {{ phpversion() }})</footer>
 @endsection

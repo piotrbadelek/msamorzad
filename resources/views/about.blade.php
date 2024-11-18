@@ -63,4 +63,9 @@
 		użytkowniku.<br>
 		<a href="https://sentry.io/trust/privacy/">Informacje o przetwarzaniu danych przez Sentry.</a>
 	</details>
+	<br>
+	<form action="/logout" method="post">
+		@csrf
+		<button type="submit">Wyloguj</button>
+	</form>
 @endsection
