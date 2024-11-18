@@ -4,12 +4,15 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\ClassunitController;
 use App\Http\Controllers\ContestController;
+use App\Http\Controllers\IndexController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\StatisticsController;
+use App\Http\Controllers\TutorController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ValentinesDayMessageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
@@ -35,10 +38,10 @@ Route::middleware(["security.headers"])->group(function () {
 	Route::post("/logout", [SessionController::class, "logout"])->middleware("auth");
 
 	Route::middleware(["auth", "password.changed"])->group(function () {
-		Route::get('/', [\App\Http\Controllers\IndexController::class, "home"]);
+		Route::get("/", [IndexController::class, "home"]);
 
-		Route::get('/skladki', [PaymentController::class, "view"]);
-		Route::get('/skladki/new', [PaymentController::class, "createForm"]);
+		Route::get("/skladki", [PaymentController::class, "view"]);
+		Route::get("/skladki/new", [PaymentController::class, "createForm"]);
 		Route::get("/skladki/{payment:id}", [PaymentController::class, "details"]);
 		Route::get("/skladki/{payment:id}/delete", [PaymentController::class, "deleteForm"]);
 		Route::get("/skladki/{payment:id}/pdf", [PaymentController::class, "generatePaymentConfirmation"]);
@@ -73,37 +76,37 @@ Route::middleware(["security.headers"])->group(function () {
 
 		Route::middleware(["tutor"])->group(function () {
 			Route::view("/tutor", "tutor.list");
-			Route::get("/tutor/students", [\App\Http\Controllers\TutorController::class, "listStudents"]);
-			Route::post("/tutor/students", [\App\Http\Controllers\TutorController::class, "createStudent"]);
-			Route::get("/tutor/students/new", [\App\Http\Controllers\TutorController::class, "createStudentForm"]);
-			Route::get("/tutor/students/{user:id}", [\App\Http\Controllers\TutorController::class, "studentDetails"]);
-			Route::patch("/tutor/students/{user:id}/", [\App\Http\Controllers\TutorController::class, "updateStudent"]);
-			Route::delete("/tutor/students/{user:id}/", [\App\Http\Controllers\TutorController::class, "deleteUser"]);
-			Route::get("/tutor/students/{user:id}/reset_password", [\App\Http\Controllers\TutorController::class, "studentResetPassword"]);
-			Route::get("/tutor/students/{user:id}/update", [\App\Http\Controllers\TutorController::class, "updateStudentForm"]);
-			Route::get("/tutor/students/{user:id}/delete", [\App\Http\Controllers\TutorController::class, "deleteStudentForm"]);
-			Route::get("/tutor/student-payment-stats", [\App\Http\Controllers\TutorController::class, "studentPaymentStats"]);
-			Route::get("/tutor/student-payment-stats/pdf", [\App\Http\Controllers\TutorController::class, "studentPaymentStatsPDF"]);
+			Route::get("/tutor/students", [TutorController::class, "listStudents"]);
+			Route::post("/tutor/students", [TutorController::class, "createStudent"]);
+			Route::get("/tutor/students/new", [TutorController::class, "createStudentForm"]);
+			Route::get("/tutor/students/{user:id}", [TutorController::class, "studentDetails"]);
+			Route::patch("/tutor/students/{user:id}/", [TutorController::class, "updateStudent"]);
+			Route::delete("/tutor/students/{user:id}/", [TutorController::class, "deleteUser"]);
+			Route::get("/tutor/students/{user:id}/reset_password", [TutorController::class, "studentResetPassword"]);
+			Route::get("/tutor/students/{user:id}/update", [TutorController::class, "updateStudentForm"]);
+			Route::get("/tutor/students/{user:id}/delete", [TutorController::class, "deleteStudentForm"]);
+			Route::get("/tutor/student-payment-stats", [TutorController::class, "studentPaymentStats"]);
+			Route::get("/tutor/student-payment-stats/pdf", [TutorController::class, "studentPaymentStatsPDF"]);
 		});
 
 		Route::middleware(["valentines.day"])->group(function () {
-			Route::get("/valentine", [\App\Http\Controllers\ValentinesDayMessageController::class, "index"]);
-			Route::post("/valentine", [\App\Http\Controllers\ValentinesDayMessageController::class, "create"]);
-			Route::get("/valentine/export", [\App\Http\Controllers\ValentinesDayMessageController::class, "export"]);
+			Route::get("/valentine", [ValentinesDayMessageController::class, "index"]);
+			Route::post("/valentine", [ValentinesDayMessageController::class, "create"]);
+			Route::get("/valentine/export", [ValentinesDayMessageController::class, "export"]);
 		});
 
 		Route::view("/confirm-password", "confirm_password")->name("password.confirm");
-		Route::post('/confirm-password', function (Request $request) {
+		Route::post("/confirm-password", function (Request $request) {
 			if (!Hash::check($request->password, $request->user()->password)) {
 				return back()->withErrors([
-					'password' => ['Podane hasło się nie zgadza.']
+					"password" => ["Podane hasło się nie zgadza."]
 				]);
 			}
 
 			$request->session()->passwordConfirmed();
 
 			return redirect()->intended();
-		})->middleware(['auth', 'throttle:6,1']);
+		})->middleware(["auth", "throttle:6,1"]);
 
 		Route::view("/oobe", "oobe");
 		Route::view("/about", "about");
