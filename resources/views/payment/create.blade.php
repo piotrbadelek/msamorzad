@@ -59,9 +59,9 @@
 			<p>Podaj dane do przelewów BLIK:</p>
 			<label for="blik_phone_number">Numer telefonu</label>
 			<input type="number" name="blik_phone_number" id="blik_phone_number" pattern="[789][0-9]{9}"
-				   min="100000000">
+				   min="100000000" max="999999999">
 			<label for="blik_recipient_name">Imię i nazwisko odbiorcy</label>
-			<input type="text" name="blik_recipient_name" id="blik_recipient_name">
+			<input type="text" name="blik_recipient_name" id="blik_recipient_name" minlength="3" maxlength="80">
 		</div>
 
 		<button class="block" type="submit">Utwórz</button>

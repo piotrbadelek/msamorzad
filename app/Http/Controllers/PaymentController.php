@@ -134,8 +134,12 @@ class PaymentController extends Controller
 		}
 
 		if ($request->has("blikPayments")) {
-			$payment->blik_recipient_name = $request->input("blik_recipient_name");
-			$payment->blik_recipient_number = $request->input("blik_phone_number");
+			$blikData = $request->validate([
+				"blik_phone_number" => ["required", "numeric", "size:9"],
+				"blik_recipient_name" => ["required", "min:3", "max:80"]
+			]);
+			$payment->blik_recipient_name = $blikData["blik_recipient_name"];
+			$payment->blik_recipient_number = $blikData["blik_phone_number"];
 		}
 
 		$payment->amount = $data["money"];
