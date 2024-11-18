@@ -5,7 +5,7 @@
 @section("content")
 	<h1>Administracja - utwórz użytkownika</h1>
 
-	<form action="/admin/user" method="post">
+	<form action="/admin/user" method="post" data-turbo="false">
 		@csrf
 		<label for="username">Nazwa użytkownika</label>
 		<input type="text" name="username" id="username" minlength="3" maxlength="128">

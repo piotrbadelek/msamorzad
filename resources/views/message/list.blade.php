@@ -4,7 +4,7 @@
 
 @section("content")
 	<h1>Kontakt</h1>
-	<form action="/messages" method="POST">
+	<form action="/messages" method="POST" data-turbo="false">
 		@csrf
 		<p>Wyślij zapytanie do samorządu szkolnego</p>
 		<label for="question">Treść</label><br>
