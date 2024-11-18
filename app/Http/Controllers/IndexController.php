@@ -13,10 +13,12 @@ class IndexController extends Controller
 		$unpaidPayments = 0;
 		$latePayments = 0;
 		foreach ($payments as $payment) {
-			if (!in_array($user->id, json_decode($payment->paid))) {
-				$unpaidPayments++;
-				if ($payment->is_late) {
-					$latePayments++;
+			if (!$payment->inTrash) {
+				if (!in_array($user->id, json_decode($payment->paid))) {
+					$unpaidPayments++;
+					if ($payment->is_late) {
+						$latePayments++;
+					}
 				}
 			}
 		}
